@@ -11,88 +11,80 @@
         body { font-family: 'Noto Sans KR', sans-serif; background-color: #f8fafc; }
         .bg-church { background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%); }
         .card-shadow { box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05); }
-        .profile-frame { position: relative; width: 120px; height: 120px; margin: 0 auto; }
-        .profile-img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 4px solid #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.1); background: #f1f5f9; }
+        .profile-img { width: 100px; height: 100px; object-fit: cover; border-radius: 50%; border: 4px solid #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .history-item { position: relative; padding-left: 20px; border-left: 2px solid #e2e8f0; padding-bottom: 12px; }
+        .history-item::before { content: ''; position: absolute; left: -7px; top: 5px; width: 12px; height: 12px; background: #3b82f6; border-radius: 50%; }
     </style>
 </head>
 <body class="pb-28">
 
     <header class="bg-church pt-12 pb-24 px-6 text-center text-white relative">
-        <a href="index.html" class="absolute top-6 left-6 text-white/80 hover:text-white transition">
-            <i class="fas fa-arrow-left text-xl"></i>
-        </a>
-        <h1 class="text-2xl font-bold mb-1">교회 안내</h1>
-        <p class="text-blue-100 text-[10px] tracking-widest uppercase opacity-70">Church Leadership & Vision</p>
+        <a href="index.html" class="absolute top-6 left-6 text-white/80"><i class="fas fa-arrow-left text-xl"></i></a>
+        <h1 class="text-2xl font-bold mb-1">원종제일교회 안내</h1>
+        <p class="text-blue-100 text-[10px] tracking-widest uppercase opacity-70">Leadership Biography</p>
     </header>
 
-    <main class="container mx-auto px-5 -mt-12 space-y-8 relative z-10">
+    <main class="container mx-auto px-5 -mt-12 space-y-10 relative z-10">
         
-        <section class="bg-white rounded-[2.5rem] card-shadow p-8 border border-gray-100 text-center">
-            <div class="profile-frame mb-4">
-                <img src="pastor.jpg" alt="이성결 담임목사" class="profile-img" 
-                     onerror="this.onerror=null; this.src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png';">
+        <section class="bg-white rounded-[2.5rem] card-shadow p-8 border border-gray-100">
+            <div class="text-center mb-6">
+                <img src="pastor.jpg" alt="이성결 담임목사" class="profile-img mx-auto mb-4" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png';">
+                <h2 class="text-xl font-bold text-gray-900">이성결 담임목사</h2>
+                <p class="text-blue-600 text-xs font-bold uppercase mt-1">Senior Pastor Profile</p>
             </div>
-            <h2 class="text-xl font-bold text-gray-900 mb-1">이성결 담임목사</h2>
-            <span class="text-blue-600 text-xs font-bold mb-6 tracking-widest uppercase italic block">Senior Pastor</span>
-            <div class="text-sm text-gray-600 leading-relaxed space-y-4 pt-4 border-t border-gray-50">
-                <p class="font-bold text-blue-900 italic">"성령으로 하나되어 부흥하는 교회"</p>
-                <p>예수 그리스도의 사랑 안에서 여러분을 환영합니다.<br>우리 교회는 하나님의 사랑을 이웃에게 전하는 따뜻한 믿음의 공동체입니다.</p>
+            
+            <div class="space-y-3 text-[13px] text-gray-600">
+                <div class="history-item"><strong>1985년 6월 11일</strong> 경기 부천 출생</div>
+                <div class="history-item"><strong>2011년 8월</strong> 서울신학대학교 졸업</div>
+                <div class="history-item"><strong>2012년 2월</strong> 부천지방회 전도사 승인</div>
+                <div class="history-item"><strong>2012년 4월 ~ 14년 2월</strong> Canada New Brunswick Moncton Wesleyan church. youth 사역</div>
+                <div class="history-item"><strong>2012년 2월 ~ 17년 7월 8일</strong> 원종제일교회 전담전도사</div>
+                <div class="history-item"><strong>2017년 7월 9일 ~ 19년 4월 1일</strong> 부천영광교회 전담전도사</div>
+                <div class="history-item"><strong>2018년 2월</strong> 서울신학대학원 졸업</div>
+                <div class="history-item"><strong>2019년 4월 1일</strong> 교단 113년 총회에서 목사안수</div>
+                <div class="history-item"><strong>2019년 4월 1일 ~ 20년 3월 31일</strong> 부천영광교회 부목사</div>
+                <div class="history-item"><strong>2020년 4월 1일 ~ 23년 8월 12일</strong> 한빛교회 부목사</div>
+                <div class="history-item"><strong>2024년 1월 14일</strong> 원종제일교회 담임목사 취임</div>
             </div>
         </section>
 
-        <section class="bg-white rounded-[2.5rem] card-shadow p-8 border border-gray-100 text-center">
-            <div class="profile-frame mb-4">
-                <img src="emeritus.jpg" alt="이원영 원로목사" class="profile-img" 
-                     onerror="this.onerror=null; this.src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png';">
+        <section class="bg-white rounded-[2.5rem] card-shadow p-8 border border-gray-100">
+            <div class="text-center mb-6">
+                <img src="emeritus.jpg" alt="이원영 원로목사" class="profile-img mx-auto mb-4" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png';">
+                <h2 class="text-xl font-bold text-gray-900">이원영 원로목사</h2>
+                <p class="text-gray-400 text-xs font-bold uppercase mt-1">Emeritus Pastor Profile</p>
             </div>
-            <h2 class="text-xl font-bold text-gray-900 mb-1">이원영 원로목사</h2>
-            <span class="text-gray-400 text-xs font-bold mb-6 tracking-widest uppercase italic block">Emeritus Pastor</span>
-            <p class="text-sm text-gray-500 leading-relaxed italic">
-                "평생을 기도로 일구어 오신<br>우리 교회의 영적 어른이십니다."
-            </p>
+            
+            <div class="space-y-3 text-[13px] text-gray-600">
+                <div class="history-item"><strong>1953년 6월 16일</strong> 충남 아산 출생</div>
+                <div class="history-item"><strong>1983년</strong> 서울신학대학교 졸업</div>
+                <div class="history-item"><strong>1983년 4월 3일</strong> 인천동지방회에서 전도사 승인</div>
+                <div class="history-item"><strong>1983년 9월 18일</strong> 원종제일교회 설립</div>
+                <div class="history-item"><strong>1987년 4월 30일</strong> 교단 42회 총회에서 목사안수</div>
+                <div class="history-item"><strong>2022년</strong> 10회 활천문학 대상수상</div>
+                <div class="history-item"><strong>2023년 6월까지</strong> 원종제일교회에서 40년 근속 시무</div>
+                <div class="history-item"><strong>2024년 1월 14일</strong> 원로목사 추대</div>
+                <p class="text-[11px] text-blue-500 pt-2">*총회장상, 지역총회장상, 지방회장상 등 다수 수상</p>
+            </div>
         </section>
 
-        <section class="space-y-4">
-            <h3 class="text-lg font-bold text-blue-950 ml-2 flex items-center gap-2">
-                <span class="w-1 h-5 bg-blue-600 rounded-full"></span>섬기는 분들
+        <section class="bg-white rounded-[2rem] card-shadow p-6 border border-gray-100">
+            <h3 class="font-bold text-blue-900 mb-4 flex items-center gap-2">
+                <i class="fas fa-users-cog"></i> 섬기는 분들
             </h3>
-
-            <div class="bg-white rounded-[2rem] card-shadow p-6 border border-gray-100 space-y-4">
-                <div class="flex justify-between items-center border-b border-gray-50 pb-3">
-                    <span class="text-sm font-bold text-gray-700">선교목사</span>
-                    <span class="text-sm text-blue-800">오종진 목사</span>
-                </div>
-                <div class="flex justify-between items-center border-b border-gray-50 pb-3">
-                    <span class="text-sm font-bold text-gray-700">교육전도사</span>
-                    <span class="text-sm text-blue-800">조가영 전도사</span>
-                </div>
-                <div class="flex justify-between items-center border-b border-gray-50 pb-3">
-                    <span class="text-sm font-bold text-gray-700">시무/명예장로</span>
-                    <span class="text-sm text-blue-800 tracking-tighter">이해숙 장로 외 장로 일동</span>
-                </div>
-                <div class="flex justify-between items-center">
-                    <span class="text-sm font-bold text-gray-700">찬양대지휘</span>
-                    <span class="text-sm text-blue-800">김선금 권사</span>
-                </div>
+            <div class="grid grid-cols-2 gap-y-4 text-sm">
+                <div><p class="text-gray-400 text-[10px] font-bold">선교목사</p><p class="font-bold">오종진 목사</p></div>
+                <div><p class="text-gray-400 text-[10px] font-bold">교육전도사</p><p class="font-bold">조가영 전도사</p></div>
+                <div><p class="text-gray-400 text-[10px] font-bold">명예장로</p><p class="font-bold">이해숙 장로</p></div>
+                <div><p class="text-gray-400 text-[10px] font-bold">찬양대지휘</p><p class="font-bold">김선금 권사</p></div>
             </div>
-        </section>
-
-        <section class="text-center pt-4">
-            <a href="tel:01028515150" class="inline-flex items-center gap-3 bg-white px-8 py-4 rounded-3xl card-shadow border border-gray-100 mb-4 active:scale-95 transition-all">
-                <i class="fas fa-phone-alt text-blue-600"></i>
-                <span class="font-bold text-blue-950 italic">010-2851-5150</span>
-            </a>
-            <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest leading-relaxed">
-                부천시 원종로36번길 20 (원종동)<br>원종제일교회
-            </p>
         </section>
 
     </main>
 
     <div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50">
         <a href="index.html" class="flex items-center gap-2 bg-gray-900 text-white px-10 py-4 rounded-full shadow-2xl active:scale-95 transition-all">
-            <i class="fas fa-house"></i>
-            <span class="font-bold text-sm tracking-tight uppercase">Home</span>
+            <i class="fas fa-home"></i><span class="font-bold text-sm">홈으로</span>
         </a>
     </div>
 
