@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>교회안내 - 원종제일교회</title>
+    <title>교회소개 - 원종제일교회</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -11,9 +11,11 @@
         body { font-family: 'Noto Sans KR', sans-serif; background-color: #f8fafc; }
         .bg-church { background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%); }
         .card-shadow { box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05); }
+        .profile-frame { position: relative; width: 120px; height: 120px; margin: 0 auto; }
+        .profile-img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 4px solid #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.1); background: #f1f5f9; }
     </style>
 </head>
-<body class="pb-24">
+<body class="pb-28">
 
     <header class="bg-church pt-12 pb-24 px-6 text-center text-white relative">
         <a href="index.html" class="absolute top-6 left-6 text-white/80 hover:text-white transition">
@@ -25,79 +27,64 @@
 
     <main class="container mx-auto px-5 -mt-12 space-y-8 relative z-10">
         
-        <section class="bg-white rounded-[2.5rem] card-shadow p-8 border border-gray-100">
-            <div class="flex flex-col items-center">
-                <div class="w-20 h-20 bg-blue-50 rounded-full mb-4 flex items-center justify-center text-blue-600 shadow-inner">
-                    <i class="fas fa-cross text-3xl"></i>
-                </div>
-                <h2 class="text-xl font-bold text-gray-900 mb-1">이성결 담임목사</h2>
-                <span class="text-blue-600 text-xs font-bold mb-6 tracking-widest uppercase italic">Senior Pastor</span>
-                <div class="text-sm text-gray-600 leading-relaxed text-center space-y-4">
-                    <p class="font-bold text-blue-900 italic">"예수 그리스도의 사랑 안에서<br>여러분을 진심으로 환영합니다."</p>
-                    <p>우리 원종제일교회는 성령 안에서 온 성도가 하나되어 하나님의 사랑을 이웃에게 전하는 믿음의 공동체입니다.</p>
-                </div>
+        <section class="bg-white rounded-[2.5rem] card-shadow p-8 border border-gray-100 text-center">
+            <div class="profile-frame mb-4">
+                <img src="pastor.jpg" alt="이성결 담임목사" class="profile-img" 
+                     onerror="this.onerror=null; this.src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png';">
             </div>
+            <h2 class="text-xl font-bold text-gray-900 mb-1">이성결 담임목사</h2>
+            <span class="text-blue-600 text-xs font-bold mb-6 tracking-widest uppercase italic block">Senior Pastor</span>
+            <div class="text-sm text-gray-600 leading-relaxed space-y-4 pt-4 border-t border-gray-50">
+                <p class="font-bold text-blue-900 italic">"성령으로 하나되어 부흥하는 교회"</p>
+                <p>예수 그리스도의 사랑 안에서 여러분을 환영합니다.<br>우리 교회는 하나님의 사랑을 이웃에게 전하는 따뜻한 믿음의 공동체입니다.</p>
+            </div>
+        </section>
+
+        <section class="bg-white rounded-[2.5rem] card-shadow p-8 border border-gray-100 text-center">
+            <div class="profile-frame mb-4">
+                <img src="emeritus.jpg" alt="이원영 원로목사" class="profile-img" 
+                     onerror="this.onerror=null; this.src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png';">
+            </div>
+            <h2 class="text-xl font-bold text-gray-900 mb-1">이원영 원로목사</h2>
+            <span class="text-gray-400 text-xs font-bold mb-6 tracking-widest uppercase italic block">Emeritus Pastor</span>
+            <p class="text-sm text-gray-500 leading-relaxed italic">
+                "평생을 기도로 일구어 오신<br>우리 교회의 영적 어른이십니다."
+            </p>
         </section>
 
         <section class="space-y-4">
-            <h3 class="text-lg font-bold text-blue-950 mb-4 ml-2 flex items-center gap-2">
+            <h3 class="text-lg font-bold text-blue-950 ml-2 flex items-center gap-2">
                 <span class="w-1 h-5 bg-blue-600 rounded-full"></span>섬기는 분들
             </h3>
 
-            <div class="bg-white rounded-[2rem] card-shadow p-5 border border-gray-100 flex items-center gap-5">
-                <div class="w-14 h-14 bg-slate-100 rounded-full flex items-center justify-center text-slate-400">
-                    <i class="fas fa-scroll text-xl"></i>
+            <div class="bg-white rounded-[2rem] card-shadow p-6 border border-gray-100 space-y-4">
+                <div class="flex justify-between items-center border-b border-gray-50 pb-3">
+                    <span class="text-sm font-bold text-gray-700">선교목사</span>
+                    <span class="text-sm text-blue-800">오종진 목사</span>
                 </div>
-                <div>
-                    <span class="text-[10px] font-bold text-slate-500 uppercase">Emeritus Pastor</span>
-                    <h4 class="text-lg font-bold text-gray-800 italic">이원영 원로목사</h4>
+                <div class="flex justify-between items-center border-b border-gray-50 pb-3">
+                    <span class="text-sm font-bold text-gray-700">교육전도사</span>
+                    <span class="text-sm text-blue-800">조가영 전도사</span>
                 </div>
-            </div>
-
-            <div class="bg-white rounded-[2rem] card-shadow p-5 border border-gray-100 flex items-center gap-5">
-                <div class="w-14 h-14 bg-indigo-50 rounded-full flex items-center justify-center text-indigo-400">
-                    <i class="fas fa-globe-asia text-xl"></i>
+                <div class="flex justify-between items-center border-b border-gray-50 pb-3">
+                    <span class="text-sm font-bold text-gray-700">시무/명예장로</span>
+                    <span class="text-sm text-blue-800 tracking-tighter">이해숙 장로 외 장로 일동</span>
                 </div>
-                <div>
-                    <span class="text-[10px] font-bold text-indigo-500 uppercase">Missionary Pastor</span>
-                    <h4 class="text-lg font-bold text-gray-800 italic">오종진 선교목사</h4>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-[2rem] card-shadow p-5 border border-gray-100 flex items-center gap-5">
-                <div class="w-14 h-14 bg-green-50 rounded-full flex items-center justify-center text-green-400">
-                    <i class="fas fa-book-open text-xl"></i>
-                </div>
-                <div>
-                    <span class="text-[10px] font-bold text-green-500 uppercase">Education Evangelist</span>
-                    <h4 class="text-lg font-bold text-gray-800 italic">조가영 교육전도사</h4>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-[2rem] card-shadow p-6 border border-gray-100">
-                <div class="flex items-center gap-3 mb-3">
-                    <div class="w-10 h-10 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-gray-800 italic tracking-tight uppercase">장로회</h4>
-                        <p class="text-[10px] text-gray-400 uppercase font-bold tracking-tighter">Elder Group</p>
-                    </div>
-                </div>
-                <div class="text-sm text-gray-600 leading-relaxed font-medium pl-2 border-l-2 border-orange-100">
-                    이해숙 시무장로 외 시무장로 일동
+                <div class="flex justify-between items-center">
+                    <span class="text-sm font-bold text-gray-700">찬양대지휘</span>
+                    <span class="text-sm text-blue-800">김선금 권사</span>
                 </div>
             </div>
         </section>
 
-        <section class="pt-6 border-t border-gray-200">
-            <div class="flex flex-col items-center gap-4">
-                <a href="tel:01028515150" class="flex items-center gap-3 bg-white px-8 py-4 rounded-3xl card-shadow border border-gray-100 w-full justify-center active:scale-95 transition-all">
-                    <i class="fas fa-phone-alt text-blue-600"></i>
-                    <span class="font-bold text-blue-950 tracking-tighter italic">010-2851-5150</span>
-                </a>
-                <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest text-center">부천시 원종로36번길 20 (원종동)</p>
-            </div>
+        <section class="text-center pt-4">
+            <a href="tel:01028515150" class="inline-flex items-center gap-3 bg-white px-8 py-4 rounded-3xl card-shadow border border-gray-100 mb-4 active:scale-95 transition-all">
+                <i class="fas fa-phone-alt text-blue-600"></i>
+                <span class="font-bold text-blue-950 italic">010-2851-5150</span>
+            </a>
+            <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest leading-relaxed">
+                부천시 원종로36번길 20 (원종동)<br>원종제일교회
+            </p>
         </section>
 
     </main>
@@ -105,7 +92,7 @@
     <div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50">
         <a href="index.html" class="flex items-center gap-2 bg-gray-900 text-white px-10 py-4 rounded-full shadow-2xl active:scale-95 transition-all">
             <i class="fas fa-house"></i>
-            <span class="font-bold text-sm tracking-tighter uppercase">Main Home</span>
+            <span class="font-bold text-sm tracking-tight uppercase">Home</span>
         </a>
     </div>
 
