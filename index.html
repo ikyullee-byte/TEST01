@@ -8,7 +8,11 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
-        body { font-family: 'Noto Sans KR', sans-serif; -webkit-tap-highlight-color: transparent; scroll-behavior: smooth; }
+        
+        /* 스크롤 시 상단 메뉴에 가려지지 않도록 여백 추가 및 부드러운 스크롤 */
+        html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+        body { font-family: 'Noto Sans KR', sans-serif; -webkit-tap-highlight-color: transparent; }
+        
         .bg-church { background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%); }
         .card-shadow { box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05); }
         .pb-safe { padding-bottom: calc(6rem + env(safe-area-inset-bottom)); }
@@ -44,17 +48,23 @@
 
     <nav class="bg-white/95 backdrop-blur-md sticky top-0 z-50 shadow-sm border-b font-bold">
         <div class="container mx-auto px-5 py-3 flex justify-between items-center">
-            <div class="flex flex-col">
-                <span class="text-blue-900 text-lg leading-none tracking-tighter">원종제일교회</span>
-                <span class="text-[9px] text-blue-500 uppercase mt-0.5 tracking-widest font-bold">Wonjong First Church</span>
-            </div>
-            <button onclick="openInfoModal()" class="text-blue-900 text-[11px] bg-blue-50 px-3 py-1.5 rounded-full border border-blue-100 flex items-center gap-1">
+            
+            <a href="index.html" class="flex items-center">
+                <img src="logo.png" alt="원종제일교회" class="h-10 w-auto object-contain mr-2" 
+                     onerror="this.style.display='none'; document.getElementById('text-logo').style.display='flex';">
+                <div id="text-logo" style="display:none;" class="flex-col">
+                    <span class="text-blue-900 text-lg leading-none tracking-tighter">원종제일교회</span>
+                    <span class="text-[9px] text-blue-500 uppercase mt-0.5 tracking-widest font-bold">Wonjong First Church</span>
+                </div>
+            </a>
+            
+            <a href="info.html" class="text-blue-900 text-[11px] bg-blue-50 px-3 py-1.5 rounded-full border border-blue-100 flex items-center gap-1">
                 <i class="fas fa-church"></i> 교회안내
-            </button>
+            </a>
         </div>
     </nav>
 
-    <header class="relative h-[18vh] flex items-center justify-center overflow-hidden border-b-4 border-orange-400">
+    <header class="relative h-[18vh] flex items-center justify-center border-b-4 border-orange-400">
         <div class="absolute inset-0 bg-church opacity-90 z-10"></div>
         <div class="relative z-20 text-center text-white px-6">
             <h1 class="text-xl font-bold tracking-widest uppercase italic">Wonjong First Church</h1>
@@ -96,7 +106,7 @@
         <section id="morning">
             <div class="bg-white rounded-[2.5rem] card-shadow overflow-hidden border border-gray-100">
                 <div class="bg-blue-900 p-6 text-center text-white">
-                    <p class="font-bold text-sm mb-1 underline underline-offset-4 decoration-blue-500">인생의 모든 문제는 예수 그리스도를 만나면 해결됩니다</p>
+                    <p class="font-bold text-sm mb-1 underline underline-offset-4 decoration-blue-500 italic">인생의 모든 문제는 예수 그리스도를 만나면 해결됩니다</p>
                     <p class="text-[10px] opacity-60 mt-2">주일 오전 예배 (11:00)</p>
                 </div>
                 <div class="p-6">
@@ -110,12 +120,19 @@
                     <div class="worship-row"><span>대표기도</span><span>-</span><span class="font-bold">인도자</span></div>
                     <div class="worship-row"><span>성경봉독</span><span>엡 5:8-14</span><span>집례자</span></div>
                     <div class="worship-row"><span>찬양</span><span>-</span><span>찬양대</span></div>
+                    
                     <div class="py-6 my-4 bg-orange-50 rounded-3xl text-center border border-orange-100 px-4">
                         <h3 class="text-xl font-bold text-orange-950 italic">"영적 시선으로"</h3>
-                        <p class="text-sm font-medium text-orange-800">이성결 담임목사</p>
+                        <p class="text-sm font-medium text-orange-800 mb-4">이성결 담임목사</p>
+                        
+                        <a href="#" target="_blank" class="inline-flex items-center gap-2 bg-red-600 text-white px-6 py-2.5 rounded-full text-xs font-bold shadow-md active:scale-95 transition-all hover:bg-red-700">
+                            <i class="fab fa-youtube text-lg"></i> 설교 영상 준비중
+                        </a>
                     </div>
+                    
                     <div class="worship-row"><span>찬송</span><span>50장</span><span>다같이</span></div>
                     <div class="worship-row"><span>봉헌기도</span><span>-</span><span>이성결 목사</span></div>
+                    <div class="worship-row"><span>교회소식</span><span>-</span><span>집례자</span></div>
                     <div class="worship-row border-none pt-2 font-bold"><span>축도</span><span>-</span><span>이성결 목사</span></div>
                 </div>
             </div>
@@ -133,11 +150,11 @@
                 </div>
             </section>
             <section id="wednesday">
-                <div class="bg-white rounded-[2rem] card-shadow overflow-hidden border border-gray-100">
-                    <div class="bg-gray-600 p-4 text-center text-white font-bold italic text-sm">수요성서강해 <small class="ml-1 opacity-70">7:30</small></div>
-                    <div class="p-6 text-center">
+                <div class="bg-white rounded-[2rem] card-shadow overflow-hidden border border-gray-100 text-center">
+                    <div class="bg-gray-600 p-4 text-white font-bold italic text-sm">수요성서강해 <small class="ml-1 opacity-70">7:30</small></div>
+                    <div class="p-6">
                         <div class="worship-row"><span>기도</span><span>-</span><span>배윤국 집사</span></div>
-                        <p class="mt-4 text-sm font-bold text-gray-800 italic">"말씀 선포: 이성결 목사"</p>
+                        <p class="mt-4 text-sm font-bold text-gray-800 italic">말씀 선포: 이성결 목사</p>
                     </div>
                 </div>
             </section>
@@ -146,10 +163,10 @@
         <section id="news">
             <div class="flex items-center mb-4 ml-2 font-bold"><span class="w-1.5 h-5 bg-blue-600 rounded-full mr-2"></span><h2 class="text-xl text-blue-950">교회 소식</h2></div>
             <div class="bg-white rounded-[2.5rem] card-shadow p-6 border border-gray-100 space-y-4 text-sm font-medium">
-                <div class="pb-3 border-b border-gray-50 flex gap-3 text-blue-900"><span class="font-bold">1.</span><p>원로목사님 퇴원: 이원영 원로목사님께서 무사히 퇴원하셨습니다. 회복을 위해 기도 바랍니다.</p></div>
-                <div class="pb-3 border-b border-gray-50 flex gap-3"><span class="font-bold">2.</span><p>고난주간 특별새벽기도회: 3/30(월) ~ 4/3(금) 전교인 참여 바랍니다.</p></div>
-                <div class="pb-3 border-b border-gray-50 flex gap-3"><span class="font-bold">3.</span><p>부활주일 안내: 4월 5일은 부활주일입니다. 기도로 준비하시기 바랍니다.</p></div>
-                <div class="bg-blue-50 p-4 rounded-2xl text-[11px] flex gap-2"><i class="fas fa-heart text-red-400 mt-1"></i><p><strong>기도 요청:</strong> 입원 중인 환우들과 군 복무 중인 청년들을 위해 기도해주세요.</p></div>
+                <div class="pb-3 border-b border-gray-50 flex gap-3 text-blue-900"><span class="font-bold">1.</span><p>원로목사님 퇴원: 이원영 원로목사님께서 무사히 퇴원하셨습니다. 온전한 회복을 위해 기도 바랍니다.</p></div>
+                <div class="pb-3 border-b border-gray-50 flex gap-3"><span class="font-bold">2.</span><p>고난주간 특별새벽기도회: 3/30(월) ~ 4/3(금) 성도님들의 많은 참여 바랍니다.</p></div>
+                <div class="pb-3 border-b border-gray-50 flex gap-3"><span class="font-bold">3.</span><p>부활주일 안내: 4월 5일(주일)은 예수 부활을 기뻐하는 부활주일입니다.</p></div>
+                <div class="bg-blue-50 p-4 rounded-2xl text-[11px] flex gap-2"><i class="fas fa-heart text-red-400 mt-1"></i><p><strong>기도 요청:</strong> 치료 중인 환우들의 빠른 치유를 위해 합심하여 기도해주세요.</p></div>
             </div>
         </section>
 
@@ -157,49 +174,36 @@
 
     <footer class="bg-white border-t py-12 px-6 text-center">
         <h3 class="font-bold text-blue-950 mb-1 italic">원종제일교회</h3>
-        <p class="text-[10px] text-gray-500">담임목사: 이성결 | 부천시 오정구 원종동</p>
+        <p class="text-[10px] text-gray-500">담임목사: 이성결 | 경기도 부천시 오정구</p>
         <p class="mt-8 text-[9px] text-gray-200 font-bold uppercase tracking-widest">&copy; 2026 WONJONG FIRST CHURCH.</p>
     </footer>
 
     <div class="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-xl border-t flex justify-around items-center py-4 px-3 z-[100] rounded-t-[2.5rem] shadow-2xl">
-        <a href="#" class="flex flex-col items-center text-blue-900"><i class="fas fa-house text-xl mb-1"></i><span class="text-[10px] font-bold">홈</span></a>
-        <button onclick="openInfoModal()" class="flex flex-col items-center text-gray-400"><i class="fas fa-church text-xl mb-1"></i><span class="text-[10px] font-bold">소개</span></button>
+        <a href="index.html" class="flex flex-col items-center text-gray-400 active:text-blue-900 transition"><i class="fas fa-house text-xl mb-1"></i><span class="text-[10px] font-bold">홈</span></a>
+        
+        <a href="#morning" class="flex flex-col items-center text-blue-900 active:scale-90 transition"><i class="fas fa-list-ol text-xl mb-1"></i><span class="text-[10px] font-bold">주보</span></a>
+        
         <a href="#" class="relative -mt-12 bg-red-600 w-16 h-16 rounded-full flex items-center justify-center text-white border-4 border-white shadow-xl"><i class="fab fa-youtube text-2xl animate-pulse"></i></a>
-        <button onclick="openBibleModal()" class="flex flex-col items-center text-gray-400"><i class="fas fa-book-open text-xl mb-1"></i><span class="text-[10px] font-bold">통독표</span></button>
-        <button onclick="openModal()" class="flex flex-col items-center text-gray-400"><i class="fas fa-won-sign text-xl mb-1"></i><span class="text-[10px] font-bold">헌금</span></button>
-    </div>
-
-    <div id="infoModal" class="modal" onclick="closeInfoModal()">
-        <div class="bg-white rounded-[2.5rem] w-full max-w-sm p-8" onclick="event.stopPropagation()">
-            <h3 class="text-xl font-bold mb-6 text-blue-900 italic text-center underline underline-offset-8">교회 안내</h3>
-            <div class="space-y-4 text-sm leading-relaxed text-gray-700">
-                <div class="bg-gray-50 p-4 rounded-2xl">
-                    <p class="font-bold text-blue-800 mb-1">예배 중심의 공동체</p>
-                    <p class="text-xs">하나님을 기쁘시게, 세상을 복되게 하는 원종제일교회입니다.</p>
-                </div>
-                <p><strong>주소:</strong> 경기도 부천시 오정구 소사로 (원종동)</p>
-                <p><strong>전화:</strong> 032-671-5150</p>
-                <p><strong>담임목사:</strong> 이성결 목사</p>
-            </div>
-            <button onclick="closeInfoModal()" class="w-full py-4 mt-6 bg-blue-900 text-white rounded-2xl font-bold shadow-lg">확인</button>
-        </div>
+        
+        <button onclick="openBibleModal()" class="flex flex-col items-center text-gray-400 active:text-blue-900 transition"><i class="fas fa-book-open text-xl mb-1"></i><span class="text-[10px] font-bold">통독표</span></button>
+        <button onclick="openModal()" class="flex flex-col items-center text-gray-400 active:text-blue-900 transition"><i class="fas fa-won-sign text-xl mb-1"></i><span class="text-[10px] font-bold">헌금</span></button>
     </div>
 
     <div id="giveModal" class="modal" onclick="closeModal()">
-        <div class="bg-white rounded-[2.5rem] w-full max-w-sm p-8 text-center" onclick="event.stopPropagation()">
+        <div class="bg-white rounded-[2.5rem] w-full max-w-sm p-8 text-center shadow-2xl" onclick="event.stopPropagation()">
             <h3 class="text-xl font-bold mb-6 italic">온라인 헌금 안내</h3>
             <div class="bg-blue-50 p-6 rounded-3xl border border-blue-100 mb-6 font-bold">
                 <p class="text-[10px] text-blue-500 mb-1 uppercase tracking-widest">NH 농협은행 (원종제일교회)</p>
                 <p class="text-xl text-blue-950 select-all tracking-tighter">302-1765-3728-91</p>
             </div>
-            <button onclick="closeModal()" class="w-full py-4 bg-gray-900 text-white rounded-2xl font-bold shadow-lg">닫기</button>
+            <button onclick="closeModal()" class="w-full py-4 bg-gray-900 text-white rounded-2xl font-bold">닫기</button>
         </div>
     </div>
 
     <div id="bibleModal" class="modal" onclick="closeBibleModal()">
-        <div class="bg-white rounded-[2.5rem] w-full max-w-5xl p-5" onclick="event.stopPropagation()">
+        <div class="bg-white rounded-[2.5rem] w-full max-w-5xl p-5 shadow-2xl" onclick="event.stopPropagation()">
             <div class="flex justify-between items-center mb-4 px-2">
-                <h3 class="text-lg font-bold text-blue-900 font-bold italic"><i class="fas fa-book-bible mr-2"></i>1년 1독 통독 일정표</h3>
+                <h3 class="text-lg font-bold text-blue-900 italic"><i class="fas fa-book-bible mr-2"></i>1년 1독 통독 일정표</h3>
                 <button onclick="closeBibleModal()" class="text-gray-400 text-2xl font-bold">&times;</button>
             </div>
             <div class="bible-scroll-container">
@@ -215,6 +219,7 @@
     </div>
 
     <script>
+        // 1년 성경 통독 데이터
         const fullBibleData = [
             ["창1-3","레7-9","신20-22","삼하1-3","대상19-21","욥16-18","시100-104","사13-15","렘40-42","호10-14","눅4-6","고전7-9"],
             ["창4-7","레10-12","신23-25","삼하4-6","대상22-24","욥19-21","시105-108","사16-18","렘43-45","욜1-3","눅7-9","고전10-12"],
@@ -231,7 +236,7 @@
             ["창40-42","민16-18","수22-24","왕상13-15","대하25-27","시15-18","잠4-6","사49-51","겔16-18","슥7-9","요16-18","골1-4"],
             ["창43-45","민19-21","삿1-3","왕상16-18","대하28-30","시19-22","잠7-9","사52-54","겔19-21","슥10-14","요19-21","살전1-5"],
             ["창46-48","민22-24","삿4-6","왕상19-21","대하31-33","시23-27","잠10-12","사55-57","겔22-24","말1-4","행1-3","살후1-3"],
-            ["창49-출1","민25-27","삿7-9","왕상22-왕하2","대하34-36","시28-32","잠13-15","사58-60","겔25-27","마1-3","행4-6","딤전1-6"],
+            ["창49-출1","민25-27","삿7-9","왕상22-왕2","대하34-36","시28-32","잠13-15","사58-60","겔25-27","마1-3","행4-6","딤전1-6"],
             ["출2-4","민28-30","삿10-12","왕하3-5","스1-3","시33-36","잠16-18","사61-63","겔28-30","마4-6","행7-9","딤후1-4"],
             ["출5-7","민31-33","삿13-15","왕하6-8","스4-6","시37-41","잠19-21","사64-66","겔31-33","마7-9","행10-12","딛1-몬1"],
             ["출8-10","민34-36","삿16-18","왕하9-11","스7-10","시42-46","잠22-24","렘1-3","겔34-36","마10-12","행13-15","히1-4"],
@@ -267,8 +272,6 @@
         function closeModal() { document.getElementById('giveModal').classList.remove('active'); document.body.style.overflow = 'auto'; }
         function openBibleModal() { document.getElementById('bibleModal').classList.add('active'); document.body.style.overflow = 'hidden'; }
         function closeBibleModal() { document.getElementById('bibleModal').classList.remove('active'); document.body.style.overflow = 'auto'; }
-        function openInfoModal() { document.getElementById('infoModal').classList.add('active'); document.body.style.overflow = 'hidden'; }
-        function closeInfoModal() { document.getElementById('infoModal').classList.remove('active'); document.body.style.overflow = 'auto'; }
     </script>
 </body>
 </html>
