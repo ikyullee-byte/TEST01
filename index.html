@@ -90,16 +90,19 @@
                     <span class="w-1.5 h-4 bg-blue-600 rounded-full mr-2"></span>
                     <h2 class="text-xs font-bold text-gray-500 uppercase tracking-widest">Weekly Bible Reading</h2>
                 </div>
-                <button onclick="openBibleModal()" class="text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded-md border border-blue-100 active:bg-blue-100 transition-colors">전체보기 ></button>
             </div>
             <div class="bg-white rounded-[2rem] card-shadow p-4 grid grid-cols-4 gap-2 text-center text-[10px]" id="bible-grid">
-                <div class="bible-item p-2 bg-gray-50 rounded-xl" data-day="0"><div class="text-blue-500 font-bold">주일</div><div class="font-bold">삿4-6</div></div>
-                <div class="bible-item p-2 bg-gray-50 rounded-xl" data-day="1"><div class="text-gray-400 font-bold">월</div><div class="font-bold">삿7-9</div></div>
-                <div class="bible-item p-2 bg-gray-50 rounded-xl" data-day="2"><div class="text-gray-400 font-bold">화</div><div class="font-bold">삿10-12</div></div>
-                <div class="bible-item p-2 bg-gray-50 rounded-xl" data-day="3"><div class="text-gray-400 font-bold">수</div><div class="font-bold">삿13-15</div></div>
-                <div class="bible-item p-2 bg-gray-50 rounded-xl" data-day="4"><div class="text-gray-400 font-bold">목</div><div class="font-bold">삿16-18</div></div>
-                <div class="bible-item p-2 bg-gray-50 rounded-xl" data-day="5"><div class="text-gray-400 font-bold">금</div><div class="font-bold">삿19-21</div></div>
-                <div class="bible-item p-2 bg-gray-50 rounded-xl" data-day="6"><div class="text-gray-400 font-bold">토</div><div class="font-bold">삿22-24</div></div>
+                <div class="bible-item p-2 bg-gray-50 rounded-xl" data-day="0"><div class="text-blue-500 font-bold">주일(15)</div><div class="font-bold">삿4-6</div></div>
+                <div class="bible-item p-2 bg-gray-50 rounded-xl" data-day="1"><div class="text-gray-400 font-bold">월(16)</div><div class="font-bold">삿7-9</div></div>
+                <div class="bible-item p-2 bg-gray-50 rounded-xl" data-day="2"><div class="text-gray-400 font-bold">화(17)</div><div class="font-bold">삿10-12</div></div>
+                <div class="bible-item p-2 bg-gray-50 rounded-xl" data-day="3"><div class="text-gray-400 font-bold">수(18)</div><div class="font-bold">삿13-15</div></div>
+                <div class="bible-item p-2 bg-gray-50 rounded-xl" data-day="4"><div class="text-gray-400 font-bold">목(19)</div><div class="font-bold">삿16-18</div></div>
+                <div class="bible-item p-2 bg-gray-50 rounded-xl" data-day="5"><div class="text-gray-400 font-bold">금(20)</div><div class="font-bold">삿19-21</div></div>
+                <div class="bible-item p-2 bg-gray-50 rounded-xl" data-day="6"><div class="text-gray-400 font-bold">토(21)</div><div class="font-bold">삿22-24</div></div>
+                <div onclick="openBibleModal()" class="p-2 bg-blue-50 rounded-xl border border-blue-100 cursor-pointer active:scale-95 transition-transform flex flex-col justify-center items-center shadow-sm">
+                    <div class="text-blue-500 font-bold mb-0.5 text-[11px]"><i class="fas fa-list"></i></div>
+                    <div class="font-bold text-blue-800">전체보기</div>
+                </div>
             </div>
         </section>
 
