@@ -9,33 +9,24 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
         
-        /* 스크롤 시 상단 메뉴에 가려지지 않도록 여백 추가 및 부드러운 스크롤 */
         html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
-        body { font-family: 'Noto Sans KR', sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Noto Sans KR', sans-serif; -webkit-tap-highlight-color: transparent; transition: background-color 0.3s, color 0.3s; }
         
         .bg-church { background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%); }
-        .card-shadow { box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05); }
+        .card-shadow { box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05); transition: all 0.3s; }
         .pb-safe { padding-bottom: calc(6rem + env(safe-area-inset-bottom)); }
         
         /* 예배 순서 정렬 (3단 그리드) */
-        .worship-row { 
-            display: grid; 
-            grid-template-columns: 1fr 1.2fr 1fr; 
-            border-bottom: 1px dotted #e5e7eb; 
-            padding: 12px 0; 
-            font-size: 0.95rem; 
-            align-items: center;
-        }
+        .worship-row { display: grid; grid-template-columns: 1fr 1.2fr 1fr; border-bottom: 1px dotted #e5e7eb; padding: 12px 0; font-size: 0.95rem; align-items: center; transition: all 0.3s; }
         .worship-row span:nth-child(1) { text-align: left; color: #666; }
         .worship-row span:nth-child(2) { text-align: center; font-weight: 700; color: #1d4ed8; }
         .worship-row span:nth-child(3) { text-align: right; color: #333; }
 
-        /* 이번 주 성경 읽기 하이라이트 */
         .today-highlight { background-color: #fef3c7 !important; border: 2px solid #f59e0b !important; transform: scale(1.02); }
         
         /* 모달 시스템 */
         .modal { display: none; position: fixed; z-index: 1000; inset: 0; background: rgba(0,0,0,0.6); align-items: center; justify-content: center; padding: 15px; }
-        .modal.active { display: flex; }
+        .modal.active { display: flex; animation: fadeIn 0.2s ease-out; }
         
         /* 성경 통독표 테이블 */
         .bible-scroll-container { max-height: 70vh; overflow-y: auto; overflow-x: auto; background: white; border-radius: 1rem; scroll-behavior: smooth; }
@@ -43,33 +34,60 @@
         .bible-table th { background: #1e3a8a; color: white; padding: 10px 4px; position: sticky; top: 0; z-index: 30; }
         .bible-table td { border: 1px solid #eee; padding: 8px 4px; text-align: center; }
         .day-cell { background: #f1f5f9; font-weight: bold; width: 35px; position: sticky; left: 0; z-index: 10; }
-        
-        /* ★ 전체보기 통독표 오늘 날짜 하이라이트 스타일 ★ */
-        .today-cell-highlight {
-            background-color: #fef3c7 !important;
-            border: 2px solid #ea580c !important;
-            color: #c2410c !important;
-            font-weight: 900 !important;
-            position: relative;
-            z-index: 20;
+        .today-cell-highlight { background-color: #fef3c7 !important; border: 2px solid #ea580c !important; color: #c2410c !important; font-weight: 900 !important; z-index: 20; position: relative; }
+
+        /* ★ [기능 1] 예배 집중 다크모드 ★ */
+        body.dark-mode { background-color: #111827; color: #e5e7eb; }
+        body.dark-mode .bg-white { background-color: #1f2937 !important; border-color: #374151; }
+        body.dark-mode .bg-gray-50 { background-color: #111827 !important; }
+        body.dark-mode nav, body.dark-mode .fixed.bottom-0 { background-color: rgba(31, 41, 55, 0.95) !important; border-color: #374151; }
+        body.dark-mode .text-gray-900, body.dark-mode .text-gray-800, body.dark-mode .text-gray-600 { color: #e5e7eb !important; }
+        body.dark-mode .text-blue-900, body.dark-mode .text-blue-950 { color: #93c5fd !important; }
+        body.dark-mode .bg-blue-900 { background-color: #1e3a8a !important; }
+        body.dark-mode .bg-blue-50 { background-color: #374151 !important; color: #93c5fd !important; border-color: #4b5563; }
+        body.dark-mode .worship-row { border-bottom-color: #374151; }
+        body.dark-mode .worship-row span:nth-child(1) { color: #9ca3af; }
+        body.dark-mode .worship-row span:nth-child(2) { color: #60a5fa; }
+        body.dark-mode .worship-row span:nth-child(3) { color: #d1d5db; }
+        body.dark-mode .card-shadow { box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        body.dark-mode .day-cell { background-color: #374151 !important; color: white; border-color: #4b5563; }
+        body.dark-mode td, body.dark-mode th { border-color: #4b5563; }
+
+        /* ★ [기능 2] 어르신 맞춤 큰 글씨 모드 ★ */
+        body.large-text { font-size: 115%; }
+        body.large-text .text-sm { font-size: 1.1rem; }
+        body.large-text .text-xs { font-size: 0.95rem; }
+        body.large-text .worship-row { font-size: 1.1rem; }
+        body.large-text .text-\[10px\] { font-size: 13px; }
+
+        /* ★ [기능 3] 아멘! 애니메이션 효과 ★ */
+        .floating-emoji { position: fixed; font-size: 24px; pointer-events: none; animation: floatUp 1.5s ease-out forwards; z-index: 9999; }
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-100px) scale(1.5); opacity: 0; }
         }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        
+        /* 만나 뽑기 카드 애니메이션 */
+        .manna-card { animation: flipIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes flipIn { 0% { transform: rotateY(90deg) scale(0.8); opacity: 0; } 100% { transform: rotateY(0) scale(1); opacity: 1; } }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-900 pb-safe">
+<body class="bg-gray-50 text-gray-900 pb-safe transition-all duration-300">
 
-    <nav class="bg-white/95 backdrop-blur-md sticky top-0 z-50 shadow-sm border-b font-bold">
+    <nav class="bg-white/95 backdrop-blur-md sticky top-0 z-50 shadow-sm border-b font-bold transition-colors duration-300">
         <div class="container mx-auto px-5 py-3 flex justify-between items-center">
             <a href="index.html" class="flex items-center">
-                <img src="logo.png" alt="원종제일교회" class="h-10 w-auto object-contain mr-2" 
-                     onerror="this.style.display='none'; document.getElementById('text-logo').style.display='flex';">
+                <img src="logo.png" alt="원종제일교회" class="h-10 w-auto object-contain mr-2" onerror="this.style.display='none'; document.getElementById('text-logo').style.display='flex';">
                 <div id="text-logo" style="display:none;" class="flex-col">
                     <span class="text-blue-900 text-lg leading-none tracking-tighter">원종제일교회</span>
                     <span class="text-[9px] text-blue-500 uppercase mt-0.5 tracking-widest font-bold">Wonjong First Church</span>
                 </div>
             </a>
-            <a href="info.html" class="text-blue-900 text-[11px] bg-blue-50 px-3 py-1.5 rounded-full border border-blue-100 flex items-center gap-1">
-                <i class="fas fa-church"></i> 교회안내
-            </a>
+            <div class="flex items-center gap-2">
+                <button onclick="toggleFontSize()" class="text-gray-500 bg-gray-100 w-8 h-8 rounded-full flex items-center justify-center active:scale-90 transition-transform"><i class="fas fa-font"></i></button>
+                <button onclick="toggleDarkMode()" class="text-gray-500 bg-gray-100 w-8 h-8 rounded-full flex items-center justify-center active:scale-90 transition-transform"><i class="fas fa-moon" id="dark-icon"></i></button>
+            </div>
         </div>
     </nav>
 
@@ -83,6 +101,18 @@
 
     <main class="container mx-auto px-5 py-8 space-y-10">
 
+        <section>
+            <div class="bg-gradient-to-r from-orange-400 to-red-500 rounded-[2rem] card-shadow p-5 text-white flex justify-between items-center transform transition hover:scale-[1.02]">
+                <div>
+                    <p class="text-[10px] font-bold opacity-80 tracking-widest uppercase mb-1">Upcoming Event</p>
+                    <h3 class="text-lg font-bold">예수 부활을 기뻐하는 부활주일</h3>
+                </div>
+                <div class="bg-white text-red-600 font-black text-2xl px-4 py-2 rounded-2xl shadow-inner" id="dday-counter">
+                    D-19
+                </div>
+            </div>
+        </section>
+
         <section id="times">
             <div class="flex items-center mb-4 ml-2 font-bold"><span class="w-1.5 h-5 bg-blue-600 rounded-full mr-2"></span><h2 class="text-xl text-blue-950">예배 시간 안내</h2></div>
             <div class="bg-white rounded-[2.5rem] card-shadow p-6 border border-gray-100 space-y-3 font-medium text-sm">
@@ -93,13 +123,18 @@
             </div>
         </section>
 
-        <section id="bible-weekly">
-            <div class="flex items-center justify-between mb-3 ml-2 pr-2">
-                <div class="flex items-center">
-                    <span class="w-1.5 h-4 bg-blue-600 rounded-full mr-2"></span>
-                    <h2 class="text-xs font-bold text-gray-500 uppercase tracking-widest">Weekly Bible Reading</h2>
-                </div>
+        <section>
+            <div class="bg-white rounded-[2rem] card-shadow p-8 border-t-8 border-orange-400 text-center relative">
+                <p class="text-lg font-bold text-gray-800 italic mb-3 leading-relaxed">"너희가 전에는 어둠이더니 이제는 주 안에서 빛이라 빛의 자녀들처럼 행하라"</p>
+                <p class="text-sm font-bold text-orange-600 mb-5">— 에베소서 5:8 —</p>
+                <button onclick="showAmenEffect(event)" class="bg-orange-100 text-orange-700 px-6 py-2 rounded-full font-bold text-sm shadow-sm active:scale-90 transition-transform">
+                    아멘! 🙏
+                </button>
             </div>
+        </section>
+
+        <section id="bible-weekly">
+            <div class="flex items-center mb-3 ml-2"><span class="w-1.5 h-4 bg-blue-600 rounded-full mr-2"></span><h2 class="text-xs font-bold text-gray-500 uppercase tracking-widest">Weekly Bible Reading</h2></div>
             <div class="bg-white rounded-[2rem] card-shadow p-4 grid grid-cols-4 gap-2 text-center text-[10px]" id="bible-grid">
                 <div class="bible-item p-2 bg-gray-50 rounded-xl" data-day="0"><div class="text-blue-500 font-bold">주일(15)</div><div class="font-bold">삿4-6</div></div>
                 <div class="bible-item p-2 bg-gray-50 rounded-xl" data-day="1"><div class="text-gray-400 font-bold">월(16)</div><div class="font-bold">삿7-9</div></div>
@@ -109,8 +144,7 @@
                 <div class="bible-item p-2 bg-gray-50 rounded-xl" data-day="5"><div class="text-gray-400 font-bold">금(20)</div><div class="font-bold">삿19-21</div></div>
                 <div class="bible-item p-2 bg-gray-50 rounded-xl" data-day="6"><div class="text-gray-400 font-bold">토(21)</div><div class="font-bold">삿22-24</div></div>
                 <div onclick="openBibleModal()" class="p-2 bg-blue-50 rounded-xl border border-blue-100 cursor-pointer active:scale-95 transition-transform flex flex-col justify-center items-center shadow-sm">
-                    <div class="text-blue-500 font-bold mb-0.5 text-[11px]"><i class="fas fa-list"></i></div>
-                    <div class="font-bold text-blue-800">전체보기</div>
+                    <div class="text-blue-500 font-bold mb-0.5 text-[11px]"><i class="fas fa-list"></i></div><div class="font-bold text-blue-800">전체보기</div>
                 </div>
             </div>
         </section>
@@ -163,10 +197,7 @@
             <section id="wednesday">
                 <div class="bg-white rounded-[2rem] card-shadow overflow-hidden border border-gray-100 text-center">
                     <div class="bg-gray-600 p-4 text-white font-bold italic text-sm">수요성서강해 <small class="ml-1 opacity-70">7:30</small></div>
-                    <div class="p-6">
-                        <div class="worship-row"><span>기도</span><span>-</span><span>배윤국 집사</span></div>
-                        <p class="mt-4 text-sm font-bold text-gray-800 italic">말씀 선포: 이성결 목사</p>
-                    </div>
+                    <div class="p-6"><div class="worship-row"><span>기도</span><span>-</span><span>배윤국 집사</span></div><p class="mt-4 text-sm font-bold text-gray-800 italic">말씀 선포: 이성결 목사</p></div>
                 </div>
             </section>
         </div>
@@ -174,10 +205,9 @@
         <section id="news">
             <div class="flex items-center mb-4 ml-2 font-bold"><span class="w-1.5 h-5 bg-blue-600 rounded-full mr-2"></span><h2 class="text-xl text-blue-950">교회 소식</h2></div>
             <div class="bg-white rounded-[2.5rem] card-shadow p-6 border border-gray-100 space-y-4 text-sm font-medium">
-                <div class="pb-3 border-b border-gray-50 flex gap-3 text-blue-900"><span class="font-bold">1.</span><p>원로목사님 퇴원: 이원영 원로목사님께서 무사히 퇴원하셨습니다. 온전한 회복을 위해 기도 바랍니다.</p></div>
+                <div class="pb-3 border-b border-gray-50 flex gap-3 text-blue-900"><span class="font-bold">1.</span><p>원로목사님 퇴원: 무사히 퇴원하셨습니다. 온전한 회복을 위해 기도 바랍니다.</p></div>
                 <div class="pb-3 border-b border-gray-50 flex gap-3"><span class="font-bold">2.</span><p>고난주간 특별새벽기도회: 3/30(월) ~ 4/3(금) 성도님들의 많은 참여 바랍니다.</p></div>
                 <div class="pb-3 border-b border-gray-50 flex gap-3"><span class="font-bold">3.</span><p>부활주일 안내: 4월 5일(주일)은 예수 부활을 기뻐하는 부활주일입니다.</p></div>
-                <div class="bg-blue-50 p-4 rounded-2xl text-[11px] flex gap-2"><i class="fas fa-heart text-red-400 mt-1"></i><p><strong>기도 요청:</strong> 치료 중인 환우들의 빠른 치유를 위해 합심하여 기도해주세요.</p></div>
             </div>
         </section>
 
@@ -189,20 +219,25 @@
         <p class="mt-8 text-[9px] text-gray-200 font-bold uppercase tracking-widest">&copy; 2026 WONJONG FIRST CHURCH.</p>
     </footer>
 
-    <div class="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-xl border-t flex justify-around items-center py-4 px-3 z-[100] rounded-t-[2.5rem] shadow-2xl">
-        <a href="index.html" class="flex flex-col items-center text-gray-400 active:text-blue-900 transition"><i class="fas fa-house text-xl mb-1"></i><span class="text-[10px] font-bold">홈</span></a>
-        <a href="#morning" class="flex flex-col items-center text-blue-900 active:scale-90 transition"><i class="fas fa-list-ol text-xl mb-1"></i><span class="text-[10px] font-bold">주보</span></a>
-        <a href="#" class="relative -mt-12 bg-red-600 w-16 h-16 rounded-full flex items-center justify-center text-white border-4 border-white shadow-xl"><i class="fab fa-youtube text-2xl animate-pulse"></i></a>
+    <div class="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-xl border-t flex justify-around items-center py-4 px-3 z-[100] rounded-t-[2.5rem] shadow-2xl transition-colors duration-300">
+        <a href="#morning" class="flex flex-col items-center text-gray-400 active:text-blue-900 transition"><i class="fas fa-list-ol text-xl mb-1"></i><span class="text-[10px] font-bold">주보</span></a>
         <button onclick="openBibleModal()" class="flex flex-col items-center text-gray-400 active:text-blue-900 transition"><i class="fas fa-book-open text-xl mb-1"></i><span class="text-[10px] font-bold">통독표</span></button>
+        
+        <button onclick="openMannaModal()" class="relative -mt-12 bg-yellow-400 w-16 h-16 rounded-full flex flex-col items-center justify-center text-yellow-900 border-4 border-white shadow-xl active:scale-95 transition-transform">
+            <i class="fas fa-gift text-2xl mb-0.5"></i>
+            <span class="text-[8px] font-black tracking-tighter">만나</span>
+        </button>
+        
+        <a href="info.html" class="flex flex-col items-center text-gray-400 active:text-blue-900 transition"><i class="fas fa-church text-xl mb-1"></i><span class="text-[10px] font-bold">소개</span></a>
         <button onclick="openModal()" class="flex flex-col items-center text-gray-400 active:text-blue-900 transition"><i class="fas fa-won-sign text-xl mb-1"></i><span class="text-[10px] font-bold">헌금</span></button>
     </div>
 
     <div id="giveModal" class="modal" onclick="closeModal()">
         <div class="bg-white rounded-[2.5rem] w-full max-w-sm p-8 text-center shadow-2xl" onclick="event.stopPropagation()">
             <h3 class="text-xl font-bold mb-6 italic">온라인 헌금 안내</h3>
-            <div class="bg-blue-50 p-6 rounded-3xl border border-blue-100 mb-6 font-bold">
-                <p class="text-[10px] text-blue-500 mb-1 uppercase tracking-widest">NH 농협은행 (원종제일교회)</p>
-                <p class="text-xl text-blue-950 select-all tracking-tighter">302-1765-3728-91</p>
+            <div class="bg-blue-50 p-6 rounded-3xl border border-blue-100 mb-6">
+                <p class="text-[10px] text-blue-500 mb-1 uppercase tracking-widest font-bold">NH 농협은행 (원종제일교회)</p>
+                <p class="text-xl text-blue-950 font-bold select-all">302-1765-3728-91</p>
             </div>
             <button onclick="closeModal()" class="w-full py-4 bg-gray-900 text-white rounded-2xl font-bold">닫기</button>
         </div>
@@ -211,22 +246,29 @@
     <div id="bibleModal" class="modal" onclick="closeBibleModal()">
         <div class="bg-white rounded-[2.5rem] w-full max-w-5xl p-5 shadow-2xl" onclick="event.stopPropagation()">
             <div class="flex justify-between items-center mb-4 px-2">
-                <h3 class="text-lg font-bold text-blue-900 italic"><i class="fas fa-book-bible mr-2"></i>1년 1독 통독 일정표</h3>
+                <h3 class="text-lg font-bold text-blue-900 italic"><i class="fas fa-book-bible mr-2"></i>1년 1독 일정표</h3>
                 <button onclick="closeBibleModal()" class="text-gray-400 text-2xl font-bold">&times;</button>
             </div>
-            <div class="bible-scroll-container" id="bible-scroll-area">
+            <div class="bible-scroll-container">
                 <table class="bible-table">
-                    <thead>
-                        <tr><th style="left:0; z-index:40;">일</th><th>1월</th><th>2월</th><th>3월</th><th>4월</th><th>5월</th><th>6월</th><th>7월</th><th>8월</th><th>9월</th><th>10월</th><th>11월</th><th>12월</th></tr>
-                    </thead>
+                    <thead><tr><th style="left:0; z-index:40;">일</th><th>1월</th><th>2월</th><th>3월</th><th>4월</th><th>5월</th><th>6월</th><th>7월</th><th>8월</th><th>9월</th><th>10월</th><th>11월</th><th>12월</th></tr></thead>
                     <tbody id="bible-full-body"></tbody>
                 </table>
             </div>
-            <p class="text-center text-[10px] text-gray-400 mt-4 font-bold">오늘의 통독 부분으로 자동 이동됩니다.</p>
+        </div>
+    </div>
+
+    <div id="mannaModal" class="modal" onclick="closeMannaModal()">
+        <div class="bg-white rounded-[2rem] w-full max-w-sm p-8 text-center shadow-2xl manna-card border-t-8 border-yellow-400" onclick="event.stopPropagation()">
+            <h3 class="text-sm font-bold text-yellow-600 mb-6 uppercase tracking-widest"><i class="fas fa-dove mr-1"></i>오늘 나에게 주시는 말씀</h3>
+            <p id="manna-text" class="text-lg font-bold text-gray-800 leading-relaxed italic mb-4">"말씀을 불러오는 중..."</p>
+            <p id="manna-ref" class="text-sm font-bold text-gray-500 mb-8">-</p>
+            <button onclick="closeMannaModal()" class="w-full py-3 bg-yellow-100 text-yellow-800 rounded-xl font-bold active:bg-yellow-200">아멘</button>
         </div>
     </div>
 
     <script>
+        // 성경 통독 데이터 로직 (이전과 동일)
         const fullBibleData = [
             ["창1-3","레7-9","신20-22","삼하1-3","대상19-21","욥16-18","시100-104","사13-15","렘40-42","호10-14","눅4-6","고전7-9"],
             ["창4-7","레10-12","신23-25","삼하4-6","대상22-24","욥19-21","시105-108","사16-18","렘43-45","욜1-3","눅7-9","고전10-12"],
@@ -262,51 +304,93 @@
         ];
 
         document.addEventListener('DOMContentLoaded', function() {
-            // 이번 주 성경 읽기 요일 하이라이트
+            // 이번 주 요일
             const today = new Date();
             const dayOfWeek = today.getDay(); 
-            const currentMonth = today.getMonth(); // 0~11 (1월~12월)
-            const currentDate = today.getDate();   // 1~31 (날짜)
-            
+            const currentMonth = today.getMonth(); 
+            const currentDate = today.getDate();
             document.querySelectorAll('.bible-item').forEach(item => {
                 if(parseInt(item.getAttribute('data-day')) === dayOfWeek) item.classList.add('today-highlight');
             });
-
-            // 전체 성경 통독표 생성 및 오늘 날짜 칸 찾기
+            // 전체 통독표
             const tableBody = document.getElementById('bible-full-body');
             fullBibleData.forEach((row, idx) => {
                 const tr = document.createElement('tr');
                 let rowHtml = `<td class="day-cell">${idx + 1}</td>`;
-                
                 row.forEach((cell, monthIdx) => {
-                    // 오늘 날짜와 현재 월이 일치하고 비어있지 않은 칸에 하이라이트 클래스 및 ID 부여
                     let isToday = (idx + 1 === currentDate && monthIdx === currentMonth && cell !== '-');
                     let highlightClass = isToday ? 'today-cell-highlight' : '';
-                    let emptyClass = (cell === '-') ? 'bg-gray-50' : '';
                     let idAttr = isToday ? 'id="today-bible-target"' : '';
-                    
-                    rowHtml += `<td class="${highlightClass} ${emptyClass}" ${idAttr}>${cell === '-' ? '' : cell}</td>`;
+                    rowHtml += `<td class="${highlightClass} ${cell === '-' ? 'bg-gray-50' : ''}" ${idAttr}>${cell === '-' ? '' : cell}</td>`;
                 });
-                
                 tr.innerHTML = rowHtml;
                 tableBody.appendChild(tr);
             });
+            
+            // D-Day 계산
+            calculateDDay();
         });
+
+        // 다크모드
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const icon = document.getElementById('dark-icon');
+            icon.className = document.body.classList.contains('dark-mode') ? 'fas fa-sun text-yellow-500' : 'fas fa-moon';
+        }
+
+        // 큰 글씨
+        function toggleFontSize() { document.body.classList.toggle('large-text'); }
+
+        // 아멘 애니메이션
+        function showAmenEffect(e) {
+            const emojis = ['🙏', '❤️', '✨', '🕊️'];
+            for(let i=0; i<6; i++) {
+                const drop = document.createElement('div');
+                drop.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+                drop.className = 'floating-emoji';
+                drop.style.left = (e.clientX - 30 + Math.random() * 60) + 'px';
+                drop.style.top = (e.clientY - 30) + 'px';
+                drop.style.animationDelay = (Math.random() * 0.2) + 's';
+                document.body.appendChild(drop);
+                setTimeout(() => drop.remove(), 1500);
+            }
+        }
+
+        // 랜덤 만나 말씀
+        const verses = [
+            { text: "여호와는 나의 목자시니 내게 부족함이 없으리로다", ref: "시편 23:1" },
+            { text: "두려워하지 말라 내가 너와 함께 함이라 놀라지 말라 나는 네 하나님이 됨이라", ref: "이사야 41:10" },
+            { text: "수고하고 무거운 짐 진 자들아 다 내게로 오라 내가 너희를 쉬게 하리라", ref: "마태복음 11:28" },
+            { text: "내게 능력 주시는 자 안에서 내가 모든 것을 할 수 있느니라", ref: "빌립보서 4:13" },
+            { text: "너희 염려를 다 주께 맡기라 이는 그가 너희를 돌보심이라", ref: "베드로전서 5:7" },
+            { text: "항상 기뻐하라 쉬지 말고 기도하라 범사에 감사하라", ref: "데살로니가전서 5:16-18" }
+        ];
+        function openMannaModal() {
+            const randomVerse = verses[Math.floor(Math.random() * verses.length)];
+            document.getElementById('manna-text').innerText = `"${randomVerse.text}"`;
+            document.getElementById('manna-ref').innerText = `- ${randomVerse.ref} -`;
+            document.getElementById('mannaModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeMannaModal() { document.getElementById('mannaModal').classList.remove('active'); document.body.style.overflow = 'auto'; }
+
+        // D-Day
+        function calculateDDay() {
+            const today = new Date();
+            const target = new Date(2026, 3, 5); // 2026년 4월 5일 부활주일 (월은 0부터 시작)
+            const diff = target - today;
+            const dday = Math.ceil(diff / (1000 * 60 * 60 * 24));
+            const el = document.getElementById('dday-counter');
+            if(dday > 0) el.innerText = `D-${dday}`;
+            else if(dday === 0) el.innerText = `D-Day`;
+            else el.innerText = `진행완료`;
+        }
 
         function openModal() { document.getElementById('giveModal').classList.add('active'); document.body.style.overflow = 'hidden'; }
         function closeModal() { document.getElementById('giveModal').classList.remove('active'); document.body.style.overflow = 'auto'; }
-        
         function openBibleModal() { 
-            document.getElementById('bibleModal').classList.add('active'); 
-            document.body.style.overflow = 'hidden'; 
-            
-            // 모달이 열린 직후 오늘 날짜 위치로 스크롤 이동
-            setTimeout(() => {
-                const targetCell = document.getElementById('today-bible-target');
-                if(targetCell) {
-                    targetCell.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
-                }
-            }, 100);
+            document.getElementById('bibleModal').classList.add('active'); document.body.style.overflow = 'hidden'; 
+            setTimeout(() => { const target = document.getElementById('today-bible-target'); if(target) target.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' }); }, 100);
         }
         function closeBibleModal() { document.getElementById('bibleModal').classList.remove('active'); document.body.style.overflow = 'auto'; }
     </script>
