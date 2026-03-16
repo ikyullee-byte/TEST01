@@ -30,6 +30,7 @@
         .worship-row span:nth-child(2) { text-align: center; font-weight: 700; color: #1d4ed8; }
         .worship-row span:nth-child(3) { text-align: right; color: #333; }
 
+        /* 이번 주 성경 읽기 하이라이트 */
         .today-highlight { background-color: #fef3c7 !important; border: 2px solid #f59e0b !important; transform: scale(1.02); }
         
         /* 모달 시스템 */
@@ -37,18 +38,27 @@
         .modal.active { display: flex; }
         
         /* 성경 통독표 테이블 */
-        .bible-scroll-container { max-height: 70vh; overflow-y: auto; overflow-x: auto; background: white; border-radius: 1rem; }
+        .bible-scroll-container { max-height: 70vh; overflow-y: auto; overflow-x: auto; background: white; border-radius: 1rem; scroll-behavior: smooth; }
         .bible-table { width: 100%; border-collapse: collapse; font-size: 11px; min-width: 850px; }
         .bible-table th { background: #1e3a8a; color: white; padding: 10px 4px; position: sticky; top: 0; z-index: 30; }
         .bible-table td { border: 1px solid #eee; padding: 8px 4px; text-align: center; }
         .day-cell { background: #f1f5f9; font-weight: bold; width: 35px; position: sticky; left: 0; z-index: 10; }
+        
+        /* ★ 전체보기 통독표 오늘 날짜 하이라이트 스타일 ★ */
+        .today-cell-highlight {
+            background-color: #fef3c7 !important;
+            border: 2px solid #ea580c !important;
+            color: #c2410c !important;
+            font-weight: 900 !important;
+            position: relative;
+            z-index: 20;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-900 pb-safe">
 
     <nav class="bg-white/95 backdrop-blur-md sticky top-0 z-50 shadow-sm border-b font-bold">
         <div class="container mx-auto px-5 py-3 flex justify-between items-center">
-            
             <a href="index.html" class="flex items-center">
                 <img src="logo.png" alt="원종제일교회" class="h-10 w-auto object-contain mr-2" 
                      onerror="this.style.display='none'; document.getElementById('text-logo').style.display='flex';">
@@ -57,7 +67,6 @@
                     <span class="text-[9px] text-blue-500 uppercase mt-0.5 tracking-widest font-bold">Wonjong First Church</span>
                 </div>
             </a>
-            
             <a href="info.html" class="text-blue-900 text-[11px] bg-blue-50 px-3 py-1.5 rounded-full border border-blue-100 flex items-center gap-1">
                 <i class="fas fa-church"></i> 교회안내
             </a>
@@ -127,7 +136,6 @@
                     <div class="py-6 my-4 bg-orange-50 rounded-3xl text-center border border-orange-100 px-4">
                         <h3 class="text-xl font-bold text-orange-950 italic">"영적 시선으로"</h3>
                         <p class="text-sm font-medium text-orange-800 mb-4">이성결 담임목사</p>
-                        
                         <a href="#" target="_blank" class="inline-flex items-center gap-2 bg-red-600 text-white px-6 py-2.5 rounded-full text-xs font-bold shadow-md active:scale-95 transition-all hover:bg-red-700">
                             <i class="fab fa-youtube text-lg"></i> 설교 영상 준비중
                         </a>
@@ -183,11 +191,8 @@
 
     <div class="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-xl border-t flex justify-around items-center py-4 px-3 z-[100] rounded-t-[2.5rem] shadow-2xl">
         <a href="index.html" class="flex flex-col items-center text-gray-400 active:text-blue-900 transition"><i class="fas fa-house text-xl mb-1"></i><span class="text-[10px] font-bold">홈</span></a>
-        
         <a href="#morning" class="flex flex-col items-center text-blue-900 active:scale-90 transition"><i class="fas fa-list-ol text-xl mb-1"></i><span class="text-[10px] font-bold">주보</span></a>
-        
         <a href="#" class="relative -mt-12 bg-red-600 w-16 h-16 rounded-full flex items-center justify-center text-white border-4 border-white shadow-xl"><i class="fab fa-youtube text-2xl animate-pulse"></i></a>
-        
         <button onclick="openBibleModal()" class="flex flex-col items-center text-gray-400 active:text-blue-900 transition"><i class="fas fa-book-open text-xl mb-1"></i><span class="text-[10px] font-bold">통독표</span></button>
         <button onclick="openModal()" class="flex flex-col items-center text-gray-400 active:text-blue-900 transition"><i class="fas fa-won-sign text-xl mb-1"></i><span class="text-[10px] font-bold">헌금</span></button>
     </div>
@@ -209,7 +214,7 @@
                 <h3 class="text-lg font-bold text-blue-900 italic"><i class="fas fa-book-bible mr-2"></i>1년 1독 통독 일정표</h3>
                 <button onclick="closeBibleModal()" class="text-gray-400 text-2xl font-bold">&times;</button>
             </div>
-            <div class="bible-scroll-container">
+            <div class="bible-scroll-container" id="bible-scroll-area">
                 <table class="bible-table">
                     <thead>
                         <tr><th style="left:0; z-index:40;">일</th><th>1월</th><th>2월</th><th>3월</th><th>4월</th><th>5월</th><th>6월</th><th>7월</th><th>8월</th><th>9월</th><th>10월</th><th>11월</th><th>12월</th></tr>
@@ -217,12 +222,11 @@
                     <tbody id="bible-full-body"></tbody>
                 </table>
             </div>
-            <p class="text-center text-[10px] text-gray-400 mt-4 font-bold">표를 옆으로 밀어서 날짜별 일정을 확인하세요.</p>
+            <p class="text-center text-[10px] text-gray-400 mt-4 font-bold">오늘의 통독 부분으로 자동 이동됩니다.</p>
         </div>
     </div>
 
     <script>
-        // 1년 성경 통독 데이터
         const fullBibleData = [
             ["창1-3","레7-9","신20-22","삼하1-3","대상19-21","욥16-18","시100-104","사13-15","렘40-42","호10-14","눅4-6","고전7-9"],
             ["창4-7","레10-12","신23-25","삼하4-6","대상22-24","욥19-21","시105-108","사16-18","렘43-45","욜1-3","눅7-9","고전10-12"],
@@ -258,22 +262,52 @@
         ];
 
         document.addEventListener('DOMContentLoaded', function() {
-            const dayOfWeek = new Date().getDay(); 
+            // 이번 주 성경 읽기 요일 하이라이트
+            const today = new Date();
+            const dayOfWeek = today.getDay(); 
+            const currentMonth = today.getMonth(); // 0~11 (1월~12월)
+            const currentDate = today.getDate();   // 1~31 (날짜)
+            
             document.querySelectorAll('.bible-item').forEach(item => {
                 if(parseInt(item.getAttribute('data-day')) === dayOfWeek) item.classList.add('today-highlight');
             });
+
+            // 전체 성경 통독표 생성 및 오늘 날짜 칸 찾기
             const tableBody = document.getElementById('bible-full-body');
             fullBibleData.forEach((row, idx) => {
                 const tr = document.createElement('tr');
-                tr.innerHTML = `<td class="day-cell">${idx + 1}</td>` + 
-                               row.map(cell => `<td>${cell === '-' ? '' : cell}</td>`).join('');
+                let rowHtml = `<td class="day-cell">${idx + 1}</td>`;
+                
+                row.forEach((cell, monthIdx) => {
+                    // 오늘 날짜와 현재 월이 일치하고 비어있지 않은 칸에 하이라이트 클래스 및 ID 부여
+                    let isToday = (idx + 1 === currentDate && monthIdx === currentMonth && cell !== '-');
+                    let highlightClass = isToday ? 'today-cell-highlight' : '';
+                    let emptyClass = (cell === '-') ? 'bg-gray-50' : '';
+                    let idAttr = isToday ? 'id="today-bible-target"' : '';
+                    
+                    rowHtml += `<td class="${highlightClass} ${emptyClass}" ${idAttr}>${cell === '-' ? '' : cell}</td>`;
+                });
+                
+                tr.innerHTML = rowHtml;
                 tableBody.appendChild(tr);
             });
         });
 
         function openModal() { document.getElementById('giveModal').classList.add('active'); document.body.style.overflow = 'hidden'; }
         function closeModal() { document.getElementById('giveModal').classList.remove('active'); document.body.style.overflow = 'auto'; }
-        function openBibleModal() { document.getElementById('bibleModal').classList.add('active'); document.body.style.overflow = 'hidden'; }
+        
+        function openBibleModal() { 
+            document.getElementById('bibleModal').classList.add('active'); 
+            document.body.style.overflow = 'hidden'; 
+            
+            // 모달이 열린 직후 오늘 날짜 위치로 스크롤 이동
+            setTimeout(() => {
+                const targetCell = document.getElementById('today-bible-target');
+                if(targetCell) {
+                    targetCell.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+                }
+            }, 100);
+        }
         function closeBibleModal() { document.getElementById('bibleModal').classList.remove('active'); document.body.style.overflow = 'auto'; }
     </script>
 </body>
