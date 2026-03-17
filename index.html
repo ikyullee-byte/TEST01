@@ -17,6 +17,7 @@
         .card-shadow { box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05); transition: all 0.3s; }
         .pb-safe { padding-bottom: calc(7.5rem + env(safe-area-inset-bottom)); }
         
+        /* 예배 순서 정렬 */
         .worship-row { display: grid; grid-template-columns: 1fr 1.2fr 1fr; border-bottom: 1px dotted #e5e7eb; padding: 12px 0; font-size: 0.95rem; align-items: center; transition: all 0.3s; }
         .worship-row span:nth-child(1) { text-align: left; color: #666; }
         .worship-row span:nth-child(2) { text-align: center; font-weight: 700; color: #1d4ed8; }
@@ -26,18 +27,20 @@
         .modal { display: none; position: fixed; z-index: 1000; inset: 0; background: rgba(0,0,0,0.6); align-items: center; justify-content: center; padding: 15px; }
         .modal.active { display: flex; animation: fadeIn 0.2s ease-out; }
         
+        .bible-scroll-container { max-height: 70vh; overflow-y: auto; overflow-x: auto; background: white; border-radius: 1rem; scroll-behavior: smooth; }
         .bible-table { width: 100%; border-collapse: collapse; font-size: 11px; min-width: 850px; }
         .bible-table th { background: #1e3a8a; color: white; padding: 10px 4px; position: sticky; top: 0; z-index: 30; }
         .bible-table td { border: 1px solid #eee; padding: 8px 4px; text-align: center; }
         .day-cell { background: #f1f5f9; font-weight: bold; width: 35px; position: sticky; left: 0; z-index: 10; }
         .today-cell-highlight { background-color: #fef3c7 !important; border: 2px solid #ea580c !important; color: #c2410c !important; font-weight: 900 !important; z-index: 20; position: relative; }
 
+        /* 다크모드 대응 */
         body.dark-mode { background-color: #111827; color: #e5e7eb; }
         body.dark-mode .bg-white { background-color: #1f2937 !important; border-color: #374151; }
         body.dark-mode nav, body.dark-mode .fixed.bottom-0 { background-color: rgba(31, 41, 55, 0.95) !important; border-color: #374151; }
         body.dark-mode .text-blue-900, body.dark-mode .text-blue-950, body.dark-mode .text-blue-700 { color: #93c5fd !important; }
         body.dark-mode .worship-row { border-bottom-color: #374151; }
-        body.dark-mode textarea { background-color: #111827; color: white; border-color: #4b5563; }
+        body.dark-mode textarea, body.dark-mode input { background-color: #111827; color: white; border-color: #4b5563; }
 
         /* 크게보기 모드 강제 적용 */
         body.large-text { font-size: 1.25rem !important; }
@@ -54,6 +57,7 @@
         @keyframes floatUp { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-100px) scale(1.5); opacity: 0; } }
         @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
         
+        /* 출석 도장 효과 */
         .stamp-effect {
             position: absolute; top: 10px; right: 20px;
             color: #ef4444; border: 4px solid #ef4444;
@@ -63,7 +67,10 @@
             opacity: 0; pointer-events: none; z-index: 50;
         }
         .stamp-animate { animation: stampIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
-        @keyframes stampIn { 0% { transform: rotate(-15deg) scale(3); opacity: 0; } 100% { transform: rotate(-15deg) scale(1); opacity: 0.9; } }
+        @keyframes stampIn {
+            0% { transform: rotate(-15deg) scale(3); opacity: 0; }
+            100% { transform: rotate(-15deg) scale(1); opacity: 0.9; }
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-900 pb-safe transition-all duration-300">
@@ -170,11 +177,15 @@
                     <div class="worship-row"><span>대표기도</span><span>-</span><span class="font-bold">인도자</span></div>
                     <div class="worship-row"><span>성경봉독</span><span>엡 5:8-14</span><span>집례자</span></div>
                     <div class="worship-row"><span>찬양</span><span>-</span><span>찬양대</span></div>
+                    
                     <div class="py-6 my-4 bg-orange-50 rounded-3xl text-center border border-orange-100 px-4">
                         <h3 class="text-xl font-bold text-orange-950 italic">"영적 시선으로"</h3>
                         <p class="text-sm font-medium text-orange-800 mb-4">이성결 담임목사</p>
-                        <a href="#" target="_blank" class="inline-flex items-center gap-2 bg-red-600 text-white px-6 py-2.5 rounded-full text-xs font-bold shadow-md active:scale-95 transition-all"><i class="fab fa-youtube text-lg"></i> 설교 영상 준비중</a>
+                        <a href="https://youtu.be/8iSltQrqhgY" target="_blank" class="inline-flex items-center gap-2 bg-red-600 text-white px-6 py-2.5 rounded-full text-xs font-bold shadow-md active:scale-95 transition-all hover:bg-red-700">
+                            <i class="fab fa-youtube text-lg"></i> 설교 영상 보기
+                        </a>
                     </div>
+
                     <div class="mb-6 mt-4">
                         <div class="flex items-center mb-2"><i class="fas fa-pen-clip text-blue-600 mr-2 text-sm"></i><span class="text-xs font-bold text-gray-600">나만의 설교 노트 (자동저장)</span></div>
                         <textarea id="sermon-notes" rows="4" placeholder="은혜를 기록해보세요..." class="w-full bg-blue-50/50 border border-blue-100 rounded-2xl p-4 text-sm focus:outline-none focus:bg-white resize-none transition-all"></textarea>
@@ -192,7 +203,7 @@
                 <span class="w-1.5 h-5 bg-blue-600 rounded-full mr-2"></span>
                 <h2 class="text-xl text-blue-950">이번 주 공동 기도 제목</h2>
             </div>
-            <div class="bg-white rounded-[2.5rem] card-shadow p-8 border-l-8 border-blue-900 space-y-5 text-sm font-medium">
+            <div class="bg-white rounded-[2.5rem] card-shadow p-8 border-l-8 border-blue-900 space-y-5 text-sm font-medium transition-colors">
                 <div class="flex gap-3">
                     <span class="text-blue-900 font-bold shrink-0">1.</span>
                     <p><span class="font-bold text-blue-900">[진실한 삶]</span> 겉모습만 화려한 종교인이 아니라, 삶의 작은 부분까지 주님의 통치를 받는 진실한 예배자가 되게 하소서.</p>
@@ -322,8 +333,8 @@
             ["창46-48","민22-24","삿4-6","왕상19-21","대하31-33","시23-27","잠10-12","사55-57","겔22-24","말1-4","행1-3","살후1-3"],
             ["창49-출1","민25-27","삿7-9","왕상22-왕2","대하34-36","시28-32","잠13-15","사58-60","겔25-27","마1-3","행4-6","딤전1-6"],
             ["출2-4","민28-30","삿10-12","왕하3-5","스1-3","시33-36","잠16-18","사61-63","겔28-30","마4-6","행7-9","딤후1-4"],
-            ["출5-7","민31-33","삿13-15","왕하6-8","스4-6","시37-41","잠19-21","사64-66","겔31-33","마7-9","행10-12","딛1-몬1"],
-            ["출8-10","민34-36","삿16-18","왕하9-11","스7-10","시42-46","잠22-24","렘1-3","겔34-36","마10-12","행13-15","히1-4"],
+            ["출5-7","민31-33","삿13-15","왕하6-8","스4-6","시37-41","잠16-18","사64-66","겔31-33","마7-9","행10-12","딛1-몬1"],
+            ["출8-10","민34-36","삿16-18","왕하9-11","스7-10","시42-46","잠19-21","사61-63","겔28-30","마4-6","행7-9","딤후1-4"],
             ["출11-13","신1-2","삿19-21","왕하12-14","느1-3","시47-51","잠25-27","렘4-6","겔37-39","마13-15","행16-18","히5-8"],
             ["출14-16","신3-4","룻1-4","왕하15-17","느4-6","시52-56","잠28-31","렘7-9","겔40-42","마16-18","행19-21","히9-13"],
             ["출17-19","신5-6","삼상1-3","왕하18-20","느7-9","시57-61","전1-3","렘10-12","겔43-45","마19-21","행22-24","약1-5"],
@@ -334,8 +345,8 @@
             ["출32-34","신15-16","삼상16-18","대상7-9","욥1-3","시81-85","아5-8","렘25-27","단10-12","막6-8","롬10-12","계7-9"],
             ["출35-37","신17-19","삼상19-21","대상10-12","욥4-6","시86-89","사1-3","렘28-30","호1-3","막9-11","롬13-16","계10-12"],
             ["출38-40","-","삼상22-24","대상13-15","욥7-9","시90-94","사4-6","렘31-33","호4-6","막12-14","고전1-3","계13-15"],
-            ["레1-3","-","삼상25-27","대상16-18","욥10-12","시95-99","사7-9","레34-36","호7-9","막15-16","고전4-6","계16-18"],
-            ["레4-6","-","삼상28-31","-","욥13-15","-","사10-12","레37-39","-","눅1-3","-","계19-22"]
+            ["레1-3","-","삼상25-27","대상16-18","욥10-12","시95-99","사7-9","렘34-36","호7-9","막15-16","고전4-6","계16-18"],
+            ["레4-6","-","삼상28-31","-","욥13-15","-","사10-12","렘37-39","-","눅1-3","-","계19-22"]
         ];
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -372,13 +383,22 @@
         function calculateProgress(now) { const percent = Math.floor(((now - new Date(now.getFullYear(), 0, 0)) / (1000*60*60*24*365)) * 100); document.getElementById('progress-text').innerText = `내 달성률: ${percent}%`; setTimeout(() => document.getElementById('progress-bar').style.width = percent + '%', 500); }
         function calculateDDay() { const d = Math.ceil((new Date(2026, 3, 5) - new Date()) / (1000*60*60*24)); document.getElementById('dday-counter').innerText = d > 0 ? `D-${d}` : (d === 0 ? 'D-Day' : '완료'); }
         function showAmenEffect(e) { const emojis = ['🙏', '❤️', '✨']; for(let i=0; i<6; i++) { const drop = document.createElement('div'); drop.innerHTML = emojis[Math.floor(Math.random() * emojis.length)]; drop.className = 'floating-emoji'; drop.style.left = e.clientX + 'px'; drop.style.top = e.clientY + 'px'; document.body.appendChild(drop); setTimeout(() => drop.remove(), 1500); } }
+
         function openPrayerModal() { document.getElementById('prayerModal').classList.add('active'); }
         function closePrayerModal() { document.getElementById('prayerModal').classList.remove('active'); }
         function openModal() { document.getElementById('giveModal').classList.add('active'); }
         function closeModal() { document.getElementById('giveModal').classList.remove('active'); }
-        function openMannaModal() { const v = [{t:"여호와는 나의 목자시니 부족함이 없으리로다", r:"시편 23:1"}, {t:"두려워하지 말라 내가 너와 함께 함이라", r:"이사야 41:10"}, {t:"내게 능력 주시는 자 안에서 내가 모든 것을 할 수 있느니라", r:"빌립보서 4:13"}]; const r = v[Math.floor(Math.random()*v.length)]; document.getElementById('manna-text').innerText = `"${r.t}"`; document.getElementById('manna-ref').innerText = `- ${r.r} -`; document.getElementById('mannaModal').classList.add('active'); }
+        function openMannaModal() {
+            const v = [{t:"여호와는 나의 목자시니 부족함이 없으리로다", r:"시편 23:1"}, {t:"두려워하지 말라 내가 너와 함께 함이라", r:"이사야 41:10"}, {t:"내게 능력 주시는 자 안에서 내가 모든 것을 할 수 있느니라", r:"빌립보서 4:13"}];
+            const r = v[Math.floor(Math.random()*v.length)];
+            document.getElementById('manna-text').innerText = `"${r.t}"`;
+            document.getElementById('manna-ref').innerText = `- ${r.r} -`;
+            document.getElementById('mannaModal').classList.add('active');
+        }
         function closeMannaModal() { document.getElementById('mannaModal').classList.remove('active'); }
-        function openBibleModal() { document.getElementById('bibleModal').classList.add('active'); setTimeout(() => { document.getElementById('today-bible-target')?.scrollIntoView({behavior:'smooth', block:'center'}); }, 200); }
+        function openBibleModal() { 
+            document.getElementById('bibleModal').classList.add('active'); setTimeout(() => { document.getElementById('today-bible-target')?.scrollIntoView({behavior:'smooth', block:'center'}); }, 200); 
+        }
         function closeBibleModal() { document.getElementById('bibleModal').classList.remove('active'); }
     </script>
 </body>
