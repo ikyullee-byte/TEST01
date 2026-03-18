@@ -25,7 +25,6 @@
         .modal { display: none; position: fixed; z-index: 1000; inset: 0; background: rgba(0,0,0,0.6); align-items: center; justify-content: center; padding: 15px; }
         .modal.active { display: flex; animation: fadeIn 0.2s ease-out; }
         
-        /* 성경 통독표 스타일 및 오늘 날짜 강조 */
         .bible-scroll-container { max-height: 55vh; overflow-y: auto; overflow-x: auto; background: white; border-radius: 1rem; border: 1px solid #eee; scroll-behavior: smooth; }
         .bible-table { width: 100%; border-collapse: collapse; font-size: 11px; min-width: 850px; }
         .bible-table th { background: #1e3a8a; color: white; padding: 10px 4px; position: sticky; top: 0; z-index: 30; }
@@ -119,14 +118,43 @@
                         <span class="text-xs font-bold opacity-80 text-purple-200">3.30(월) - 4.3(금)</span>
                     </div>
                     <h3 class="text-xl font-black mb-1">고난주간 특별새벽기도회</h3>
-                    <p class="text-sm font-medium text-purple-200 mb-6 italic">"십자가의 길, 함께 걷는 은혜"</p>
-                    <div class="flex items-center justify-between mt-2">
+                    <p class="text-sm font-medium text-purple-200 mb-5 italic">"십자가의 길, 함께 걷는 은혜"</p>
+                    
+                    <div class="flex items-center justify-between mb-5">
                         <div class="text-xs font-bold bg-white/10 px-3 py-2 rounded-xl border border-white/20 flex items-center shadow-inner">
                             <i class="far fa-clock mr-1.5 text-purple-300"></i> 새벽 5:00 본당
                         </div>
                         <button id="pledge-btn" onclick="pledgePrayer(this)" class="bg-white text-purple-900 font-bold text-xs px-4 py-2.5 rounded-xl shadow-xl active:scale-95 transition-all flex items-center">
                             <i class="fas fa-hand-holding-heart mr-1.5 text-red-500"></i> 참여 다짐하기
                         </button>
+                    </div>
+
+                    <div class="bg-white/5 rounded-xl p-3 border border-white/10 backdrop-blur-sm">
+                        <h4 class="text-[11px] font-bold text-purple-200 mb-2 flex items-center gap-1.5">
+                            <i class="fas fa-praying-hands"></i> 요일별 대표기도 순서
+                        </h4>
+                        <div class="grid grid-cols-5 gap-1.5 text-center">
+                            <div class="bg-white/10 rounded-lg py-1.5 flex flex-col justify-center shadow-sm">
+                                <span class="text-[10px] text-purple-300 font-bold mb-0.5">월</span>
+                                <span class="text-[9px] sm:text-[10px] font-bold tracking-tighter">1여전도회</span>
+                            </div>
+                            <div class="bg-white/10 rounded-lg py-1.5 flex flex-col justify-center shadow-sm">
+                                <span class="text-[10px] text-purple-300 font-bold mb-0.5">화</span>
+                                <span class="text-[9px] sm:text-[10px] font-bold tracking-tighter">2여전도회</span>
+                            </div>
+                            <div class="bg-white/10 rounded-lg py-1.5 flex flex-col justify-center shadow-sm">
+                                <span class="text-[10px] text-purple-300 font-bold mb-0.5">수</span>
+                                <span class="text-[9px] sm:text-[10px] font-bold tracking-tighter">3여전도회</span>
+                            </div>
+                            <div class="bg-white/10 rounded-lg py-1.5 flex flex-col justify-center shadow-sm">
+                                <span class="text-[10px] text-purple-300 font-bold mb-0.5">목</span>
+                                <span class="text-[9px] sm:text-[10px] font-bold tracking-tighter">남전도회</span>
+                            </div>
+                            <div class="bg-white/10 rounded-lg py-1.5 flex flex-col justify-center shadow-sm">
+                                <span class="text-[10px] text-purple-300 font-bold mb-0.5">금</span>
+                                <span class="text-[9px] sm:text-[10px] font-bold tracking-tighter">목회자</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -346,7 +374,6 @@
             const now = new Date();
             initSmartGreeting(now); initGraceThermometer(); calculateDDay(); calculateProgress(now); initNotes();
             
-            // 통독표 생성 및 오늘 날짜 정확하게 찾아서 강조하기
             const tableBody = document.getElementById('bible-full-body');
             document.getElementById('bible-head').innerHTML = `<tr><th style="left:0; z-index:40;">일</th>${Array.from({length:12}, (_,i)=>`<th>${i+1}월</th>`).join('')}</tr>`;
             
@@ -366,14 +393,12 @@
                 tableBody.appendChild(tr);
             });
 
-            // 주간 통독표 오늘 요일 강조
             document.querySelectorAll('.bible-item').forEach(item => { 
                 if(parseInt(item.getAttribute('data-day')) === now.getDay()) {
                     item.classList.add('today-highlight'); 
                 }
             });
 
-            // 기존 출석 기록 확인
             ['morning', 'afternoon', 'wednesday'].forEach(id => {
                 if(localStorage.getItem(`attendance_${id}_today`) === now.toDateString()) {
                     document.getElementById(`stamp-${id}`).style.opacity = '0.9';
@@ -382,7 +407,6 @@
                 }
             });
 
-            // 고난주간 다짐 버튼 상태 확인
             if(localStorage.getItem('passion_week_pledge') === 'true') {
                 const pBtn = document.getElementById('pledge-btn');
                 if(pBtn) {
@@ -394,7 +418,6 @@
             }
         });
 
-        // ✅ 고난주간 참여 다짐 버튼 로직
         function pledgePrayer(btn) {
             vibratePattern([50, 100, 50]);
             btn.innerHTML = '<i class="fas fa-check text-green-600 mr-1.5"></i> 다짐 완료!';
@@ -402,17 +425,10 @@
             btn.classList.replace('bg-white', 'bg-gray-100');
             btn.style.pointerEvents = 'none';
             
-            confetti({ 
-                particleCount: 100, 
-                spread: 60, 
-                origin: { y: 0.6 }, 
-                colors: ['#a855f7', '#ffffff', '#eab308'] 
-            });
-            
+            confetti({ particleCount: 100, spread: 60, origin: { y: 0.6 }, colors: ['#a855f7', '#ffffff', '#eab308'] });
             localStorage.setItem('passion_week_pledge', 'true');
         }
 
-        // 음성 안내 (TTS)
         function speakText(type) {
             let text = "";
             if(type === '암송 구절') text = document.getElementById('verse-text').innerText + ". " + document.getElementById('verse-ref').innerText;
