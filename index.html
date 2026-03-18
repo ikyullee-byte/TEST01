@@ -32,10 +32,7 @@
         .bible-table td { border: 1px solid #eee; padding: 8px 4px; text-align: center; }
         .day-cell { background: #f1f5f9; font-weight: bold; width: 35px; position: sticky; left: 0; z-index: 10; }
         
-        /* 1년 통독표 오늘 날짜 강조 (테두리 겹침 방지를 위해 outline 사용) */
         .today-cell-highlight { background-color: #fef3c7 !important; outline: 3px solid #ea580c !important; outline-offset: -2px; color: #c2410c !important; font-weight: 900 !important; position: relative; z-index: 20; transform: scale(1.05); }
-        
-        /* 주간 통독표 오늘 요일 강조 */
         .today-highlight { background-color: #fef3c7 !important; border: 2px solid #ea580c !important; transform: scale(1.05); transition: all 0.3s; }
         .today-highlight div:first-child { color: #ea580c !important; }
         .today-highlight div:last-child { color: #c2410c !important; font-weight: 900 !important; }
@@ -46,12 +43,13 @@
         body.dark-mode .text-blue-900, body.dark-mode .text-blue-950, body.dark-mode .text-blue-700 { color: #93c5fd !important; }
         body.dark-mode .worship-row { border-bottom-color: #374151; }
         body.dark-mode textarea { background-color: #111827; color: white; border-color: #4b5563; }
+        body.dark-mode #passion-week-special { border-color: #6b21a8; }
 
         body.large-text { font-size: 1.25rem !important; }
         body.large-text .text-sm { font-size: 1.15rem !important; }
         body.large-text .worship-row { font-size: 1.15rem !important; }
         
-        .tts-btn { background: #f1f5f9; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #1e3a8a; shadow: sm; }
+        .tts-btn { background: #f1f5f9; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #1e3a8a; }
         .stamp-effect { position: absolute; top: 10px; right: 20px; color: #ef4444; border: 4px solid #ef4444; border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 14px; transform: rotate(-15deg); opacity: 0; pointer-events: none; z-index: 50; }
         .stamp-animate { animation: stampIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
         @keyframes stampIn { 0% { transform: scale(3); opacity: 0; } 100% { transform: scale(1); opacity: 0.9; } }
@@ -93,7 +91,7 @@
                     <i class="fas fa-heart text-red-500 mt-1 text-xs"></i>
                 </div>
                 <div class="flex-1">
-                    <h3 class="font-bold text-gray-800 text-sm mb-1 italic">오늘의 은혜 온도</h3>
+                    <h3 class="font-bold text-gray-800 text-sm mb-1 italic">원종제일교회 은혜 온도</h3>
                     <div class="flex justify-between items-end">
                         <span class="text-2xl font-black text-red-600" id="grace-temp-text">0°</span>
                         <span class="text-[10px] font-bold text-gray-400">목표: 90°</span>
@@ -109,6 +107,28 @@
                     <h3 class="text-lg font-bold">예수 부활을 기뻐하는 부활주일</h3>
                 </div>
                 <div class="bg-white text-red-600 font-black text-2xl px-4 py-2 rounded-2xl shadow-inner tracking-tighter" id="dday-counter">D-19</div>
+            </div>
+        </section>
+
+        <section id="passion-week-special">
+            <div class="bg-gradient-to-br from-purple-900 via-indigo-900 to-slate-900 rounded-[2rem] card-shadow p-6 text-white relative overflow-hidden transform transition hover:scale-[1.02] border border-purple-700/50">
+                <i class="fas fa-cross absolute -right-2 -bottom-6 text-8xl text-white opacity-10 transform -rotate-12"></i>
+                <div class="relative z-10">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="bg-red-600 text-white text-[10px] font-black px-2 py-1 rounded-md tracking-widest animate-pulse shadow-lg">SPECIAL</span>
+                        <span class="text-xs font-bold opacity-80 text-purple-200">3.30(월) - 4.3(금)</span>
+                    </div>
+                    <h3 class="text-xl font-black mb-1">고난주간 특별새벽기도회</h3>
+                    <p class="text-sm font-medium text-purple-200 mb-6 italic">"십자가의 길, 함께 걷는 은혜"</p>
+                    <div class="flex items-center justify-between mt-2">
+                        <div class="text-xs font-bold bg-white/10 px-3 py-2 rounded-xl border border-white/20 flex items-center shadow-inner">
+                            <i class="far fa-clock mr-1.5 text-purple-300"></i> 새벽 5:00 본당
+                        </div>
+                        <button id="pledge-btn" onclick="pledgePrayer(this)" class="bg-white text-purple-900 font-bold text-xs px-4 py-2.5 rounded-xl shadow-xl active:scale-95 transition-all flex items-center">
+                            <i class="fas fa-hand-holding-heart mr-1.5 text-red-500"></i> 참여 다짐하기
+                        </button>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -252,7 +272,7 @@
             <div class="flex items-center mb-4 ml-2 font-bold"><span class="w-1.5 h-5 bg-blue-600 rounded-full mr-2"></span><h2 class="text-xl text-blue-950">교회 소식</h2></div>
             <div class="bg-white rounded-[2.5rem] card-shadow p-6 border border-gray-100 space-y-4 text-sm font-medium">
                 <div class="pb-3 border-b border-gray-50 flex gap-3 text-blue-900 font-bold"><p>1. 원로목사님 퇴원하셨습니다. 온전한 회복을 위해 기도 바랍니다.</p></div>
-                <div class="pb-3 border-b border-gray-50 flex gap-3 font-bold"><p>2. 고난주간 특별새벽기도회: 3/30(월) ~ 4/3(금) 참여 바랍니다.</p></div>
+                <div class="pb-3 border-b border-gray-50 flex gap-3 font-bold"><p>2. 고난주간 특별새벽기도회: 3/30(월) ~ 4/3(금) 많은 참여 바랍니다.</p></div>
             </div>
         </section>
 
@@ -326,7 +346,7 @@
             const now = new Date();
             initSmartGreeting(now); initGraceThermometer(); calculateDDay(); calculateProgress(now); initNotes();
             
-            // ✅ 통독표 생성 및 오늘 날짜 정확하게 찾아서 강조하기
+            // 통독표 생성 및 오늘 날짜 정확하게 찾아서 강조하기
             const tableBody = document.getElementById('bible-full-body');
             document.getElementById('bible-head').innerHTML = `<tr><th style="left:0; z-index:40;">일</th>${Array.from({length:12}, (_,i)=>`<th>${i+1}월</th>`).join('')}</tr>`;
             
@@ -335,7 +355,7 @@
 
             fullBibleData.forEach((row, idx) => {
                 const tr = document.createElement('tr');
-                const rowDate = idx + 1; // 1일부터 31일까지
+                const rowDate = idx + 1;
                 let rowHtml = `<td class="day-cell">${rowDate}</td>`;
                 
                 row.forEach((cell, mIdx) => {
@@ -346,7 +366,7 @@
                 tableBody.appendChild(tr);
             });
 
-            // ✅ 주간 통독표 오늘 요일 강조 (새로 추가된 CSS 클래스 연동)
+            // 주간 통독표 오늘 요일 강조
             document.querySelectorAll('.bible-item').forEach(item => { 
                 if(parseInt(item.getAttribute('data-day')) === now.getDay()) {
                     item.classList.add('today-highlight'); 
@@ -361,7 +381,36 @@
                     if(btn) btn.style.display = 'none';
                 }
             });
+
+            // 고난주간 다짐 버튼 상태 확인
+            if(localStorage.getItem('passion_week_pledge') === 'true') {
+                const pBtn = document.getElementById('pledge-btn');
+                if(pBtn) {
+                    pBtn.innerHTML = '<i class="fas fa-check text-green-600 mr-1.5"></i> 다짐 완료!';
+                    pBtn.classList.replace('text-purple-900', 'text-gray-600');
+                    pBtn.classList.replace('bg-white', 'bg-gray-100');
+                    pBtn.style.pointerEvents = 'none';
+                }
+            }
         });
+
+        // ✅ 고난주간 참여 다짐 버튼 로직
+        function pledgePrayer(btn) {
+            vibratePattern([50, 100, 50]);
+            btn.innerHTML = '<i class="fas fa-check text-green-600 mr-1.5"></i> 다짐 완료!';
+            btn.classList.replace('text-purple-900', 'text-gray-600');
+            btn.classList.replace('bg-white', 'bg-gray-100');
+            btn.style.pointerEvents = 'none';
+            
+            confetti({ 
+                particleCount: 100, 
+                spread: 60, 
+                origin: { y: 0.6 }, 
+                colors: ['#a855f7', '#ffffff', '#eab308'] 
+            });
+            
+            localStorage.setItem('passion_week_pledge', 'true');
+        }
 
         // 음성 안내 (TTS)
         function speakText(type) {
@@ -423,7 +472,6 @@
         }
         function closeMannaModal() { document.getElementById('mannaModal').classList.remove('active'); }
         
-        // ✅ 성경 모달 오픈 및 오늘 날짜로 자동 스크롤
         function openBibleModal() { 
             document.getElementById('bibleModal').classList.add('active'); 
             setTimeout(() => { 
