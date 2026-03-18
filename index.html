@@ -17,25 +17,21 @@
         .card-shadow { box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05); transition: all 0.3s; }
         .pb-safe { padding-bottom: calc(7.5rem + env(safe-area-inset-bottom)); }
         
-        /* 예배 순서 스타일 */
         .worship-row { display: grid; grid-template-columns: 1fr 1.2fr 1fr; border-bottom: 1px dotted #e5e7eb; padding: 12px 0; font-size: 0.95rem; align-items: center; }
         .worship-row span:nth-child(1) { text-align: left; color: #666; }
         .worship-row span:nth-child(2) { text-align: center; font-weight: 700; color: #1d4ed8; }
         .worship-row span:nth-child(3) { text-align: right; color: #333; }
 
-        /* 모달 시스템 */
         .modal { display: none; position: fixed; z-index: 1000; inset: 0; background: rgba(0,0,0,0.6); align-items: center; justify-content: center; padding: 15px; }
         .modal.active { display: flex; animation: fadeIn 0.2s ease-out; }
         
-        /* 성경 통독표 */
-        .bible-scroll-container { max-height: 55vh; overflow-y: auto; overflow-x: auto; background: white; border-radius: 1rem; border: 1px solid #eee; }
+        .bible-scroll-container { max-height: 55vh; overflow-y: auto; overflow-x: auto; background: white; border-radius: 1rem; border: 1px solid #eee; scroll-behavior: smooth; }
         .bible-table { width: 100%; border-collapse: collapse; font-size: 11px; min-width: 850px; }
         .bible-table th { background: #1e3a8a; color: white; padding: 10px 4px; position: sticky; top: 0; z-index: 30; }
         .bible-table td { border: 1px solid #eee; padding: 8px 4px; text-align: center; }
         .day-cell { background: #f1f5f9; font-weight: bold; width: 35px; position: sticky; left: 0; z-index: 10; }
-        .today-cell-highlight { background-color: #fef3c7 !important; border: 2px solid #ea580c !important; color: #c2410c !important; font-weight: 900 !important; }
+        .today-cell-highlight { background-color: #fef3c7 !important; border: 2px solid #ea580c !important; color: #c2410c !important; font-weight: 900 !important; transform: scale(1.05); }
 
-        /* 다크모드 및 크게보기 */
         body.dark-mode { background-color: #111827; color: #e5e7eb; }
         body.dark-mode .bg-white { background-color: #1f2937 !important; border-color: #374151; }
         body.dark-mode nav, body.dark-mode .fixed.bottom-0 { background-color: rgba(31, 41, 55, 0.95) !important; border-color: #374151; }
@@ -47,7 +43,6 @@
         body.large-text .text-sm { font-size: 1.15rem !important; }
         body.large-text .worship-row { font-size: 1.15rem !important; }
         
-        /* TTS 버튼 및 출석도장 */
         .tts-btn { background: #f1f5f9; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #1e3a8a; shadow: sm; }
         .stamp-effect {
             position: absolute; top: 10px; right: 20px; color: #ef4444; border: 4px solid #ef4444;
@@ -65,11 +60,13 @@
 <body class="bg-gray-50 text-gray-900 pb-safe transition-all duration-300">
 
     <nav class="bg-white/95 backdrop-blur-md sticky top-0 z-50 shadow-sm border-b font-bold px-5 py-3 flex justify-between items-center">
-        <div class="flex flex-col">
-            <span class="text-blue-900 text-lg font-bold tracking-tighter">원종제일교회</span>
-            <span class="text-[9px] text-blue-500 uppercase font-bold tracking-widest">Wonjong First Church</span>
+        <div class="flex items-center gap-3 min-w-0">
+            <img src="https://ikyullee-byte.github.io/TEST01/logo.png" alt="원종제일교회 로고" class="w-10 h-10 flex-shrink-0 object-contain" onerror="this.src='https://ikyullee-byte.github.io/TEST01/logo.PNG'; this.onerror=null;">
+            <div class="flex flex-col min-w-0">
+                <span class="text-[10px] text-blue-600 uppercase font-black tracking-[0.2em] truncate">Wonjong First Church</span>
+            </div>
         </div>
-        <div class="flex gap-2">
+        <div class="flex gap-2 flex-shrink-0">
             <button onclick="toggleFontSize()" aria-label="크게보기" class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center active:scale-90 shadow-sm"><i class="fas fa-search-plus"></i></button>
             <button onclick="toggleDarkMode()" aria-label="어두운모드" class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center active:scale-90 shadow-sm"><i class="fas fa-moon" id="dark-icon"></i></button>
         </div>
@@ -95,7 +92,7 @@
                     <i class="fas fa-heart text-red-500 mt-1 text-xs"></i>
                 </div>
                 <div class="flex-1">
-                    <h3 class="font-bold text-gray-800 text-sm mb-1 italic">원종제일교회 은혜 온도</h3>
+                    <h3 class="font-bold text-gray-800 text-sm mb-1 italic">오늘의 은혜 온도</h3>
                     <div class="flex justify-between items-end">
                         <span class="text-2xl font-black text-red-600" id="grace-temp-text">0°</span>
                         <span class="text-[10px] font-bold text-gray-400">목표: 90°</span>
@@ -187,6 +184,23 @@
                     <div class="worship-row"><span>교회소식</span><span>-</span><span>집례자</span></div>
                     <div class="worship-row border-none pt-2 font-bold"><span>축도</span><span>-</span><span>이성결 목사</span></div>
                 </div>
+            </div>
+        </section>
+
+        <section id="praise-hub">
+            <div class="bg-white rounded-[2rem] card-shadow p-6 border-l-8 border-blue-600 flex items-center justify-between transition hover:scale-[1.01]">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 text-xl shadow-inner">
+                        <i class="fas fa-microphone-lines"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-gray-800 text-sm italic">원종제일교회 찬양단</h3>
+                        <p class="text-[9px] text-blue-400 font-bold uppercase tracking-widest">Worship Music Team</p>
+                    </div>
+                </div>
+                <a href="https://ikyullee-byte.github.io/worship/" target="_blank" class="bg-blue-900 text-white px-5 py-2.5 rounded-xl text-xs font-bold shadow-lg active:scale-95 transition-transform flex items-center gap-2">
+                    바로가기 <i class="fas fa-chevron-right text-[10px]"></i>
+                </a>
             </div>
         </section>
 
@@ -311,18 +325,30 @@
             const now = new Date();
             initSmartGreeting(now); initGraceThermometer(); calculateDDay(); calculateProgress(now); initNotes();
             
-            // 통독표 생성 및 오늘 강조
+            // 통독표 생성 및 오늘 날짜 정확하게 찾아서 강조하기
             const tableBody = document.getElementById('bible-full-body');
             document.getElementById('bible-head').innerHTML = `<tr><th style="left:0; z-index:40;">일</th>${Array.from({length:12}, (_,i)=>`<th>${i+1}월</th>`).join('')}</tr>`;
+            
+            // 현재 월(0~11)과 일(1~31)
+            const currentMonth = now.getMonth(); 
+            const currentDate = now.getDate();
+
             fullBibleData.forEach((row, idx) => {
                 const tr = document.createElement('tr');
-                let rowHtml = `<td class="day-cell">${idx + 1}</td>`;
+                const rowDate = idx + 1; // 1일부터 31일까지
+                let rowHtml = `<td class="day-cell">${rowDate}</td>`;
+                
                 row.forEach((cell, mIdx) => {
-                    let isToday = (idx + 1 === now.getDate() && mIdx === now.getMonth() && cell !== '-');
+                    // mIdx는 0~11(월), rowDate는 1~31(일)
+                    let isToday = (rowDate === currentDate && mIdx === currentMonth && cell !== '-');
+                    
                     rowHtml += `<td class="${isToday ? 'today-cell-highlight' : ''} ${cell === '-' ? 'bg-gray-50' : ''}" ${isToday ? 'id="today-bible-target"' : ''}>${cell === '-' ? '' : cell}</td>`;
                 });
-                tr.innerHTML = rowHtml; tableBody.appendChild(tr);
+                tr.innerHTML = rowHtml; 
+                tableBody.appendChild(tr);
             });
+
+            // 요일 표시 강조 (주간 성경읽기용)
             document.querySelectorAll('.bible-item').forEach(item => { if(parseInt(item.getAttribute('data-day')) === now.getDay()) item.classList.add('today-highlight'); });
 
             // 기존 출석 기록 확인
@@ -397,7 +423,20 @@
             document.getElementById('mannaModal').classList.add('active'); 
         }
         function closeMannaModal() { document.getElementById('mannaModal').classList.remove('active'); }
-        function openBibleModal() { document.getElementById('bibleModal').classList.add('active'); setTimeout(() => { document.getElementById('today-bible-target')?.scrollIntoView({behavior:'smooth', block:'center'}); }, 200); vibratePattern(50); }
+        
+        // 성경 모달 오픈 및 오늘 날짜로 자동 스크롤
+        function openBibleModal() { 
+            document.getElementById('bibleModal').classList.add('active'); 
+            
+            // 모달이 열리고 렌더링될 시간을 살짝 준 뒤 스크롤 이동
+            setTimeout(() => { 
+                const target = document.getElementById('today-bible-target');
+                if(target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+                }
+            }, 200); 
+            vibratePattern(50); 
+        }
         function closeBibleModal() { document.getElementById('bibleModal').classList.remove('active'); }
     </script>
 </body>
