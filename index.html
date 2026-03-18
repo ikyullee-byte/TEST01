@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>원종제일교회 스마트 주보 (완전체)</title>
+    <title>원종제일교회 스마트 주보</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -25,12 +25,20 @@
         .modal { display: none; position: fixed; z-index: 1000; inset: 0; background: rgba(0,0,0,0.6); align-items: center; justify-content: center; padding: 15px; }
         .modal.active { display: flex; animation: fadeIn 0.2s ease-out; }
         
+        /* 성경 통독표 스타일 및 오늘 날짜 강조 */
         .bible-scroll-container { max-height: 55vh; overflow-y: auto; overflow-x: auto; background: white; border-radius: 1rem; border: 1px solid #eee; scroll-behavior: smooth; }
         .bible-table { width: 100%; border-collapse: collapse; font-size: 11px; min-width: 850px; }
         .bible-table th { background: #1e3a8a; color: white; padding: 10px 4px; position: sticky; top: 0; z-index: 30; }
         .bible-table td { border: 1px solid #eee; padding: 8px 4px; text-align: center; }
         .day-cell { background: #f1f5f9; font-weight: bold; width: 35px; position: sticky; left: 0; z-index: 10; }
-        .today-cell-highlight { background-color: #fef3c7 !important; border: 2px solid #ea580c !important; color: #c2410c !important; font-weight: 900 !important; transform: scale(1.05); }
+        
+        /* 1년 통독표 오늘 날짜 강조 (테두리 겹침 방지를 위해 outline 사용) */
+        .today-cell-highlight { background-color: #fef3c7 !important; outline: 3px solid #ea580c !important; outline-offset: -2px; color: #c2410c !important; font-weight: 900 !important; position: relative; z-index: 20; transform: scale(1.05); }
+        
+        /* 주간 통독표 오늘 요일 강조 */
+        .today-highlight { background-color: #fef3c7 !important; border: 2px solid #ea580c !important; transform: scale(1.05); transition: all 0.3s; }
+        .today-highlight div:first-child { color: #ea580c !important; }
+        .today-highlight div:last-child { color: #c2410c !important; font-weight: 900 !important; }
 
         body.dark-mode { background-color: #111827; color: #e5e7eb; }
         body.dark-mode .bg-white { background-color: #1f2937 !important; border-color: #374151; }
@@ -44,11 +52,7 @@
         body.large-text .worship-row { font-size: 1.15rem !important; }
         
         .tts-btn { background: #f1f5f9; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #1e3a8a; shadow: sm; }
-        .stamp-effect {
-            position: absolute; top: 10px; right: 20px; color: #ef4444; border: 4px solid #ef4444;
-            border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;
-            font-weight: 900; font-size: 14px; transform: rotate(-15deg); opacity: 0; pointer-events: none; z-index: 50;
-        }
+        .stamp-effect { position: absolute; top: 10px; right: 20px; color: #ef4444; border: 4px solid #ef4444; border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 14px; transform: rotate(-15deg); opacity: 0; pointer-events: none; z-index: 50; }
         .stamp-animate { animation: stampIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
         @keyframes stampIn { 0% { transform: scale(3); opacity: 0; } 100% { transform: scale(1); opacity: 0.9; } }
         
@@ -59,12 +63,9 @@
 </head>
 <body class="bg-gray-50 text-gray-900 pb-safe transition-all duration-300">
 
-    <nav class="bg-white/95 backdrop-blur-md sticky top-0 z-50 shadow-sm border-b font-bold px-5 py-3 flex justify-between items-center">
-        <div class="flex items-center gap-3 min-w-0">
-            <img src="https://ikyullee-byte.github.io/TEST01/logo.png" alt="원종제일교회 로고" class="w-10 h-10 flex-shrink-0 object-contain" onerror="this.src='https://ikyullee-byte.github.io/TEST01/logo.PNG'; this.onerror=null;">
-            <div class="flex flex-col min-w-0">
-                <span class="text-[10px] text-blue-600 uppercase font-black tracking-[0.2em] truncate">Wonjong First Church</span>
-            </div>
+    <nav class="bg-white/95 backdrop-blur-md sticky top-0 z-50 shadow-sm border-b font-bold px-5 py-2 flex justify-between items-center">
+        <div class="flex items-center">
+            <img src="https://ikyullee-byte.github.io/TEST01/logo.png" alt="원종제일교회 로고" class="h-14 w-auto object-contain" onerror="this.src='https://ikyullee-byte.github.io/TEST01/logo.PNG'; this.onerror=null;">
         </div>
         <div class="flex gap-2 flex-shrink-0">
             <button onclick="toggleFontSize()" aria-label="크게보기" class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center active:scale-90 shadow-sm"><i class="fas fa-search-plus"></i></button>
@@ -325,11 +326,10 @@
             const now = new Date();
             initSmartGreeting(now); initGraceThermometer(); calculateDDay(); calculateProgress(now); initNotes();
             
-            // 통독표 생성 및 오늘 날짜 정확하게 찾아서 강조하기
+            // ✅ 통독표 생성 및 오늘 날짜 정확하게 찾아서 강조하기
             const tableBody = document.getElementById('bible-full-body');
             document.getElementById('bible-head').innerHTML = `<tr><th style="left:0; z-index:40;">일</th>${Array.from({length:12}, (_,i)=>`<th>${i+1}월</th>`).join('')}</tr>`;
             
-            // 현재 월(0~11)과 일(1~31)
             const currentMonth = now.getMonth(); 
             const currentDate = now.getDate();
 
@@ -339,17 +339,19 @@
                 let rowHtml = `<td class="day-cell">${rowDate}</td>`;
                 
                 row.forEach((cell, mIdx) => {
-                    // mIdx는 0~11(월), rowDate는 1~31(일)
                     let isToday = (rowDate === currentDate && mIdx === currentMonth && cell !== '-');
-                    
                     rowHtml += `<td class="${isToday ? 'today-cell-highlight' : ''} ${cell === '-' ? 'bg-gray-50' : ''}" ${isToday ? 'id="today-bible-target"' : ''}>${cell === '-' ? '' : cell}</td>`;
                 });
                 tr.innerHTML = rowHtml; 
                 tableBody.appendChild(tr);
             });
 
-            // 요일 표시 강조 (주간 성경읽기용)
-            document.querySelectorAll('.bible-item').forEach(item => { if(parseInt(item.getAttribute('data-day')) === now.getDay()) item.classList.add('today-highlight'); });
+            // ✅ 주간 통독표 오늘 요일 강조 (새로 추가된 CSS 클래스 연동)
+            document.querySelectorAll('.bible-item').forEach(item => { 
+                if(parseInt(item.getAttribute('data-day')) === now.getDay()) {
+                    item.classList.add('today-highlight'); 
+                }
+            });
 
             // 기존 출석 기록 확인
             ['morning', 'afternoon', 'wednesday'].forEach(id => {
@@ -375,10 +377,8 @@
             vibratePattern([50, 100, 50]);
         }
 
-        // 진동 패턴
         function vibratePattern(pattern) { if (navigator.vibrate) navigator.vibrate(pattern); }
 
-        // 출석체크 기능 통합
         function checkAttendance(btn, id) {
             vibratePattern([100, 50, 100]);
             confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
@@ -409,7 +409,6 @@
         function calculateDDay() { const d = Math.ceil((new Date(2026, 3, 5) - new Date()) / (1000*60*60*24)); document.getElementById('dday-counter').innerText = d > 0 ? `D-${d}` : (d === 0 ? 'D-Day' : '완료'); }
         function showAmenEffect(e) { vibratePattern(100); const emojis = ['🙏', '❤️', '✨']; for(let i=0; i<6; i++) { const drop = document.createElement('div'); drop.innerHTML = emojis[Math.floor(Math.random() * emojis.length)]; drop.className = 'floating-emoji'; drop.style.left = e.clientX + 'px'; drop.style.top = e.clientY + 'px'; document.body.appendChild(drop); setTimeout(() => drop.remove(), 1500); } }
 
-        // 모달 제어
         function openPrayerModal() { document.getElementById('prayerModal').classList.add('active'); vibratePattern(50); }
         function closePrayerModal() { document.getElementById('prayerModal').classList.remove('active'); }
         function openModal() { document.getElementById('giveModal').classList.add('active'); vibratePattern(50); }
@@ -424,11 +423,9 @@
         }
         function closeMannaModal() { document.getElementById('mannaModal').classList.remove('active'); }
         
-        // 성경 모달 오픈 및 오늘 날짜로 자동 스크롤
+        // ✅ 성경 모달 오픈 및 오늘 날짜로 자동 스크롤
         function openBibleModal() { 
             document.getElementById('bibleModal').classList.add('active'); 
-            
-            // 모달이 열리고 렌더링될 시간을 살짝 준 뒤 스크롤 이동
             setTimeout(() => { 
                 const target = document.getElementById('today-bible-target');
                 if(target) {
