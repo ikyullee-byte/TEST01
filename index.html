@@ -180,20 +180,8 @@
                 <div class="text-[10px] font-bold text-blue-600" id="progress-text">내 달성률: 0%</div>
             </div>
             <div class="w-full bg-gray-200 rounded-full h-1.5 mb-4 overflow-hidden"><div id="progress-bar" class="bg-blue-600 h-1.5 rounded-full transition-all duration-1000 ease-out" style="width: 0%"></div></div>
-            <div class="bg-white rounded-[2rem] card-shadow p-4 grid grid-cols-4 gap-2 text-center text-[10px]" id="bible-grid">
-                <div class="bible-item p-2 bg-gray-50 rounded-xl" data-day="6"><div class="text-blue-500 font-bold">오늘(28)</div><div class="font-bold">삼상19-21</div></div>
-                <div class="bible-item p-2 bg-gray-50 rounded-xl" data-day="0"><div class="text-red-500 font-bold">주일(29)</div><div class="font-bold">삼상22-24</div></div>
-                <div class="bible-item p-2 bg-gray-50 rounded-xl" data-day="1"><div class="text-gray-400 font-bold">월(30)</div><div class="font-bold">삼상25-27</div></div>
-                <div class="bible-item p-2 bg-gray-50 rounded-xl" data-day="2"><div class="text-gray-400 font-bold">화(31)</div><div class="font-bold">삼상28-31</div></div>
-                <div class="bible-item p-2 bg-gray-50 rounded-xl" data-day="3"><div class="text-gray-400 font-bold">수(1)</div><div class="font-bold">삼하1-3</div></div>
-                <div class="bible-item p-2 bg-gray-50 rounded-xl" data-day="4"><div class="text-gray-400 font-bold">목(2)</div><div class="font-bold">삼하4-6</div></div>
-                <div class="bible-item p-2 bg-gray-50 rounded-xl" data-day="5"><div class="text-gray-400 font-bold">금(3)</div><div class="font-bold">삼하7-9</div></div>
-                <div class="bible-item p-2 bg-gray-50 rounded-xl" data-day="99"><div class="text-gray-400 font-bold">토(4)</div><div class="font-bold">삼하10-12</div></div>
-                
-                <div onclick="openBibleModal()" class="col-span-4 p-3 mt-1 bg-blue-50 rounded-xl border border-blue-100 flex justify-center items-center cursor-pointer active:scale-95 shadow-sm gap-2">
-                    <div class="text-blue-500 font-bold text-[13px]"><i class="fas fa-list"></i></div><div class="font-bold text-blue-800 text-xs">1년 1독 전체표 보기</div>
-                </div>
-            </div>
+            
+            <div class="bg-white rounded-[2rem] card-shadow p-4 grid grid-cols-4 gap-2 text-center text-[10px]" id="bible-grid"></div>
         </section>
 
         <section id="morning">
@@ -400,8 +388,13 @@
 
         document.addEventListener('DOMContentLoaded', function() {
             const now = new Date();
-            initSmartGreeting(now); initGraceThermometer(); calculateDDay(); calculateProgress(now); initNotes();
+            initSmartGreeting(now); 
+            initGraceThermometer(); 
+            calculateDDay(); 
+            calculateProgress(now); 
+            initNotes();
             
+            // ✅ 성경 전체표 초기화
             const tableBody = document.getElementById('bible-full-body');
             document.getElementById('bible-head').innerHTML = `<tr><th style="left:0; z-index:40;">일</th>${Array.from({length:12}, (_,i)=>`<th>${i+1}월</th>`).join('')}</tr>`;
             
@@ -421,11 +414,8 @@
                 tableBody.appendChild(tr);
             });
 
-            document.querySelectorAll('.bible-item').forEach(item => { 
-                if(parseInt(item.getAttribute('data-day')) === now.getDay()) {
-                    item.classList.add('today-highlight'); 
-                }
-            });
+            // ✅ 주간 성경읽기표 100% 자동화 렌더링
+            initWeeklyBible(now);
 
             ['morning', 'afternoon', 'wednesday'].forEach(id => {
                 if(localStorage.getItem(`attendance_${id}_today`) === now.toDateString()) {
@@ -446,6 +436,50 @@
                 }
             }
         });
+
+        // ✅ 주간 성경 읽기표를 자동으로 생성해주는 함수
+        function initWeeklyBible(now) {
+            const grid = document.getElementById('bible-grid');
+            grid.innerHTML = ''; 
+
+            // 기준일(이번 주 주일) 계산
+            const startOfWeek = new Date(now);
+            startOfWeek.setDate(now.getDate() - now.getDay()); 
+
+            const dayNames = ['주일', '월', '화', '수', '목', '금', '토'];
+
+            // 1. 주일 ~ 토요일 (7일치) 렌더링
+            for(let i = 0; i < 7; i++) {
+                const d = new Date(startOfWeek);
+                d.setDate(startOfWeek.getDate() + i);
+                
+                const month = d.getMonth();
+                const date = d.getDate();
+                const isToday = (d.toDateString() === now.toDateString());
+                
+                let reading = fullBibleData[date - 1][month];
+                if (!reading || reading === '-') reading = "자유통독";
+
+                let bgClass = isToday ? 'today-highlight' : 'bg-gray-50';
+                let titleColor = isToday ? 'text-orange-600' : (i === 0 ? 'text-red-500' : 'text-gray-500');
+                let dayLabel = isToday ? '오늘' : dayNames[i];
+
+                grid.innerHTML += `
+                    <div class="bible-item p-2 ${bgClass} rounded-xl shadow-sm border ${isToday ? 'border-orange-400' : 'border-gray-100'} flex flex-col justify-center items-center text-center transition-all duration-300">
+                        <div class="${titleColor} font-bold text-[11px] mb-0.5">${dayLabel}(${date})</div>
+                        <div class="font-bold text-[11px] text-gray-800 tracking-tighter">${reading}</div>
+                    </div>
+                `;
+            }
+
+            // 2. 전체보기 버튼 (8번째 칸) 추가 - 4칸x2줄 깔끔한 디자인 유지
+            grid.innerHTML += `
+                <div onclick="openBibleModal()" class="p-2 bg-blue-50 rounded-xl border border-blue-100 flex flex-col justify-center items-center cursor-pointer active:scale-95 shadow-sm transition hover:bg-blue-100">
+                    <div class="text-blue-500 font-bold text-[13px] mb-0.5"><i class="fas fa-list"></i></div>
+                    <div class="font-bold text-blue-800 text-[10px] tracking-tighter">전체보기</div>
+                </div>
+            `;
+        }
 
         function pledgePrayer(btn) {
             vibratePattern([50, 100, 50]);
