@@ -106,7 +106,7 @@
                     <p class="text-[10px] font-bold opacity-90 tracking-widest uppercase mb-1 text-yellow-100">Hallelujah!</p>
                     <h3 class="text-lg font-black drop-shadow-sm">예수님께서 부활하셨습니다!</h3>
                 </div>
-                <div class="bg-white text-yellow-600 font-black text-xl px-4 py-3 rounded-2xl shadow-lg tracking-tighter animate-float" id="dday-counter">
+                <div class="bg-white text-yellow-600 font-black text-xl px-4 py-3 rounded-2xl shadow-lg animate-float">
                     <i class="fas fa-dove"></i>
                 </div>
             </div>
@@ -138,31 +138,35 @@
             </div>
         </section>
 
-        <section>
-            <div class="bg-white rounded-[2rem] card-shadow p-8 border-t-8 border-yellow-400 text-center relative">
-                <div class="absolute top-4 right-4">
-                    <button onclick="speakText('암송 구절')" aria-label="읽어주기" class="tts-btn active:scale-90 shadow-sm"><i class="fas fa-volume-up"></i></button>
+        <section id="word-and-reading">
+            <div class="flex items-center mb-4 ml-2"><span class="w-1.5 h-5 bg-yellow-500 rounded-full mr-2"></span><h2 class="text-xl text-gray-800 font-bold">이번 주 말씀 및 통독</h2></div>
+            <div class="bg-white rounded-[2.5rem] card-shadow p-6 border-t-8 border-yellow-400">
+                
+                <div class="text-center relative mb-8 pb-8 border-b border-gray-100">
+                    <div class="absolute top-0 right-0">
+                        <button onclick="speakText('암송 구절')" aria-label="읽어주기" class="tts-btn active:scale-90 shadow-sm"><i class="fas fa-volume-up"></i></button>
+                    </div>
+                    <div class="inline-block bg-yellow-100 text-yellow-800 text-[10px] font-black px-3 py-1 rounded-full mb-3">암송 말씀</div>
+                    <p id="verse-text" class="text-base font-bold text-gray-800 italic mb-3 leading-relaxed">"우리 주 예수 그리스도의 아버지 하나님을 찬송하리로다 그의 많으신 긍휼대로 예수 그리스도를 죽은 자 가운데서 부활하게 하심으로 말미암아 우리를 거듭나게 하사 산 소망이 있게 하시며"</p>
+                    <p id="verse-ref" class="text-sm font-bold text-yellow-600 mb-5">— 베드로전서 1:3 —</p>
+                    <div class="flex justify-center gap-3">
+                        <button onclick="showAmenEffect(event)" class="bg-yellow-50 border border-yellow-200 text-yellow-700 px-5 py-2.5 rounded-full font-bold text-sm shadow-sm active:scale-90 transition-transform">아멘! 🙏</button>
+                        <button onclick="shareVerse()" class="bg-gray-50 border border-gray-200 text-gray-700 px-5 py-2.5 rounded-full font-bold text-sm shadow-sm active:scale-90 transition-transform"><i class="fas fa-share-nodes"></i> 공유</button>
+                    </div>
                 </div>
-                <div class="inline-block bg-yellow-100 text-yellow-800 text-[10px] font-black px-3 py-1 rounded-full mb-3">이번 주 말씀 및 암송</div>
-                <p id="verse-text" class="text-base font-bold text-gray-800 italic mb-3 leading-relaxed">"우리 주 예수 그리스도의 아버지 하나님을 찬송하리로다 그의 많으신 긍휼대로 예수 그리스도를 죽은 자 가운데서 부활하게 하심으로 말미암아 우리를 거듭나게 하사 산 소망이 있게 하시며"</p>
-                <p id="verse-ref" class="text-sm font-bold text-yellow-600 mb-6">— 베드로전서 1:3 —</p>
-                <div class="flex justify-center gap-3">
-                    <button onclick="showAmenEffect(event)" class="bg-yellow-50 border border-yellow-200 text-yellow-700 px-5 py-2.5 rounded-full font-bold text-sm shadow-sm active:scale-90 transition-transform">아멘! 🙏</button>
-                    <button onclick="shareVerse()" class="bg-gray-50 border border-gray-200 text-gray-700 px-5 py-2.5 rounded-full font-bold text-sm shadow-sm active:scale-90 transition-transform"><i class="fas fa-share-nodes"></i> 공유</button>
+                
+                <div id="bible-weekly">
+                    <div class="flex justify-between items-end mb-3">
+                        <div class="font-bold text-gray-700 text-[13px]"><i class="fas fa-book-open text-yellow-500 mr-2"></i>범위: 사무엘하 13장 ~ 열왕기상 9장</div>
+                        <div class="text-[10px] font-bold text-yellow-700 bg-yellow-100 px-3 py-1.5 rounded-full shadow-sm" id="progress-text">내 달성률: 0%</div>
+                    </div>
+                    <div class="w-full bg-gray-100 rounded-full h-1.5 mb-5 overflow-hidden"><div id="progress-bar" class="bg-yellow-500 h-1.5 rounded-full transition-all duration-1000 ease-out" style="width: 0%"></div></div>
+                    
+                    <div class="grid grid-cols-4 gap-2 text-center text-[10px]" id="bible-grid">
+                        </div>
                 </div>
-            </div>
-        </section>
 
-        <section id="bible-weekly">
-            <div class="flex justify-between items-end mb-3 px-2">
-                <div class="flex items-center"><span class="w-1.5 h-4 bg-yellow-500 rounded-full mr-2"></span><h2 class="text-xs font-bold text-gray-500 uppercase tracking-widest">Weekly Bible Reading</h2></div>
-                <div class="text-[10px] font-bold text-yellow-600" id="progress-text">내 달성률: 0%</div>
             </div>
-            <p class="text-xs font-bold text-gray-600 mb-2 ml-2">이번 주 범위: 사무엘하 13장 ~ 열왕기상 9장</p>
-            <div class="w-full bg-gray-200 rounded-full h-1.5 mb-4 overflow-hidden"><div id="progress-bar" class="bg-yellow-500 h-1.5 rounded-full transition-all duration-1000 ease-out" style="width: 0%"></div></div>
-            
-            <div class="bg-white rounded-[2rem] card-shadow p-4 grid grid-cols-4 gap-2 text-center text-[10px]" id="bible-grid">
-                </div>
         </section>
 
         <section id="morning">
@@ -331,10 +335,10 @@
             const now = new Date();
             initSmartGreeting(now); 
             initGraceThermometer(); 
-            calculateDDay(); 
             calculateProgress(now); 
             initNotes();
             
+            // 성경통독 로직 초기화
             initWeeklyBible(now); 
             initFullBibleTable(now);
             
@@ -342,4 +346,189 @@
             ['morning', 'afternoon', 'wednesday'].forEach(id => {
                 if(localStorage.getItem(`attendance_${id}_today`) === now.toDateString()) {
                     const el = document.getElementById(`stamp-${id}`);
-                    if
+                    if(el) el.style.opacity = '0.9';
+                    const btn = document.querySelector(`button[onclick*="'${id}'"]`);
+                    if(btn) btn.style.display = 'none';
+                }
+            });
+
+            // 부활절 축하 꽃가루
+            setTimeout(() => {
+                confetti({
+                    particleCount: 150,
+                    spread: 100,
+                    origin: { y: 0.3 },
+                    colors: ['#fde047', '#ffffff', '#fbbf24', '#f87171']
+                });
+            }, 800);
+        });
+
+        // 주간 성경 읽기표 생성 함수
+        function initWeeklyBible(now) {
+            const grid = document.getElementById('bible-grid');
+            grid.innerHTML = ''; 
+            const startOfWeek = new Date(now);
+            startOfWeek.setDate(now.getDate() - now.getDay()); 
+            const dayNames = ['주일', '월', '화', '수', '목', '금', '토'];
+
+            for(let i = 0; i < 7; i++) {
+                const d = new Date(startOfWeek);
+                d.setDate(startOfWeek.getDate() + i);
+                const month = d.getMonth();
+                const date = d.getDate();
+                const isToday = (d.toDateString() === now.toDateString());
+                
+                let reading = fullBibleData[date - 1][month];
+                if (!reading || reading === '-') reading = "자유통독";
+
+                let bgClass = isToday ? 'today-highlight' : 'bg-gray-50';
+                let titleColor = isToday ? 'text-yellow-600' : (i === 0 ? 'text-red-500' : 'text-gray-500');
+                let dayLabel = isToday ? '오늘' : dayNames[i];
+
+                grid.innerHTML += `
+                    <div class="p-2 ${bgClass} rounded-xl shadow-sm border ${isToday ? 'border-yellow-400' : 'border-gray-100'} flex flex-col justify-center items-center text-center transition-all duration-300">
+                        <div class="${titleColor} font-bold text-[11px] mb-0.5">${dayLabel}(${date})</div>
+                        <div class="font-bold text-[11px] text-gray-800 tracking-tighter">${reading}</div>
+                    </div>
+                `;
+            }
+
+            grid.innerHTML += `
+                <div onclick="openBibleModal()" class="p-2 bg-yellow-50 rounded-xl border border-yellow-200 flex flex-col justify-center items-center cursor-pointer active:scale-95 shadow-sm transition hover:bg-yellow-100">
+                    <div class="text-yellow-600 font-bold text-[13px] mb-0.5"><i class="fas fa-list"></i></div>
+                    <div class="font-bold text-yellow-800 text-[10px] tracking-tighter">전체보기</div>
+                </div>
+            `;
+        }
+
+        // 전체 1년 1독표 생성
+        function initFullBibleTable(now) {
+            const tableBody = document.getElementById('bible-full-body');
+            document.getElementById('bible-head').innerHTML = `<tr><th style="left:0; z-index:40; background:#eab308; color:white;">일</th>${Array.from({length:12}, (_,i)=>`<th style="background:#ca8a04; color:white;">${i+1}월</th>`).join('')}</tr>`;
+            const currentMonth = now.getMonth(); 
+            const currentDate = now.getDate();
+
+            fullBibleData.forEach((row, idx) => {
+                const tr = document.createElement('tr');
+                const rowDate = idx + 1;
+                let rowHtml = `<td class="day-cell">${rowDate}</td>`;
+                
+                row.forEach((cell, mIdx) => {
+                    let isToday = (rowDate === currentDate && mIdx === currentMonth && cell !== '-');
+                    rowHtml += `<td class="${isToday ? 'today-cell-highlight' : ''} ${cell === '-' ? 'bg-gray-50' : ''}" ${isToday ? 'id="today-bible-target"' : ''}>${cell === '-' ? '' : cell}</td>`;
+                });
+                tr.innerHTML = rowHtml; 
+                tableBody.appendChild(tr);
+            });
+        }
+
+        // 음성 읽어주기 (TTS)
+        function speakText(type) {
+            let text = "";
+            if(type === '암송 구절') text = document.getElementById('verse-text').innerText + ". " + document.getElementById('verse-ref').innerText;
+            if(type === '설교 제목') text = "오늘의 설교 제목은 " + document.getElementById('sermon-title').innerText + "입니다.";
+            if(type === '기도 제목') text = document.getElementById('prayer-list').innerText;
+            if(type === '만나') text = document.getElementById('manna-text').innerText;
+            
+            window.speechSynthesis.cancel();
+            const msg = new SpeechSynthesisUtterance(text);
+            msg.lang = 'ko-KR'; msg.rate = 0.9;
+            window.speechSynthesis.speak(msg);
+            vibratePattern([50, 100, 50]);
+        }
+
+        // 유틸리티 함수 모음
+        function vibratePattern(pattern) { if (navigator.vibrate) navigator.vibrate(pattern); }
+
+        function checkAttendance(btn, id) {
+            vibratePattern([100, 50, 100]);
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#fde047', '#ffffff', '#fbbf24', '#f87171'] });
+            btn.style.display = 'none';
+            document.getElementById(`stamp-${id}`).classList.add('stamp-animate');
+            localStorage.setItem(`attendance_${id}_today`, new Date().toDateString());
+        }
+
+        function toggleDarkMode() { 
+            document.body.classList.toggle('dark-mode'); 
+            const icon = document.getElementById('dark-icon');
+            icon.className = document.body.classList.contains('dark-mode') ? 'fas fa-sun' : 'fas fa-moon';
+            vibratePattern(50); 
+        }
+        function toggleFontSize() { document.body.classList.toggle('large-text'); vibratePattern(50); }
+        
+        function initSmartGreeting(now) {
+            const hour = now.getHours(); let g = "HAPPY EASTER";
+            if (hour < 11) g = "평안한 주일 아침입니다"; else if (hour < 14) g = "은혜로운 예배 시간입니다";
+            else if (hour < 18) g = "행복한 주일 오후입니다"; else g = "평안한 주일 밤 되세요";
+            document.getElementById('smart-greeting').innerText = g;
+        }
+        
+        function initGraceThermometer() { 
+            setTimeout(() => { 
+                document.getElementById('grace-thermometer').style.height = '100%'; 
+                document.getElementById('grace-temp-text').innerText = '100°'; 
+            }, 500); 
+        }
+        
+        function initNotes() { 
+            const area = document.getElementById('sermon-notes'); 
+            area.value = localStorage.getItem('wonjong_notes') || ""; 
+            area.addEventListener('input', () => { localStorage.setItem('wonjong_notes', area.value); }); 
+        }
+        
+        function shareVerse() { 
+            const t = document.getElementById('verse-text').innerText + "\n" + document.getElementById('verse-ref').innerText; 
+            if(navigator.share) navigator.share({text:t}); else alert("복사되었습니다!"); 
+        }
+        
+        function calculateProgress(now) { 
+            const percent = Math.floor(((now - new Date(now.getFullYear(), 0, 0)) / (1000*60*60*24*365)) * 100); 
+            document.getElementById('progress-text').innerText = `내 달성률: ${percent}%`; 
+            setTimeout(() => document.getElementById('progress-bar').style.width = percent + '%', 500); 
+        }
+        
+        function showAmenEffect(e) { 
+            vibratePattern(100); 
+            const emojis = ['🙏', '🌸', '✨', '💛']; 
+            for(let i=0; i<6; i++) { 
+                const drop = document.createElement('div'); 
+                drop.innerHTML = emojis[Math.floor(Math.random() * emojis.length)]; 
+                drop.className = 'floating-emoji'; 
+                drop.style.left = e.clientX + 'px'; 
+                drop.style.top = e.clientY + 'px'; 
+                document.body.appendChild(drop); 
+                setTimeout(() => drop.remove(), 1500); 
+            } 
+        }
+
+        // 모달창 컨트롤
+        function openModal() { document.getElementById('giveModal').classList.add('active'); vibratePattern(50); }
+        function closeModal() { document.getElementById('giveModal').classList.remove('active'); }
+        function openMannaModal() { 
+            vibratePattern(100);
+            const v = [
+                {t:"예수께서 이르시되 나는 부활이요 생명이니 나를 믿는 자는 죽어도 살겠고", r:"요한복음 11:25"}, 
+                {t:"그가 여기 계시지 않고 그가 말씀하시던 대로 살아나셨느니라", r:"마태복음 28:6"}, 
+                {t:"우리가 아직 죄인 되었을 때에 그리스도께서 우리를 위하여 죽으심으로 하나님께서 우리에 대한 자기의 사랑을 확증하셨느니라", r:"로마서 5:8"}
+            ];
+            const r = v[Math.floor(Math.random()*v.length)];
+            document.getElementById('manna-text').innerText = `"${r.t}"`;
+            document.getElementById('manna-ref').innerText = `- ${r.r} -`;
+            document.getElementById('mannaModal').classList.add('active'); 
+        }
+        function closeMannaModal() { document.getElementById('mannaModal').classList.remove('active'); }
+        
+        function openBibleModal() { 
+            document.getElementById('bibleModal').classList.add('active'); 
+            setTimeout(() => { 
+                const target = document.getElementById('today-bible-target');
+                if(target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+                }
+            }, 200); 
+            vibratePattern(50); 
+        }
+        function closeBibleModal() { document.getElementById('bibleModal').classList.remove('active'); }
+    </script>
+</body>
+</html>
