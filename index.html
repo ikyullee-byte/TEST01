@@ -1,3 +1,14 @@
+목사님, 보내주신 교회 소식과 광고 내용을 주보에 깔끔하게 업데이트했습니다! 
+
+성도님들이 읽기 편하시도록 항목별로 번호를 매겨 정돈했으며, 환우를 위한 기도 제목은 가독성을 높이고 마음을 모을 수 있도록 한 항목으로 묶어 붉은색 텍스트로 강조해 두었습니다.
+
+아래 완성된 코드를 복사해서 적용해 주세요!
+
+---
+
+### 🌱 원종제일교회 스마트 주보 (2026.04.19 제16호 - 광고 업데이트)
+
+```html
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -126,6 +137,32 @@
             </div>
         </section>
 
+        <section id="archives">
+            <div class="grid grid-cols-1 gap-4 relative">
+                <a href="https://ikyullee-byte.github.io/wjnotice/" target="_blank" class="bg-white rounded-[2rem] card-shadow p-6 border-l-8 border-emerald-400 flex items-center justify-between group active:scale-95 transition">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-500 text-2xl shadow-inner"><i class="fas fa-history"></i></div>
+                        <div>
+                            <h3 class="font-bold text-slate-700">40주년 역사관 (아카이브)</h3>
+                            <p class="text-[10px] text-emerald-500 font-bold uppercase tracking-widest mt-0.5">1983-2023 Our Journey</p>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right text-slate-300 group-hover:text-emerald-400"></i>
+                </a>
+                
+                <a href="https://ikyullee-byte.github.io/worship/" target="_blank" class="bg-white rounded-[2rem] card-shadow p-6 border-l-8 border-blue-400 flex items-center justify-between group active:scale-95 transition relative">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-500 text-2xl shadow-inner"><i class="fas fa-compact-disc"></i></div>
+                        <div>
+                            <h3 class="font-bold text-slate-700">찬양단 아카이브</h3>
+                            <p class="text-[10px] text-blue-500 font-bold uppercase tracking-widest mt-0.5">Worship & Praise</p>
+                        </div>
+                    </div>
+                    <span class="easter-egg text-2xl absolute right-10 top-1/2 -translate-y-1/2" onclick="event.preventDefault(); findEgg(this, 2)">🕊️</span>
+                </a>
+            </div>
+        </section>
+
         <section id="word-and-reading">
             <div class="flex items-center mb-4 ml-2"><span class="w-1.5 h-5 bg-emerald-400 rounded-full mr-2"></span><h2 class="text-xl text-slate-700 font-bold">이번 주 말씀 및 통독</h2></div>
             <div class="bg-white rounded-[2.5rem] card-shadow p-6 border-t-8 border-emerald-300">
@@ -218,13 +255,41 @@
                 </div>
             </div>
         </section>
+        
+        <section id="wednesday">
+            <div class="bg-white rounded-[2.5rem] card-shadow border border-slate-100 overflow-hidden text-center relative flex flex-col">
+                <div id="stamp-wednesday" class="stamp-effect">출석<br>완료</div>
+                <div class="bg-slate-600 p-4 text-white relative">
+                    <button onclick="checkAttendance(this, 'wednesday')" class="absolute top-2 right-4 bg-white/20 text-[9px] font-bold px-3 py-1 rounded-full border border-white/30 active:scale-95">출석하기</button>
+                    <h2 class="text-base font-black italic mt-2">▣ 수요 성서강해 ▣</h2>
+                    <p class="text-[9px] opacity-80 mt-1">4/22 오후 7:00 / 사회: 이성결 목사</p>
+                </div>
+                <div class="p-6 flex-1 flex flex-col justify-center">
+                    <div class="worship-row"><span>찬 양</span><span></span><span>다 같 이</span></div>
+                    <div class="worship-row"><span>기 도</span><span></span><span class="font-bold">오순복 권사</span></div>
+                    <div class="worship-row border-none pt-2 font-bold"><span>설 교</span><span></span><span>이성결 목사</span></div>
+                </div>
+            </div>
+        </section>
 
         <section id="news">
             <div class="flex items-center mb-4 ml-2 font-bold"><span class="w-1.5 h-5 bg-emerald-400 rounded-full mr-2"></span><h2 class="text-xl text-slate-700">교회 소식</h2></div>
             <div class="bg-white rounded-[2.5rem] card-shadow p-6 border border-slate-100 space-y-4 text-sm font-medium">
-                <div class="pb-3 border-b border-slate-50 flex gap-3 text-emerald-600 font-black"><p>1. [부활의 기쁨] 부활절 제3주일을 맞아 우리를 찾아오시는 주님과 함께 예루살렘의 자부심으로 살아가는 성도님들 되시길 바랍니다.</p></div>
-                <div class="pb-3 border-b border-slate-50 flex gap-3 font-bold"><p>2. [헌신예배] 오늘 오후예배는 제1여전도회 헌신예배로 드립니다. 많은 참여와 기도 부탁드립니다.</p></div>
-                <div class="pb-3 border-b border-slate-50 flex gap-3 font-bold text-rose-500"><p>3. [환우를 위한 기도] 재활 중이신 사모님과 투병 중인 환우들을 위해 지속적인 중보기도 부탁드립니다.</p></div>
+                
+                <div class="pb-3 border-b border-slate-50 flex gap-3 font-bold"><p><span class="text-emerald-500 mr-1">1.</span> 예배 30분 전에 나오셔서 기도로 준비하시며 친절한 모습으로 인사를 나누시기를 바랍니다.</p></div>
+                
+                <div class="pb-3 border-b border-slate-50 flex gap-3 font-bold"><p><span class="text-emerald-500 mr-1">2.</span> 4월 예배위원들은 기도로 준비하시기 바랍니다.</p></div>
+                
+                <div class="pb-3 border-b border-slate-50 flex gap-3 font-bold"><p><span class="text-emerald-500 mr-1">3.</span> 수요예배에 적극적인 참여를 부탁 드립니다.</p></div>
+                
+                <div class="pb-3 border-b border-slate-50 flex gap-3 font-bold text-emerald-700"><p><span class="text-emerald-500 mr-1">4.</span> 오늘 오후예배는 제1여전도회 헌신예배로 드립니다.</p></div>
+                
+                <div class="pb-3 border-b border-slate-50 flex gap-3 font-bold"><p><span class="text-emerald-500 mr-1">5.</span> 다음주 오후예배 후 기관장 회의가 있습니다.</p></div>
+                
+                <div class="pb-3 border-b border-slate-50 flex gap-3 font-bold"><p><span class="text-emerald-500 mr-1">6.</span> 이번주 금요일(4/24) 오정감찰회 모임이 있습니다.</p></div>
+                
+                <div class="pb-3 flex gap-3 font-bold text-rose-500"><p><span class="text-rose-400 mr-1">7.</span> [환우를 위한 기도] 임선우 어린이, 한용희 권사님, 이주선 권사님, 박성심 권사님을 위해 기도해 주시기 바랍니다.</p></div>
+
             </div>
         </section>
 
@@ -285,6 +350,17 @@
         </div>
     </div>
 
+    <div id="giveModal" class="modal" onclick="closeModal()">
+        <div class="bg-white rounded-[2.5rem] w-full max-w-sm p-8 text-center shadow-2xl" onclick="event.stopPropagation()">
+            <h3 class="text-xl font-bold mb-6 italic text-slate-800">온라인 헌금 안내</h3>
+            <div class="bg-emerald-50 p-6 rounded-3xl border border-emerald-100 mb-6 font-bold text-emerald-900">
+                <p class="text-[10px] text-emerald-500 mb-1">NH 농협은행 (원종제일교회)</p>
+                <p class="text-xl font-bold select-all">302-1765-3728-91</p>
+            </div>
+            <button onclick="closeModal()" class="w-full py-4 bg-slate-800 text-white rounded-2xl font-bold">닫기</button>
+        </div>
+    </div>
+
     <script>
         const fullBibleData = [["창1-3","레7-9","신20-22","삼하1-3","대상19-21","욥16-18","시100-104","사13-15","렘40-42","호10-14","눅4-6","고전7-9"],["창4-7","레10-12","신23-25","삼하4-6","대상22-24","욥19-21","시105-108","사16-18","렘43-45","욜1-3","눅7-9","고전10-12"],["창8-11","레13-15","신26-28","삼하7-9","대상25-27","욥22-24","시109-113","사19-21","렘46-48","암1-3","눅10-12","고전13-16"],["창12-14","레16-18","신29-31","삼하10-12","대상28-29","욥25-27","시114-118","사22-24","렘49-50","암4-6","눅13-15","고후1-3"],["창15-17","레19-21","신32-34","삼하13-15","대하1-3","욥28-30","시119:1","사25-27","렘51-52","암7-9","눅16-18","고후4-6"],["창18-20","레22-24","수1-3","삼하16-18","대하4-6","욥31-33","시119:89","사28-30","애1-3","옵-욘4","눅19-21","고후7-9"],["창21-24","레25-27","수4-7","삼하19-21","대하7-9","욥34-36","시120-125","사31-33","애4-5","미1-3","눅22-24","고후10-13"],["창25-27","민1-3","수8-9","삼하22-24","대하10-12","욥37-39","시126-131","사34-36","겔1-3","미4-7","요1-3","갈1-3"],["창28-30","민4-6","수10-12","왕상1-3","대하13-15","욥40-42","시132-137","사37-39","겔4-6","나1-합3","요4-6","갈4-6"],["창31-33","민7-9","수13-15","왕상4-6","대하16-18","시1-4","시138-143","사40-42","겔7-9","습1-학2","요7-9","엡1-3"],["창34-36","민10-12","수16-18","왕상7-9","대하19-21","시5-8","시144-150","사43-45","겔10-12","슥1-3","요10-12","엡4-6"],["창37-39","민13-15","수19-21","왕상10-12","대하22-24","시9-14","잠1-3","사46-48","겔13-15","슥4-6","요13-15","빌1-4"],["창40-42","민16-18","수22-24","왕상13-15","대하25-27","시15-18","잠4-6","사49-51","겔16-18","슥7-9","요16-18","골1-4"],["창43-45","민19-21","삿1-3","왕상16-18","대하28-30","시19-22","잠7-9","사52-54","겔19-21","슥10-14","요19-21","살전1-5"],["창46-48","민22-24","삿4-6","왕상19-21","대하31-33","시23-27","잠10-12","사55-57","겔22-24","말1-4","행1-3","살후1-3"],["창49-출1","민25-27","삿7-9","왕상22-왕2","대하34-36","시28-32","잠13-15","사58-60","겔25-27","마1-3","행4-6","딤전1-6"],["출2-4","민28-30","삿10-12","왕하3-5","스1-3","시33-36","잠16-18","사61-63","겔28-30","마4-6","행7-9","딤후1-4"],["출5-7","민31-33","삿13-15","왕하6-8","스4-6","시37-41","잠16-18","사64-66","겔31-33","마7-9","행10-12","딛1-몬1"],["출8-10","민34-36","삿16-18","왕하9-11","스7-10","시42-46","잠22-24","렘1-3","겔34-36","마10-12","행13-15","히1-4"],["출11-13","신1-2","삿19-21","왕하12-14","느1-3","시47-51","잠25-27","렘4-6","겔37-39","마13-15","행16-18","히5-8"],["출14-16","신3-4","룻1-4","왕하15-17","느4-6","시52-56","잠28-31","렘7-9","겔40-42","마16-18","행19-21","히9-13"],["출17-19","신5-6","삼상1-3","왕하18-20","느7-9","시57-61","전1-3","렘10-12","겔43-45","마19-21","행22-24","약1-5"],["출20-22","신7-8","삼상4-6","왕하21-23","느10-13","시62-66","전4-6","렘13-15","겔46-48","마22-24","행25-28","벧전-벧후"],["출23-25","신9-10","삼상7-9","왕하24-25","에1-3","시67-71","전7-9","렘16-18","단1-3","마25-27","롬1-3","요일-유"],["출26-28","신11-12","삼상10-12","대상1-3","에4-7","시72-76","전10-12","렘19-21","단4-6","마28-막2","롬4-6","계1-3"],["출29-31","신13-14","삼상13-15","대상4-6","에8-10","시77-80","아1-4","레22-24","단7-9","막3-5","롬7-9","계4-6"],["출32-34","신15-16","삼상16-18","대상7-9","욥1-3","시81-85","아5-8","레25-27","단10-12","막6-8","롬10-12","계7-9"],["출35-37","신17-19","삼상19-21","대상10-12","욥4-6","시86-89","사1-3","레28-30","호1-3","막9-11","롬13-16","계10-12"],["출38-40","-","삼상22-24","대상13-15","욥7-9","시90-94","사4-6","레31-33","호4-6","막12-14","고전1-3","계13-15"],["레1-3","-","삼상25-27","대상16-18","욥10-12","시95-99","사7-9","레34-36","호7-9","막15-16","고전4-6","계16-18"],["레4-6","-","삼상28-31","-","욥13-15","-","사10-12","레37-39","-","눅1-3","-","계19-22"]];
 
@@ -292,7 +368,7 @@
             const now = new Date();
             initSmartGreeting(now); initGraceThermometer(); calculateProgress(now); initNotes();
             initWeeklyBible(now); initFullBibleTable(now);
-            ['morning', 'afternoon'].forEach(id => {
+            ['morning', 'afternoon', 'wednesday'].forEach(id => {
                 if(localStorage.getItem(`attendance_${id}_today`) === now.toDateString()) {
                     const el = document.getElementById(`stamp-${id}`);
                     if(el) el.style.opacity = '0.9';
@@ -414,3 +490,4 @@
     </script>
 </body>
 </html>
+```
