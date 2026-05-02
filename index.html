@@ -112,7 +112,7 @@
         </div>
     </nav>
 
-    <!-- Header (Children's Sunday Theme) -->
+    <!-- Header -->
     <header class="h-[22vh] flex items-center justify-center border-b-4 border-[#86C3D7] bg-white relative overflow-hidden">
         <div class="balloon-icon text-blue-300" style="left: 10%; top: 20%;"><i class="fas fa-cloud"></i></div>
         <div class="balloon-icon text-pink-200" style="right: 15%; top: 30%; animation-delay: 1s;"><i class="fas fa-heart"></i></div>
@@ -152,7 +152,7 @@
             </div>
         </div>
 
-        <!-- 💡 아카이브 & 교회 소개 링크 -->
+        <!-- 아카이브 & 교회 소개 링크 -->
         <section>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <a href="#" class="bg-white rounded-[2rem] card-shadow p-5 border-l-8 border-[#B0A3D4] flex items-center justify-between group">
@@ -179,7 +179,7 @@
             </div>
         </section>
 
-        <!-- 말씀 및 8일 통독표 (자동 날짜 반영) -->
+        <!-- 말씀 및 8일 통독표 -->
         <section id="bible-section">
             <div class="flex items-center mb-5 ml-2 font-bold text-xl text-[#4A4553]"><span class="w-2 h-6 bg-[#86C3D7] rounded-full mr-3"></span>이번 주 말씀 및 통독</div>
             <div class="bg-white rounded-[3rem] card-shadow p-8 border-t-[10px] border-[#86C3D7]">
@@ -199,7 +199,7 @@
             </div>
         </section>
 
-        <!-- 💡 스페셜 이벤트 (누락 복구됨) -->
+        <!-- 스페셜 이벤트 넌센스 퀴즈 -->
         <section id="nonsense-quiz">
             <div class="bg-gradient-to-br from-[#EBF7FA] to-[#FFF9EB] rounded-[2.5rem] card-shadow p-10 text-center relative overflow-hidden cursor-pointer" onclick="openQuizModal()">
                 <div class="absolute -right-6 -top-6 opacity-10 text-8xl text-[#86C3D7]"><i class="fas fa-face-laugh-squint"></i></div>
@@ -210,7 +210,7 @@
             </div>
         </section>
 
-        <!-- 주일 오전 예배 (담당자 완벽 복구) -->
+        <!-- 주일 오전 예배 -->
         <section id="morning-service">
             <div class="bg-white rounded-[3rem] card-shadow overflow-hidden border border-[#E1EEF2] relative">
                 <div id="stamp-morning" class="stamp-effect">예배<br>참석</div>
@@ -228,7 +228,19 @@
                     <div class="worship-row"><span>*신앙고백</span><span>사도신경</span><span>다 같 이</span></div>
                     <div class="worship-row"><span>찬 송</span><span>563장</span><span>다 같 이</span></div>
                     <div class="worship-row"><span>대표기도</span><span></span><span class="font-bold">이해숙 장로</span></div>
-                    <div class="worship-row"><span>성경봉독</span><span>베드로전서 2:1-10</span><span class="font-bold text-[#86C3D7]">이성결 목사</span></div> <!-- 💡수정됨 -->
+                    
+                    <!-- 💡 성경봉독 및 본문 읽기 버튼 -->
+                    <div class="worship-row">
+                        <span>성경봉독</span>
+                        <span class="flex flex-col items-center gap-1.5">
+                            베드로전서 2:1-10
+                            <button onclick="openScriptureModal()" class="bg-[#F0F7F9] text-[#86C3D7] border border-[#D1E3E8] text-[10px] px-3 py-1.5 rounded-full shadow-sm active:scale-95 transition flex items-center">
+                                <i class="fas fa-book-open mr-1.5"></i>본문 읽기
+                            </button>
+                        </span>
+                        <span class="font-bold text-[#86C3D7]">이성결 목사</span>
+                    </div>
+                    
                     <div class="worship-row"><span>찬 양</span><span></span><span>찬 양 대</span></div>
                     
                     <div class="py-12 my-6 bg-[#F7FBFC] rounded-[2.5rem] text-center border border-[#D1E3E8] shadow-inner relative overflow-hidden">
@@ -238,7 +250,7 @@
                     </div>
 
                     <div class="worship-row"><span>찬 송</span><span>559장</span><span>다 같 이</span></div>
-                    <div class="worship-row"><span>봉헌기도</span><span></span><span class="font-bold text-[#86C3D7]">이성결 목사</span></div> <!-- 💡수정됨 -->
+                    <div class="worship-row"><span>봉헌기도</span><span></span><span class="font-bold text-[#86C3D7]">이성결 목사</span></div>
                     <div class="worship-row"><span>교회소식</span><span></span><span>집 례 자</span></div>
                     <div class="worship-row"><span>새신자 소개</span><span></span><span>집 례 자</span></div>
                     <div class="worship-row"><span>*송 영</span><span>좋으신 하나님</span><span>다 같 이</span></div>
@@ -292,7 +304,7 @@
             </div>
         </section>
 
-        <!-- 교회 소식 (문구 완벽 반영) -->
+        <!-- 교회 소식 -->
         <section id="church-news">
             <div class="flex items-center mb-6 ml-2 font-bold text-xl text-[#4A4553]"><span class="w-2 h-6 bg-[#FFD97D] rounded-full mr-3"></span>교회 소식</div>
             <div class="bg-white rounded-[3rem] card-shadow p-8 border border-[#E1EEF2] space-y-5">
@@ -365,7 +377,34 @@
     </div>
 
     <!-- Modals -->
-    <!-- 💡 1년 통독표 모달 -->
+    <!-- 💡 성경 본문 읽기 모달 -->
+    <div id="scriptureModal" class="modal" onclick="closeScriptureModal()">
+        <div class="bg-white rounded-[2.5rem] w-full max-w-lg p-8 shadow-2xl flex flex-col max-h-[80vh]" onclick="event.stopPropagation()">
+            <div class="flex justify-between items-center mb-4 border-b pb-4 border-[#F0F7F9]">
+                <div>
+                    <span class="text-[10px] font-black text-white bg-[#86C3D7] px-2 py-1 rounded-md mb-1.5 inline-block">산 돌과 하나님의 백성</span>
+                    <h3 class="font-black text-xl text-[#4A4553] italic">베드로전서 2:1-10</h3>
+                </div>
+                <button onclick="closeScriptureModal()" class="text-3xl text-slate-300 hover:text-[#86C3D7] pb-4">&times;</button>
+            </div>
+            <!-- 본문 텍스트 영역 -->
+            <div class="overflow-y-auto pr-2 space-y-4 text-[#5D586A] text-[15px] font-medium leading-[1.8]">
+                <p><sup class="text-[#86C3D7] font-bold mr-1">1</sup>그러므로 모든 악독과 모든 기만과 외식과 시기와 모든 비방하는 말을 버리고</p>
+                <p><sup class="text-[#86C3D7] font-bold mr-1">2</sup>갓난 아기들 같이 순전하고 신령한 젖을 사모하라 이는 그로 말미암아 너희로 구원에 이르도록 자라게 하려 함이라</p>
+                <p><sup class="text-[#86C3D7] font-bold mr-1">3</sup>너희가 주의 인자하심을 맛보았으면 그리하라</p>
+                <p><sup class="text-[#86C3D7] font-bold mr-1">4</sup>사람에게는 버린 바가 되었으나 하나님께는 택하심을 입은 보배로운 산 돌이신 예수께 나아가</p>
+                <p><sup class="text-[#86C3D7] font-bold mr-1">5</sup>너희도 산 돌 같이 신령한 집으로 세워지고 예수 그리스도로 말미암아 하나님이 기쁘게 받으실 신령한 제사를 드릴 거룩한 제사장이 될지니라</p>
+                <p><sup class="text-[#86C3D7] font-bold mr-1">6</sup>성경에 기록되었으되 보라 내가 택한 보배로운 모퉁잇돌을 시온에 두노니 그를 믿는 자는 부끄러움을 당하지 아니하리라 하였으니</p>
+                <p><sup class="text-[#86C3D7] font-bold mr-1">7</sup>그러므로 믿는 너희에게는 보배이나 믿지 아니하는 자에게는 건축자들이 버린 그 돌이 모퉁이의 머릿돌이 되고</p>
+                <p><sup class="text-[#86C3D7] font-bold mr-1">8</sup>또한 부딪치는 돌과 걸려 넘어지게 하는 바위가 되었다 하였느니라 그들이 말씀을 순종하지 아니하므로 넘어지나니 이는 그들을 이렇게 정하신 것이라</p>
+                <p><sup class="text-[#86C3D7] font-bold mr-1">9</sup>그러나 너희는 택하신 족속이요 왕 같은 제사장들이요 거룩한 나라요 그의 소유가 된 백성이니 이는 너희를 어두운 데서 불러 내어 그의 기이한 빛에 들어가게 하신 이의 아름다운 덕을 선포하게 하려 하심이라</p>
+                <p><sup class="text-[#86C3D7] font-bold mr-1">10</sup>너희가 전에는 백성이 아니더니 이제는 하나님의 백성이요 전에는 긍휼을 얻지 못하였더니 이제는 긍휼을 얻은 자니라</p>
+            </div>
+            <button onclick="closeScriptureModal()" class="w-full mt-6 py-4 bg-[#86C3D7] text-white rounded-2xl font-black shadow-lg">아멘</button>
+        </div>
+    </div>
+
+    <!-- 1년 통독표 모달 -->
     <div id="bibleModal" class="modal" onclick="closeBibleModal()">
         <div class="bg-white rounded-[2.5rem] w-full max-w-5xl p-6 shadow-2xl flex flex-col" onclick="event.stopPropagation()">
             <div class="flex justify-between items-center mb-5 font-black text-xl italic text-[#4A4553] px-2">
@@ -382,7 +421,7 @@
         </div>
     </div>
 
-    <!-- 💡 넌센스 퀴즈 모달 (복구됨) -->
+    <!-- 넌센스 퀴즈 모달 -->
     <div id="quizModal" class="modal" onclick="closeQuizModal()">
         <div class="bg-white rounded-[2.5rem] w-full max-w-sm p-10 text-center shadow-2xl border-b-8 border-[#86C3D7]" onclick="event.stopPropagation()">
             <div id="quiz-question">
@@ -467,6 +506,10 @@
                 confetti(); 
             } 
         }
+
+        /* 💡 성경 읽기 모달 제어 함수 추가 */
+        function openScriptureModal() { document.getElementById('scriptureModal').classList.add('active'); }
+        function closeScriptureModal() { document.getElementById('scriptureModal').classList.remove('active'); }
 
         function openBibleModal() { document.getElementById('bibleModal').classList.add('active'); }
         function closeBibleModal() { document.getElementById('bibleModal').classList.remove('active'); }
