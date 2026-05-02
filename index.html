@@ -20,86 +20,85 @@
             -webkit-tap-highlight-color: transparent; 
             transition: all 0.4s ease;
             overflow-x: hidden;
-            background-color: #FCFAFF;
+            background-color: #F7FBFC;
             color: #4A4553;
         }
 
         :root {
-            --primary-lavender: #9281B5;
-            --light-lavender: #B0A3D4;
-            --soft-pink: #F0B4C6;
-            --card-border: #EAE6F2;
+            --primary-mint: #86C3D7;
+            --soft-blue: #A2D2FF;
+            --warm-yellow: #FFD97D;
+            --card-border: #E1EEF2;
         }
 
-        .card-shadow { box-shadow: 0 10px 30px -5px rgba(146, 129, 181, 0.1); }
+        .card-shadow { box-shadow: 0 10px 25px -5px rgba(134, 195, 215, 0.15); transition: transform 0.2s; }
         .pb-safe { padding-bottom: calc(8rem + env(safe-area-inset-bottom)); }
-        .glass-nav { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--card-border); }
+        .glass-nav { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px); border-bottom: 1px solid var(--card-border); }
         
-        /* 예배 순서 레이아웃 */
+        /* 예배 순서 스타일 */
         .worship-row { 
             display: grid; 
             grid-template-columns: 1fr 1.3fr 1fr; 
-            border-bottom: 1px dotted var(--card-border); 
-            padding: 15px 0; 
+            border-bottom: 1px dotted #D1E3E8; 
+            padding: 16px 0; 
             font-size: 0.95rem; 
             align-items: center; 
         }
-        .worship-row span:nth-child(2) { text-align: center; font-weight: 700; color: var(--primary-lavender); }
+        .worship-row:last-child { border-bottom: none; }
+        .worship-row span:nth-child(2) { text-align: center; font-weight: 700; color: var(--primary-mint); }
         .worship-row span:nth-child(3) { text-align: right; color: #6A6375; font-weight: 500; }
 
-        /* 통독 그리드 */
+        /* 통독표 하이라이트 */
         .bible-day-box {
             padding: 12px 4px;
             border-radius: 1.2rem;
-            border: 1px solid var(--card-border);
+            border: 1.5px solid var(--card-border);
             text-align: center;
             background: white;
             transition: all 0.3s;
         }
         .today-highlight { 
-            background-color: #F2F0F7 !important; 
-            border: 2.5px solid var(--light-lavender) !important; 
+            background-color: #EBF7FA !important; 
+            border: 2.5px solid var(--primary-mint) !important; 
             transform: scale(1.08); 
-            box-shadow: 0 8px 20px rgba(146, 129, 181, 0.2);
             z-index: 10;
         }
 
         /* 모달 시스템 */
         .modal { 
             display: none; position: fixed; z-index: 1000; inset: 0; 
-            background: rgba(59, 56, 66, 0.6); backdrop-filter: blur(8px);
+            background: rgba(44, 62, 80, 0.6); backdrop-filter: blur(8px);
             align-items: center; justify-content: center; padding: 15px; 
         }
-        .modal.active { display: flex; animation: modalIn 0.3s ease-out; }
-        @keyframes modalIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+        .modal.active { display: flex; animation: modalBounce 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes modalBounce { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
 
-        /* 통독표 테이블 복구 스타일 */
+        /* 1년 통독표 스크롤 설정 */
         .bible-scroll-container { 
             max-height: 70vh; overflow-y: auto; overflow-x: auto; 
-            background: white; border-radius: 1.5rem; border: 1px solid var(--card-border);
+            background: white; border-radius: 2rem; border: 1px solid var(--card-border);
         }
-        .bible-table { width: 100%; border-collapse: collapse; font-size: 11px; min-width: 800px; }
-        .bible-table th { background: var(--primary-lavender); color: white; padding: 12px 4px; position: sticky; top: 0; z-index: 20; }
-        .bible-table td { border: 1px solid var(--card-border); padding: 10px 4px; text-align: center; background: white; }
-        .today-cell-highlight { background-color: #F2F0F7 !important; font-weight: 900; color: var(--primary-lavender); outline: 2px solid var(--light-lavender); }
+        .bible-table { width: 100%; border-collapse: collapse; font-size: 11px; min-width: 900px; }
+        .bible-table th { background: var(--primary-mint); color: white; padding: 14px 4px; position: sticky; top: 0; z-index: 20; }
+        .bible-table td { border: 1px solid #F0F7F9; padding: 12px 4px; text-align: center; background: white; }
+        .day-cell-fixed { background: #F7FBFC; font-weight: bold; width: 45px; position: sticky; left: 0; z-index: 10; color: var(--primary-mint); border-right: 2px solid var(--card-border); }
+        .today-cell-highlight { background-color: #EBF7FA !important; font-weight: 900; color: var(--primary-mint) !important; outline: 2px solid var(--primary-mint); }
 
+        /* 애니메이션 장식 */
         .stamp-effect { 
-            position: absolute; top: 15px; right: 25px; color: #ef4444; 
-            border: 4px solid #ef4444; border-radius: 50%; width: 65px; height: 65px; 
+            position: absolute; top: 15px; right: 25px; color: #FF6B6B; 
+            border: 4px solid #FF6B6B; border-radius: 50%; width: 70px; height: 70px; 
             display: flex; align-items: center; justify-content: center; 
-            font-weight: 900; font-size: 14px; transform: rotate(-15deg); 
+            font-weight: 900; font-size: 15px; transform: rotate(-15deg); 
             opacity: 0; pointer-events: none; z-index: 50; 
         }
         .stamp-animate { animation: stampIn 0.6s forwards; }
         @keyframes stampIn { 0% { transform: scale(4); opacity: 0; } 100% { transform: scale(1); opacity: 0.8; } }
-
-        #scratch-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 20; border-radius: 1.5rem; cursor: crosshair; touch-action: none; }
         
-        .manna-banner {
-            background: linear-gradient(135deg, #FFF5F8 0%, #FFEBF1 100%);
-            border: 2px solid #F0B4C6;
-            box-shadow: 0 10px 20px rgba(240, 180, 198, 0.2);
-        }
+        .balloon-icon { position: absolute; font-size: 1.5rem; opacity: 0.3; animation: balloonFloat 4s ease-in-out infinite; }
+        @keyframes balloonFloat { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-20px) rotate(10deg); } }
+        
+        #scratch-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 20; border-radius: 1.5rem; cursor: crosshair; touch-action: none; }
     </style>
 </head>
 <body class="pb-safe">
@@ -108,55 +107,48 @@
     <nav class="glass-nav sticky top-0 z-[100] px-5 py-3 flex justify-between items-center shadow-sm">
         <img src="https://ikyullee-byte.github.io/TEST01/logo.png" alt="Logo" class="h-12 w-auto">
         <div class="flex gap-2">
-            <button onclick="document.body.classList.toggle('large-text')" class="w-9 h-9 bg-[#F2F0F7] rounded-full flex items-center justify-center text-[#9281B5]"><i class="fas fa-search-plus"></i></button>
-            <button onclick="document.body.classList.toggle('dark-mode')" class="w-9 h-9 bg-[#F2F0F7] rounded-full flex items-center justify-center text-[#9281B5]"><i class="fas fa-moon"></i></button>
+            <button onclick="document.body.classList.toggle('large-text')" class="w-9 h-9 bg-[#F0F7F9] rounded-full flex items-center justify-center text-[#86C3D7]"><i class="fas fa-search-plus"></i></button>
+            <button onclick="document.body.classList.toggle('dark-mode')" class="w-9 h-9 bg-[#F0F7F9] rounded-full flex items-center justify-center text-[#86C3D7]"><i class="fas fa-moon"></i></button>
         </div>
     </nav>
 
-    <!-- Header -->
-    <header class="h-[20vh] flex items-center justify-center border-b-4 border-[#B0A3D4] bg-[#FCFAFF] relative overflow-hidden">
+    <!-- Header (Children's Sunday Theme) -->
+    <header class="h-[22vh] flex items-center justify-center border-b-4 border-[#86C3D7] bg-white relative overflow-hidden">
+        <div class="balloon-icon text-blue-300" style="left: 10%; top: 20%;"><i class="fas fa-cloud"></i></div>
+        <div class="balloon-icon text-pink-200" style="right: 15%; top: 30%; animation-delay: 1s;"><i class="fas fa-heart"></i></div>
+        <div class="balloon-icon text-yellow-200" style="left: 20%; bottom: 10%; animation-delay: 2s;"><i class="fas fa-star"></i></div>
+        
         <div class="text-center relative z-20">
-            <div class="text-[#56487A] text-[10px] font-black tracking-[0.3em] mb-2 bg-[#F2F0F7]/90 py-1.5 px-4 rounded-full inline-block border border-[#DCD6EA]">WONJONG FIRST</div>
-            <h1 class="text-3xl font-black uppercase italic mb-1 text-[#4A4553]">Lord's Day</h1>
-            <p class="text-[11px] text-[#8B869C] font-bold" id="main-date">2026.05.03 어린이주일</p>
+            <div class="text-[#86C3D7] text-[11px] font-black tracking-[0.4em] mb-2 bg-[#F0F7F9] py-1.5 px-4 rounded-full inline-block">WONJONG FIRST</div>
+            <h1 class="text-3xl font-black uppercase italic mb-1 text-[#4A4553]">Happy Sunday</h1>
+            <p class="text-[11px] text-[#8B869C] font-bold">2026.05.03 <span class="text-[#86C3D7]">어린이주일</span></p>
         </div>
     </header>
 
     <main class="container mx-auto px-5 py-8 space-y-12">
 
-        <!-- 💡 [강조 배너] 월삭새벽기도회 -->
-        <section id="banner-section">
-            <div class="manna-banner rounded-[2.5rem] p-7 text-center relative overflow-hidden">
-                <div class="relative z-10">
-                    <span class="bg-[#F0B4C6] text-white text-[10px] font-black px-4 py-1.5 rounded-full inline-block mb-3">5월의 시작</span>
-                    <h3 class="text-2xl font-black text-[#5C4D56] mb-2 italic">5월 월삭새벽기도회</h3>
-                    <p class="text-base font-bold text-[#4A4553]">5월 1일(금) 새벽 5:00</p>
-                    <p class="text-[11px] text-[#D494A8] font-bold mt-2">"은혜의 한 달을 기도로 시작했습니다!"</p>
-                </div>
-                <i class="fas fa-hands-praying text-7xl text-[#D494A8] opacity-10 absolute -right-4 -bottom-4"></i>
-            </div>
-        </section>
-
-        <!-- 은혜 온도 및 인사말 -->
+        <!-- 은혜 온도 및 메인 인사말 -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="bg-white rounded-[2rem] card-shadow p-6 border border-[#EAE6F2] flex items-center gap-5">
+            <div class="bg-gradient-to-br from-[#86C3D7] to-[#A2D2FF] rounded-[2.5rem] card-shadow p-7 text-white flex items-center justify-between">
+                <div>
+                    <p class="text-[10px] font-black opacity-80 mb-1 tracking-widest">CHILDREN'S DAY</p>
+                    <h3 class="text-lg font-black leading-tight">예수님 닮아가는 어린이가<br>교회의 기쁨과 소망입니다!</h3>
+                </div>
+                <div class="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-md">
+                    <i class="fas fa-child-reaching text-3xl"></i>
+                </div>
+            </div>
+            <div class="bg-white rounded-[2.5rem] card-shadow p-6 border border-[#E1EEF2] flex items-center gap-6">
                 <div class="flex flex-col items-center">
-                    <div class="relative w-8 h-24 bg-[#FCFAFF] rounded-full overflow-hidden border-2 border-[#EAE6F2]">
-                        <div id="grace-thermometer" class="absolute bottom-0 w-full bg-gradient-to-t from-[#B0A3D4] to-[#F0B4C6] transition-all duration-[2s]" style="height: 0%"></div>
+                    <div class="relative w-8 h-24 bg-[#F7FBFC] rounded-full overflow-hidden border-2 border-[#E1EEF2]">
+                        <div id="grace-thermometer" class="absolute bottom-0 w-full bg-gradient-to-t from-[#86C3D7] to-[#FFD97D] transition-all duration-[2s]" style="height: 0%"></div>
                     </div>
-                    <i class="fas fa-heart text-[#9281B5] mt-1 text-xs"></i>
+                    <i class="fas fa-heart text-[#86C3D7] mt-1 text-xs"></i>
                 </div>
                 <div class="flex-1">
                     <h3 class="font-bold text-[#6A6375] text-sm mb-1 italic">원종제일교회 은혜 온도</h3>
-                    <div class="flex justify-between items-end"><span class="text-2xl font-black text-[#77659E]" id="temp-num">0°</span><span class="text-[10px] font-bold text-[#A9A3B5]">목표: 100°</span></div>
+                    <div class="flex justify-between items-end"><span class="text-3xl font-black text-[#86C3D7]" id="temp-num">0°</span><span class="text-[10px] font-bold text-[#A9A3B5]">목표: 100°</span></div>
                 </div>
-            </div>
-            <div class="bg-gradient-to-br from-[#B0A3D4] via-[#C9C0E0] to-[#F0B4C6] rounded-[2rem] card-shadow p-6 text-white flex items-center justify-between group">
-                <div>
-                    <p class="text-[10px] font-black opacity-80 mb-1 tracking-widest uppercase">어린이 주일</p>
-                    <h3 class="text-lg font-black leading-tight">예수님 닮아가는 어린이가<br>교회의 기쁨과 소망입니다!</h3>
-                </div>
-                <i class="fas fa-child text-4xl opacity-40"></i>
             </div>
         </div>
 
@@ -187,88 +179,198 @@
             </div>
         </section>
 
-        <!-- 말씀 및 8일 통독표 -->
+        <!-- 말씀 및 8일 통독표 (자동 날짜 반영) -->
         <section id="bible-section">
-            <div class="flex items-center mb-5 ml-2 font-bold text-xl text-[#4A4553]"><span class="w-2 h-6 bg-[#B0A3D4] rounded-full mr-3"></span>이번 주 말씀 및 통독</div>
-            <div class="bg-white rounded-[3rem] card-shadow p-8 border-t-[10px] border-[#B0A3D4] relative">
-                <div class="text-center mb-10 pb-10 border-b border-[#EAE6F2]">
-                    <div class="inline-block bg-[#F2F0F7] text-[#56487A] text-[10px] font-black px-4 py-1.5 rounded-full mb-4">암송 구절</div>
-                    <p class="text-lg font-bold text-[#4A4553] italic px-2 leading-relaxed">"내가 문이니 누구든지 나로 말미암아 들어가면 구원을 받고 또는 들어가며 나오며 꼴을 얻으리라"</p>
-                    <p class="text-sm font-bold text-[#9281B5] mt-4">— 요한복음 10:9 —</p>
+            <div class="flex items-center mb-5 ml-2 font-bold text-xl text-[#4A4553]"><span class="w-2 h-6 bg-[#86C3D7] rounded-full mr-3"></span>이번 주 말씀 및 통독</div>
+            <div class="bg-white rounded-[3rem] card-shadow p-8 border-t-[10px] border-[#86C3D7]">
+                <div class="text-center mb-10 pb-10 border-b border-[#F0F7F9]">
+                    <div class="inline-block bg-[#F0F7F9] text-[#86C3D7] text-[10px] font-black px-4 py-1.5 rounded-full mb-4 border border-[#D1E3E8]">성경 암송 구절</div>
+                    <p class="text-lg font-bold text-[#4A4553] italic leading-relaxed px-2">"갓난아기들 같이 순전하고 신령한 젖을 사모하라 이는 그로 말미암아 너희로 구원에 이르도록 자라게 하려 함이라"</p>
+                    <p class="text-sm font-bold text-[#86C3D7] mt-4">— 베드로전서 2:2 —</p>
+                    <button onclick="confetti({particleCount:150, spread:70, origin:{y:0.6}})" class="mt-8 bg-[#F0F7F9] text-[#86C3D7] px-8 py-3 rounded-full font-bold text-sm active:scale-95 transition shadow-sm">아멘으로 사모합니다! 🙏</button>
                 </div>
                 <div>
                     <div class="flex justify-between items-end mb-5">
-                        <div class="font-bold text-[#8B869C] text-[13px]"><i class="fas fa-book-open text-[#B0A3D4] mr-2"></i>통독 범위 (주일~다음 주 주일)</div>
-                        <!-- 💡 통독표 버튼 -->
-                        <button onclick="openBibleModal()" class="text-[10px] font-black text-[#9281B5] bg-[#F2F0F7] px-4 py-2 rounded-full border border-[#DCD6EA] shadow-sm">1년 통독표 보기 <i class="fas fa-calendar-alt ml-1"></i></button>
+                        <div class="font-bold text-[#8B869C] text-[13px]"><i class="fas fa-book-open text-[#86C3D7] mr-2"></i>통독 범위 (주일~다음 주 주일)</div>
+                        <button onclick="openBibleModal()" class="text-[10px] font-black text-[#86C3D7] bg-[#F0F7F9] px-4 py-2 rounded-full border border-[#D1E3E8] shadow-sm">1년 전체 통독표 보기 <i class="fas fa-calendar-check ml-1"></i></button>
                     </div>
                     <div class="grid grid-cols-4 sm:grid-cols-8 gap-2" id="weekly-bible-grid"></div>
                 </div>
             </div>
         </section>
 
-        <!-- 예배 순서 -->
-        <section class="space-y-10">
-            <!-- 주일 오전 -->
-            <div class="bg-white rounded-[3rem] card-shadow overflow-hidden border border-[#EAE6F2] relative">
-                <div id="stamp-morning" class="stamp-effect">출석<br>완료</div>
-                <div class="bg-gradient-to-r from-[#9281B5] to-[#BBAFD1] p-8 text-center text-white">
-                    <button onclick="checkAttendance(this, 'morning')" class="absolute top-6 right-6 bg-white/20 text-[10px] font-black px-4 py-2 rounded-full border border-white/30 backdrop-blur-sm">출석체크</button>
-                    <h2 class="text-2xl font-black italic mt-4">▣ 주 일 오 전 예 배 ▣</h2>
+        <!-- 💡 스페셜 이벤트 (누락 복구됨) -->
+        <section id="nonsense-quiz">
+            <div class="bg-gradient-to-br from-[#EBF7FA] to-[#FFF9EB] rounded-[2.5rem] card-shadow p-10 text-center relative overflow-hidden cursor-pointer" onclick="openQuizModal()">
+                <div class="absolute -right-6 -top-6 opacity-10 text-8xl text-[#86C3D7]"><i class="fas fa-face-laugh-squint"></i></div>
+                <span class="bg-[#86C3D7] text-white text-[10px] font-black px-4 py-1.5 rounded-full mb-4 inline-block shadow-sm">SPECIAL EVENT</span>
+                <h3 class="text-xl font-black text-[#4A4553] mb-2">주일 아이스브레이킹 😆</h3>
+                <p class="text-sm text-[#77659E] font-medium mb-6">즐거운 마음으로 넌센스 퀴즈를 풀어보세요!</p>
+                <button class="bg-white text-[#77659E] border border-[#D1E3E8] px-8 py-3 rounded-full font-bold text-sm shadow-sm transition">퀴즈 도전하기</button>
+            </div>
+        </section>
+
+        <!-- 주일 오전 예배 (담당자 완벽 복구) -->
+        <section id="morning-service">
+            <div class="bg-white rounded-[3rem] card-shadow overflow-hidden border border-[#E1EEF2] relative">
+                <div id="stamp-morning" class="stamp-effect">예배<br>참석</div>
+                <div class="bg-gradient-to-r from-[#86C3D7] to-[#A2D2FF] p-8 text-center text-white relative">
+                    <button onclick="checkAttendance(this, 'morning')" class="absolute top-6 right-6 bg-white/20 text-[10px] font-black px-4 py-2 rounded-full border border-white/30 backdrop-blur-sm active:scale-95">출석체크</button>
+                    <h2 class="text-2xl font-black italic mt-4 tracking-tight">▣ 주 일 오 전 예 배 ▣</h2>
                     <p class="text-[12px] font-bold mt-2 opacity-90">오전 11:00 (어린이주일) / 집례: 이성결 목사</p>
                 </div>
                 <div class="p-8">
                     <div class="worship-row"><span>오르겐연주</span><span></span><span>반 주 자</span></div>
+                    <div class="worship-row"><span>예배선포</span><span></span><span>집 례 자</span></div>
                     <div class="worship-row"><span>*찬 송</span><span>8장</span><span>다 같 이</span></div>
-                    <div class="worship-row"><span>대표기도</span><span></span><span class="font-bold">오종진 목사</span></div>
-                    <div class="worship-row"><span>성경봉독</span><span>요한복음 10:1-10</span><span>집 례 자</span></div>
-                    <div class="py-12 my-6 bg-[#F2F0F7] rounded-[2.5rem] text-center border border-[#DCD6EA]">
-                        <h3 class="text-2xl font-black text-[#4A4553] italic">"왕과 사는 사람들"</h3>
-                        <p class="text-sm font-bold text-[#77659E] mt-3">이성결 목사</p>
+                    <div class="worship-row"><span>*통성기도</span><span>주님여 이 손을</span><span>다 같 이</span></div>
+                    <div class="worship-row"><span>*성시교독</span><span>127번</span><span>집례자와 회중</span></div>
+                    <div class="worship-row"><span>*신앙고백</span><span>사도신경</span><span>다 같 이</span></div>
+                    <div class="worship-row"><span>찬 송</span><span>563장</span><span>다 같 이</span></div>
+                    <div class="worship-row"><span>대표기도</span><span></span><span class="font-bold">이해숙 장로</span></div>
+                    <div class="worship-row"><span>성경봉독</span><span>베드로전서 2:1-10</span><span class="font-bold text-[#86C3D7]">이성결 목사</span></div> <!-- 💡수정됨 -->
+                    <div class="worship-row"><span>찬 양</span><span></span><span>찬 양 대</span></div>
+                    
+                    <div class="py-12 my-6 bg-[#F7FBFC] rounded-[2.5rem] text-center border border-[#D1E3E8] shadow-inner relative overflow-hidden">
+                        <div class="absolute -left-4 -top-4 opacity-5 text-6xl rotate-12"><i class="fas fa-gem"></i></div>
+                        <h3 class="text-2xl font-black text-[#4A4553] italic">"보이지 않는 보석"</h3>
+                        <p class="text-sm font-bold text-[#86C3D7] mt-3">이성결 목사</p>
                     </div>
+
+                    <div class="worship-row"><span>찬 송</span><span>559장</span><span>다 같 이</span></div>
+                    <div class="worship-row"><span>봉헌기도</span><span></span><span class="font-bold text-[#86C3D7]">이성결 목사</span></div> <!-- 💡수정됨 -->
+                    <div class="worship-row"><span>교회소식</span><span></span><span>집 례 자</span></div>
+                    <div class="worship-row"><span>새신자 소개</span><span></span><span>집 례 자</span></div>
+                    <div class="worship-row"><span>*송 영</span><span>좋으신 하나님</span><span>다 같 이</span></div>
                     <div class="worship-row border-none pt-4 font-bold text-lg"><span>*축 도</span><span></span><span>이성결 목사</span></div>
                 </div>
             </div>
-            <!-- 오후/수요 생략(코드 유지) -->
         </section>
 
-        <!-- 교회 소식 -->
+        <!-- 주일 오후 예배 -->
+        <section id="afternoon-service">
+            <div class="bg-white rounded-[3rem] card-shadow overflow-hidden border border-[#E1EEF2] relative">
+                <div id="stamp-afternoon" class="stamp-effect">예배<br>참석</div>
+                <div class="bg-[#FFD97D] p-8 text-center text-white relative">
+                    <button onclick="checkAttendance(this, 'afternoon')" class="absolute top-6 right-6 bg-white/20 text-[10px] font-black px-4 py-2 rounded-full border border-white/30 backdrop-blur-sm active:scale-95">출석체크</button>
+                    <h2 class="text-xl font-black italic mt-4">▣ 주 일 오 후 예 배 ▣</h2>
+                    <p class="text-[12px] font-bold mt-2 opacity-95">오후 1:15 / 사회: 이성결 목사</p>
+                </div>
+                <div class="p-8">
+                    <div class="worship-row"><span>찬양인도</span><span></span><span>찬 양 단</span></div>
+                    <div class="worship-row"><span>기도인도</span><span></span><span class="font-bold">김명진 집사</span></div>
+                    <div class="worship-row"><span>성경봉독</span><span>창세기 18:16-19</span><span>사 회 자</span></div>
+                    <div class="worship-row"><span>특 송</span><span></span><span>자 원 자</span></div>
+                    <div class="py-10 my-5 bg-[#FFF9EB] rounded-[2rem] text-center border border-[#FCE6B2]">
+                        <h3 class="text-xl font-black text-[#6B5A3E] italic">"가정의 영성"</h3>
+                        <p class="text-sm font-bold text-[#D4A017] mt-2">이성결 목사</p>
+                    </div>
+                    <div class="worship-row"><span>교회소식</span><span></span><span>사 회 자</span></div>
+                    <div class="worship-row border-none pt-2 font-bold text-lg"><span>축 도</span><span></span><span>이성결 목사</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 수요 성서 강해 -->
+        <section id="wednesday-service">
+            <div class="bg-white rounded-[3rem] card-shadow overflow-hidden border border-[#E1EEF2] relative">
+                <div id="stamp-wednesday" class="stamp-effect">예배<br>참석</div>
+                <div class="bg-[#AAB2D6] p-7 text-center text-white relative">
+                    <button onclick="checkAttendance(this, 'wednesday')" class="absolute top-5 right-6 bg-white/20 text-[9px] font-black px-4 py-2 rounded-full border border-white/30 active:scale-95">출석체크</button>
+                    <h2 class="text-xl font-black italic mt-3">▣ 수요 성서강해 ▣</h2>
+                    <p class="text-[11px] font-bold mt-1 opacity-95">오후 7:00 / 사회: 이성결 목사</p>
+                </div>
+                <div class="p-8">
+                    <div class="worship-row"><span>찬 양</span><span></span><span>다 같 이</span></div>
+                    <div class="worship-row"><span>기 도</span><span></span><span class="font-bold">박수자 사모</span></div>
+                    <div class="py-8 my-4 bg-[#F2F4FF] rounded-[2rem] text-center border border-[#DCE2F2]">
+                        <h3 class="text-xl font-black text-[#4A4F6A] italic">"수요 예배 설교"</h3>
+                        <p class="text-sm font-bold text-[#8389B5] mt-2">이성결 목사</p>
+                    </div>
+                    <p class="text-center text-sm font-bold text-[#AAB2D6] mt-4 italic">주기도문으로 예배를 마칩니다</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 교회 소식 (문구 완벽 반영) -->
         <section id="church-news">
-            <div class="flex items-center mb-6 ml-2 font-bold text-xl text-[#4A4553]"><span class="w-2 h-6 bg-[#F0B4C6] rounded-full mr-3"></span>교회 소식</div>
-            <div class="bg-white rounded-[2.5rem] card-shadow p-8 border border-[#EAE6F2] space-y-4">
-                <p class="text-sm font-bold text-[#5D586A] pb-3 border-b border-[#F5F2FA]">▶ 5월 예배위원들은 기도로 준비하시기 바랍니다.</p>
-                <p class="text-sm font-bold text-[#5D586A] pb-3 border-b border-[#F5F2FA]">▶ 오후예배 후 기관장 회의가 있습니다.</p>
-                <p class="text-sm font-bold text-[#5D586A] pb-3 border-b border-[#F5F2FA]">▶ 담임목사와 원로목사님은 교역자 수련회에 참석 중입니다.</p>
-                <div class="bg-rose-50/50 p-5 rounded-[1.5rem] border border-rose-100/50 mt-6">
-                    <p class="text-xs font-black text-rose-500 mb-2 italic"><i class="fas fa-heart mr-1"></i> 중보기도</p>
-                    <p class="text-xs font-bold text-slate-600 leading-[1.8] text-center">임선우 어린이 / 한용희 권사님 / 이주선 권사님 / 박성심 권사님</p>
+            <div class="flex items-center mb-6 ml-2 font-bold text-xl text-[#4A4553]"><span class="w-2 h-6 bg-[#FFD97D] rounded-full mr-3"></span>교회 소식</div>
+            <div class="bg-white rounded-[3rem] card-shadow p-8 border border-[#E1EEF2] space-y-5">
+                <div class="flex gap-4 pb-4 border-b border-[#F7FBFC]">
+                    <span class="w-6 h-6 bg-[#F0F7F9] rounded-lg flex items-center justify-center text-[10px] font-black text-[#86C3D7] shrink-0">1</span>
+                    <p class="text-sm font-bold leading-relaxed text-[#5D586A]">예배 30분 전에 나오셔서 기도로 준비하시며 친절한 모습으로 인사를 나누시기를 바랍니다.</p>
+                </div>
+                <div class="flex gap-4 pb-4 border-b border-[#F7FBFC]">
+                    <span class="w-6 h-6 bg-[#F0F7F9] rounded-lg flex items-center justify-center text-[10px] font-black text-[#86C3D7] shrink-0">2</span>
+                    <p class="text-sm font-bold leading-relaxed text-[#5D586A]">5월 예배위원들은 기도로 준비하시기 바랍니다.</p>
+                </div>
+                <div class="flex gap-4 pb-4 border-b border-[#F7FBFC]">
+                    <span class="w-6 h-6 bg-[#F0F7F9] rounded-lg flex items-center justify-center text-[10px] font-black text-[#86C3D7] shrink-0">3</span>
+                    <p class="text-sm font-bold leading-relaxed text-[#5D586A]">수요예배에 적극적인 참여를 부탁 드립니다.</p>
+                </div>
+                <div class="flex gap-4 pb-4 border-b border-[#F7FBFC]">
+                    <span class="w-6 h-6 bg-[#F0F7F9] rounded-lg flex items-center justify-center text-[10px] font-black text-[#86C3D7] shrink-0">4</span>
+                    <p class="text-sm font-bold leading-relaxed text-[#5D586A]">오늘은 어린이 주일로 드려집니다.</p>
+                </div>
+                <div class="bg-[#FFF9EB] p-5 rounded-[1.5rem] border border-[#FCE6B2]">
+                    <p class="text-xs font-black text-[#D4A017] mb-3 uppercase tracking-widest italic"><i class="fas fa-calendar-alt mr-1"></i> 5월 행사 안내</p>
+                    <div class="space-y-2">
+                        <div class="text-sm font-bold text-[#6B5A3E]"><span class="mr-2">• 5/3</span>어린이 주일</div>
+                        <div class="text-sm font-bold text-[#6B5A3E]"><span class="mr-2">• 5/10</span>어버이 주일</div>
+                        <div class="text-sm font-bold text-[#6B5A3E]"><span class="mr-2">• 5/17</span>스승의 주일</div>
+                    </div>
+                </div>
+                <div class="flex gap-4 pb-4 border-b border-[#F7FBFC]">
+                    <span class="w-6 h-6 bg-[#F0F7F9] rounded-lg flex items-center justify-center text-[10px] font-black text-[#86C3D7] shrink-0">6</span>
+                    <p class="text-sm font-bold leading-relaxed text-[#5D586A]">5월 30일은 <span class="text-[#86C3D7]">전교회 야외예배</span>가 예정되어 있습니다. 위하여 기도 부탁드립니다.</p>
+                </div>
+
+                <!-- 중보기도 영역 -->
+                <div class="pt-2">
+                    <div class="flex items-center gap-2 mb-3">
+                        <div class="w-1.5 h-4 bg-[#FF6B6B] rounded-full"></div>
+                        <span class="text-sm font-black text-[#FF6B6B]">환우를 위한 중보기도</span>
+                    </div>
+                    <div class="bg-rose-50/30 p-5 rounded-[2rem] border border-rose-100/50">
+                        <p class="text-xs font-bold text-slate-600 leading-[2] text-center">
+                            임선우 어린이 / 한용희 권사님<br>이주선 권사님 / 박성심 권사님<br>
+                            <span class="text-[10px] text-rose-400 mt-2 block font-medium tracking-tight">위하여 함께 기도해 주시기 바랍니다.</span>
+                        </p>
+                    </div>
                 </div>
             </div>
         </section>
 
     </main>
 
-    <!-- Bottom Nav -->
-    <div class="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-xl border-t border-[#EAE6F2] flex justify-around items-center py-5 px-4 z-[100] rounded-t-[2.5rem] shadow-lg">
-        <button onclick="openBibleModal()" class="flex flex-col items-center text-[#9281B5] group">
+    <footer class="bg-white border-t border-[#E1EEF2] py-20 px-6 text-center pb-40">
+        <h3 class="font-black text-[#86C3D7] italic text-lg mb-2">원종제일교회</h3>
+        <p class="text-xs font-bold text-[#A9A3B5]">부천시 오정구 성오로 118번길 42</p>
+        <div class="mt-12 text-[9px] text-[#D1E3E8] font-black uppercase tracking-[0.4em]">&copy; 2026 WONJONG FIRST CHURCH.</div>
+    </footer>
+
+    <!-- Bottom Navigation -->
+    <div class="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-xl border-t border-[#E1EEF2] flex justify-around items-center py-5 px-4 z-[100] rounded-t-[2.5rem] shadow-[0_-10px_25px_-5px_rgba(134,195,215,0.1)]">
+        <button onclick="openBibleModal()" class="flex flex-col items-center text-[#86C3D7] group">
             <i class="fas fa-book-open text-xl mb-1.5 group-active:scale-90 transition"></i>
             <span class="text-[10px] font-black">통독표</span>
         </button>
-        <button onclick="openMannaModal()" class="relative -mt-16 bg-gradient-to-tr from-[#9281B5] to-[#B0A3D4] w-16 h-16 rounded-full flex items-center justify-center text-white border-4 border-white shadow-xl active:scale-90 transition-transform">
+        <button onclick="openMannaModal()" class="relative -mt-16 bg-gradient-to-tr from-[#86C3D7] to-[#A2D2FF] w-16 h-16 rounded-full flex items-center justify-center text-white border-4 border-white shadow-xl active:scale-90 transition-transform">
             <i class="fas fa-gift text-2xl"></i>
         </button>
         <button onclick="openGiveModal()" class="flex flex-col items-center text-[#A9A3B5] group">
-            <i class="fas fa-won-sign text-xl mb-1.5 group-active:scale-90 transition"></i>
+            <i class="fas fa-won-sign text-xl mb-1.5"></i>
             <span class="text-[10px] font-black">헌금</span>
         </button>
     </div>
 
-    <!-- 💡 복구된 1년 통독표 모달 -->
+    <!-- Modals -->
+    <!-- 💡 1년 통독표 모달 -->
     <div id="bibleModal" class="modal" onclick="closeBibleModal()">
         <div class="bg-white rounded-[2.5rem] w-full max-w-5xl p-6 shadow-2xl flex flex-col" onclick="event.stopPropagation()">
-            <div class="flex justify-between items-center mb-5 font-black text-xl italic text-[#4A4553]">
+            <div class="flex justify-between items-center mb-5 font-black text-xl italic text-[#4A4553] px-2">
                 <h3>1년 1독 전체 일정표</h3>
-                <button onclick="closeBibleModal()" class="text-3xl">&times;</button>
+                <button onclick="closeBibleModal()" class="text-3xl text-slate-300 hover:text-[#86C3D7]">&times;</button>
             </div>
             <div class="bible-scroll-container">
                 <table class="bible-table">
@@ -276,29 +378,40 @@
                     <tbody id="bible-full-body"></tbody>
                 </table>
             </div>
-            <button onclick="closeBibleModal()" class="w-full mt-5 py-4 bg-[#9281B5] text-white rounded-2xl font-black">닫기</button>
+            <button onclick="closeBibleModal()" class="w-full mt-6 py-4 bg-[#86C3D7] text-white rounded-2xl font-black shadow-lg">닫기</button>
         </div>
     </div>
 
-    <!-- 만나 모달 -->
+    <!-- 💡 넌센스 퀴즈 모달 (복구됨) -->
+    <div id="quizModal" class="modal" onclick="closeQuizModal()">
+        <div class="bg-white rounded-[2.5rem] w-full max-w-sm p-10 text-center shadow-2xl border-b-8 border-[#86C3D7]" onclick="event.stopPropagation()">
+            <div id="quiz-question">
+                <h3 class="text-xl font-black text-[#4A4553] mb-4">성경 넌센스 퀴즈!</h3>
+                <p class="text-sm font-bold text-[#77659E] mb-8 bg-[#F7FBFC] p-6 rounded-2xl border border-[#E1EEF2]">Q. 성경 인물 중 인류 최초로<br>'수술'을 받은 사람은 누구일까요?<br><br><span class="text-[10px] text-[#86C3D7] bg-white px-3 py-1 rounded-full shadow-sm">힌트: 갈빗대</span></p>
+                <div class="grid grid-cols-2 gap-3"><button onclick="checkQuiz('아담')" class="py-4 bg-white border border-[#E1EEF2] rounded-2xl font-bold">아담</button><button onclick="alert('다시 생각해보세요!')" class="py-4 bg-white border border-[#E1EEF2] rounded-2xl font-bold">노아</button></div>
+            </div>
+            <div id="quiz-result" style="display:none;"><div class="text-6xl mb-4">🎉</div><h3 class="text-2xl font-black text-[#86C3D7] mb-3">정답입니다!</h3><p class="text-sm font-bold text-[#8B869C]">정답은 아담입니다! (창세기 2:21)</p><button onclick="closeQuizModal()" class="w-full mt-6 py-4 bg-[#86C3D7] text-white rounded-2xl font-black">닫기</button></div>
+        </div>
+    </div>
+
+    <!-- 만나 스크래치 모달 -->
     <div id="mannaModal" class="modal" onclick="closeMannaModal()">
         <div class="bg-white rounded-[2.5rem] w-full max-w-sm p-10 text-center shadow-2xl relative overflow-hidden" onclick="event.stopPropagation()">
-            <div class="relative z-10"><i class="fas fa-scroll text-[#B0A3D4] text-3xl mb-4"></i><p id="manna-text" class="text-lg font-bold text-[#4A4553] italic mb-4">"말씀을 긁어보세요!"</p><p id="manna-ref" class="text-sm font-black text-[#B0A3D4] mb-10">-</p><button onclick="closeMannaModal()" class="w-full py-4 bg-white border text-[#9281B5] rounded-2xl font-black">아멘 🙏</button></div>
+            <div class="relative z-10"><i class="fas fa-scroll text-[#86C3D7] text-3xl mb-4"></i><p id="manna-text" class="text-lg font-bold text-[#4A4553] italic mb-4 leading-snug">"말씀을 긁어보세요!"</p><p id="manna-ref" class="text-sm font-black text-[#86C3D7] mb-10">-</p><button onclick="closeMannaModal()" class="w-full py-4 bg-white border border-[#E1EEF2] text-[#86C3D7] rounded-2xl font-black">아멘 🙏</button></div>
             <canvas id="scratch-canvas"></canvas>
         </div>
     </div>
 
-    <!-- 헌금 모달 -->
+    <!-- 헌금 안내 모달 -->
     <div id="giveModal" class="modal" onclick="closeGiveModal()">
         <div class="bg-white rounded-[2.5rem] w-full max-w-sm p-10 text-center shadow-2xl" onclick="event.stopPropagation()">
-            <h3 class="text-xl font-bold mb-8 italic">온라인 헌금 안내</h3>
-            <div class="bg-[#F2F0F7] p-8 rounded-[2rem] border border-[#EAE6F2] mb-8 shadow-inner"><p class="text-2xl font-black select-all">302-1765-3728-91</p><p class="text-xs font-bold text-[#A9A3B5]">농협 / 예금주: 원종제일교회</p></div>
+            <h3 class="text-xl font-black text-[#4A4553] mb-8 italic">온라인 헌금 안내</h3>
+            <div class="bg-[#F7FBFC] p-8 rounded-[2rem] border border-[#E1EEF2] mb-8 shadow-inner"><p class="text-2xl font-black select-all">302-1765-3728-91</p><p class="text-xs font-bold text-[#A9A3B5]">농협 / 원종제일교회</p></div>
             <button onclick="closeGiveModal()" class="w-full py-4 bg-[#4A4553] text-white rounded-2xl font-black">닫기</button>
         </div>
     </div>
 
     <script>
-        // 1년 통독 데이터 (일부 생략, 실제 데이터는 이전 버전과 동일하게 31행 유지)
         const fullBibleData = [["창1-3","레7-9","신20-22","삼하1-3","대상19-21","욥16-18","시100-104","사13-15","렘40-42","호10-14","눅4-6","고전7-9"],["창4-7","레10-12","신23-25","삼하4-6","대상22-24","욥19-21","시105-108","사16-18","렘43-45","욜1-3","눅7-9","고전10-12"],["창8-11","레13-15","신26-28","삼하7-9","대상25-27","욥22-24","시109-113","사19-21","렘46-48","암1-3","눅10-12","고전13-16"],["창12-14","레16-18","신29-31","삼하10-12","대상28-29","욥25-27","시114-118","사22-24","렘49-50","암4-6","눅13-15","고후1-3"],["창15-17","레19-21","신32-34","삼하13-15","대하1-3","욥28-30","시119:1","사25-27","렘51-52","암7-9","눅16-18","고후4-6"],["창18-20","레22-24","수1-3","삼하16-18","대하4-6","욥31-33","시119:89","사28-30","애1-3","옵-욘4","눅19-21","고후7-9"],["창21-24","레25-27","수4-7","삼하19-21","대하7-9","욥34-36","시120-125","사31-33","애4-5","미1-3","눅22-24","고후10-13"],["창25-27","민1-3","수8-9","삼하22-24","대하10-12","욥37-39","시126-131","사34-36","겔1-3","미4-7","요1-3","갈1-3"],["창28-30","민4-6","수10-12","왕상1-3","대하13-15","욥40-42","시132-137","사37-39","겔4-6","나1-합3","요4-6","갈4-6"],["창31-33","민7-9","수13-15","왕상4-6","대하16-18","시1-4","시138-143","사40-42","겔7-9","습1-학2","요7-9","엡1-3"],["창34-36","민10-12","수16-18","왕상7-9","대하19-21","시5-8","시144-150","사43-45","겔10-12","슥1-3","요10-12","엡4-6"],["창37-39","민13-15","수19-21","왕상10-12","대하22-24","시9-14","잠1-3","사46-48","겔13-15","슥4-6","요13-15","빌1-4"],["창40-42","민16-18","수22-24","왕상13-15","대하25-27","시15-18","잠4-6","사49-51","겔16-18","슥7-9","요16-18","골1-4"],["창43-45","민19-21","삿1-3","왕상16-18","대하28-30","시19-22","잠7-9","사52-54","겔19-21","슥10-14","요19-21","살전1-5"],["창46-48","민22-24","삿4-6","왕상19-21","대하31-33","시23-27","잠10-12","사55-57","겔19-21","슥10-14","요19-21","살전1-5"],["창49-출1","민25-27","삿7-9","왕상22-왕2","대하34-36","시28-32","잠13-15","사58-60","겔25-27","마1-3","행4-6","딤전1-6"],["출2-4","민28-30","삿10-12","왕하3-5","스1-3","시33-36","잠16-18","사61-63","겔28-30","마4-6","행7-9","딤후1-4"],["출5-7","민31-33","삿13-15","왕하6-8","스4-6","시37-41","잠16-18","사64-66","겔31-33","마7-9","행10-12","딛1-몬1"],["출8-10","민34-36","삿16-18","왕하9-11","스7-10","시42-46","잠22-24","렘1-3","겔34-36","마10-12","행13-15","히1-4"],["출11-13","신1-2","삿19-21","왕하12-14","느1-3","시47-51","잠25-27","렘4-6","겔37-39","마13-15","행16-18","히5-8"],["출14-16","신3-4","룻1-4","왕하15-17","느4-6","시52-56","잠28-31","렘7-9","겔40-42","마16-18","행19-21","히9-13"],["출17-19","신5-6","삼상1-3","왕하18-20","느7-9","시57-61","전1-3","렘10-12","겔43-45","마19-21","행22-24","약1-5"],["출20-22","신7-8","삼상4-6","왕하21-23","느10-13","시62-66","전4-6","렘13-15","겔46-48","마22-24","행25-28","벧전-벧후"],["출23-25","신9-10","삼상7-9","왕하24-25","에1-3","시67-71","전7-9","렘16-18","단1-3","마25-27","롬1-3","요일-유"],["출26-28","신11-12","삼상10-12","대상1-3","에4-7","시72-76","전10-12","렘19-21","단4-6","마28-막2","롬4-6","계1-3"],["출29-31","신13-14","삼상13-15","대상4-6","에8-10","시77-80","아1-4","레22-24","단7-9","막3-5","롬7-9","계4-6"],["출32-34","신15-16","삼상16-18","대상7-9","욥1-3","시81-85","아5-8","레25-27","단10-12","막6-8","롬10-12","계7-9"],["출35-37","신17-19","삼상19-21","대상10-12","욥4-6","시86-89","사1-3","레28-30","호1-3","막9-11","롬13-16","계10-12"],["출38-40","-","삼상22-24","대상13-15","욥7-9","시90-94","사4-6","레31-33","호4-6","막12-14","고전1-3","계13-15"],["레1-3","-","삼상25-27","대상16-18","욥10-12","시95-99","사7-9","레34-36","호7-9","막15-16","고전4-6","계16-18"],["레4-6","-","삼상28-31","-","욥13-15","-","사10-12","레37-39","-","눅1-3","-","계19-22"]];
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -312,16 +425,15 @@
             }, 500);
         });
 
-        /* 💡 통독표 테이블 생성 함수 (강화됨) */
         function initFullBibleTable(now) {
             const head = document.getElementById('bible-head');
             const body = document.getElementById('bible-full-body');
-            head.innerHTML = `<tr><th class="day-cell">일</th>${Array.from({length:12}, (_,i)=>`<th>${i+1}월</th>`).join('')}</tr>`;
+            head.innerHTML = `<tr><th class="day-cell-fixed">일</th>${Array.from({length:12}, (_,i)=>`<th>${i+1}월</th>`).join('')}</tr>`;
             
             body.innerHTML = '';
             fullBibleData.forEach((row, idx) => {
                 const tr = document.createElement('tr');
-                let rowHtml = `<td class="day-cell font-bold">${idx+1}</td>`;
+                let rowHtml = `<td class="day-cell-fixed">${idx+1}</td>`;
                 row.forEach((cell, mIdx) => {
                     const isToday = (idx+1 === now.getDate() && mIdx === now.getMonth());
                     rowHtml += `<td class="${isToday ? 'today-cell-highlight' : ''}">${cell === '-' ? '' : cell}</td>`;
@@ -343,17 +455,27 @@
                 const isToday = d.toDateString() === now.toDateString();
                 const reading = fullBibleData[d.getDate()-1][d.getMonth()] || "자유통독";
                 grid.innerHTML += `<div class="bible-day-box ${isToday ? 'today-highlight' : ''}">
-                    <div class="text-[10px] font-black ${isToday ? 'text-[#9281B5]' : (i===0||i===7?'text-rose-400':'text-[#8B869C]')} mb-1">${dayNames[i]}(${d.getDate()})</div>
+                    <div class="text-[10px] font-black ${isToday ? 'text-[#86C3D7]' : (i===0||i===7?'text-rose-400':'text-[#8B869C]')} mb-1">${dayNames[i]}(${d.getDate()})</div>
                     <div class="font-bold text-[#5D586A] text-[9px] tracking-tighter">${reading}</div></div>`;
             }
         }
 
+        function checkQuiz(ans) { 
+            if(ans === '아담') { 
+                document.getElementById('quiz-question').style.display='none'; 
+                document.getElementById('quiz-result').style.display='block'; 
+                confetti(); 
+            } 
+        }
+
         function openBibleModal() { document.getElementById('bibleModal').classList.add('active'); }
         function closeBibleModal() { document.getElementById('bibleModal').classList.remove('active'); }
+        function openQuizModal() { document.getElementById('quizModal').classList.add('active'); }
+        function closeQuizModal() { document.getElementById('quizModal').classList.remove('active'); }
         function openGiveModal() { document.getElementById('giveModal').classList.add('active'); }
         function closeGiveModal() { document.getElementById('giveModal').classList.remove('active'); }
         function openMannaModal() { 
-            const pick = {t:"내가 문이니 누구든지 나로 말미암아 들어가면 구원을 받고", r:"요한복음 10:9"};
+            const pick = {t:"갓난아기들 같이 순전하고 신령한 젖을 사모하라", r:"베드로전서 2:2"};
             document.getElementById('manna-text').innerText = `"${pick.t}"`;
             document.getElementById('manna-ref').innerText = `- ${pick.r} -`;
             document.getElementById('mannaModal').classList.add('active'); resetScratch(); 
