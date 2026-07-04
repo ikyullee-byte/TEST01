@@ -6,7 +6,6 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <title>원종제일교회 스마트 주보</title>
     
-    <!-- External Resources -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -138,7 +137,6 @@
 </head>
 <body class="pb-safe">
 
-    <!-- Navigation -->
     <nav class="glass-nav sticky top-0 z-[100] px-6 py-3.5 flex justify-between items-center">
         <img src="https://ikyullee-byte.github.io/TEST01/logo.png" alt="Logo" class="h-10 w-auto opacity-90 drop-shadow-sm">
         <div class="flex gap-3">
@@ -147,7 +145,6 @@
         </div>
     </nav>
 
-    <!-- Header (황금빛 보리밭 테마) -->
     <header class="h-[28vh] relative flex flex-col items-center justify-center overflow-hidden premium-card mx-5 mt-5 border-none animated-gradient bg-gradient-to-br from-[#FFFBEB] via-[#FEF3C7] to-[#FFEDD5]">
         <div class="absolute opacity-30 blur-[1px] text-5xl" style="left: 10%; top: 20%; animation: floatUp 7s ease-in-out infinite;"><i class="fas fa-wheat text-amber-500"></i></div>
         <div class="absolute opacity-20 text-4xl" style="right: 15%; top: 30%; animation: floatUp 6s ease-in-out infinite 1.5s;">☀️</div>
@@ -163,7 +160,6 @@
 
     <main class="container mx-auto px-5 py-10 space-y-10">
 
-        <!-- 은혜 온도 -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5 reveal-on-scroll">
             <div class="bg-gradient-to-br from-amber-400 to-orange-400 premium-card p-8 flex items-center justify-between text-white border-none shadow-lg shadow-amber-200/50">
                 <div>
@@ -193,9 +189,7 @@
             </div>
         </div>
 
-        <!-- 🌾 감사의 절기 스페셜 배너 (성찬식 & 섬김) -->
         <section class="reveal-on-scroll space-y-4">
-            <!-- 성찬식 배너 -->
             <div class="bg-gradient-to-br from-rose-50 to-[#FFF1F2] p-6 rounded-[28px] border border-rose-100 shadow-sm relative overflow-hidden group">
                 <div class="absolute -right-4 -top-2 opacity-[0.05] text-8xl group-hover:scale-110 transition-transform duration-700"><i class="fas fa-wine-glass-alt text-rose-900"></i></div>
                 <div class="relative z-10">
@@ -208,7 +202,6 @@
                 </div>
             </div>
             
-            <!-- 섬김의 손길 위젯 -->
             <div class="bg-white p-5 rounded-[24px] border border-amber-100 shadow-sm flex items-center justify-between">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-amber-50 rounded-full flex items-center justify-center text-amber-500 shrink-0"><i class="fas fa-gift"></i></div>
@@ -220,7 +213,6 @@
             </div>
         </section>
 
-        <!-- 고급스러운 퀵 링크 -->
         <section class="reveal-on-scroll">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <a href="#" class="premium-card p-6 flex items-center justify-between group hover:border-amber-300">
@@ -247,7 +239,6 @@
             </div>
         </section>
 
-        <!-- 이번주 말씀 (시편 68:1) -->
         <section id="bible-section" class="reveal-on-scroll">
             <div class="flex items-center mb-6 ml-2 font-black text-xl text-slate-800 tracking-tight">
                 <span class="w-1.5 h-1.5 bg-amber-400 rounded-full mr-3 ring-4 ring-amber-100"></span>이번 주 말씀 및 통독
@@ -270,7 +261,6 @@
             </div>
         </section>
 
-        <!-- 🌾 주일 오전 예배 -->
         <section id="morning-service" class="reveal-on-scroll">
             <div class="premium-card overflow-hidden relative border-amber-100">
                 <div id="stamp-morning" class="stamp-effect" style="color: #F59E0B; border-color: #F59E0B;">예배<br>참석</div>
@@ -323,7 +313,6 @@
             </div>
         </section>
 
-        <!-- 주일 오후 예배 -->
         <section id="afternoon-service" class="reveal-on-scroll">
             <div class="premium-card overflow-hidden relative border-orange-50">
                 <div id="stamp-afternoon" class="stamp-effect" style="color: #F97316; border-color: #F97316;">예배<br>참석</div>
@@ -366,7 +355,6 @@
             </div>
         </section>
 
-        <!-- 수요 성서 강해 -->
         <section id="wednesday-service" class="reveal-on-scroll">
             <div class="premium-card overflow-hidden relative border-indigo-50">
                 <div id="stamp-wednesday" class="stamp-effect" style="color: #818CF8; border-color: #818CF8;">예배<br>참석</div>
@@ -392,14 +380,12 @@
             </div>
         </section>
 
-        <!-- 💡 교회 소식 -->
         <section id="church-news" class="reveal-on-scroll">
             <div class="flex items-center mb-6 ml-2 font-black text-xl text-slate-800 tracking-tight">
                 <span class="w-1.5 h-1.5 bg-amber-400 rounded-full mr-3 ring-4 ring-amber-100"></span>교회 소식
             </div>
             <div class="premium-card p-8 space-y-4">
                 
-                <!-- 일반 소식 리스트 -->
                 <div class="flex gap-5 p-4 bg-[#FAFAFA] rounded-2xl border border-slate-100 hover:bg-white hover:shadow-md transition-all group">
                     <span class="w-8 h-8 bg-white rounded-xl flex items-center justify-center text-[12px] font-black text-slate-300 group-hover:text-amber-500 border border-slate-100 shadow-sm shrink-0 transition-colors">1</span>
                     <p class="text-[14px] font-medium leading-relaxed text-slate-600 mt-1">예배 30분 전에 나오셔서 기도로 준비하시며 친절한 모습으로 인사를 나누시기를 바랍니다.</p>
@@ -421,7 +407,6 @@
                     <p class="text-[14px] font-bold leading-relaxed text-amber-700 mt-1">각 기관은 하반기 계획을 세워주시기 바랍니다.</p>
                 </div>
 
-                <!-- 중보기도 위젯 -->
                 <div class="mt-10 pt-4 border-t border-slate-100">
                     <div class="flex items-center gap-2 mb-4 ml-1">
                         <i class="fas fa-praying-hands text-rose-400"></i>
@@ -445,7 +430,6 @@
         <div class="mt-10 text-[10px] text-slate-300 font-bold uppercase tracking-widest">&copy; 2026. All rights reserved.</div>
     </footer>
 
-    <!-- 세련된 글라스 둥근 Bottom Dock -->
     <div class="fixed bottom-8 left-1/2 -translate-x-1/2 w-[90%] max-w-sm glass-dock rounded-[32px] flex justify-around items-center py-4 px-6 z-[100]">
         <button onclick="openBibleModal()" class="flex flex-col items-center text-slate-400 hover:text-slate-800 active:scale-90 transition-all w-16">
             <i class="fas fa-book-open text-xl mb-1.5 transition-transform"></i>
@@ -460,8 +444,6 @@
         </button>
     </div>
 
-    <!-- Modals (우아한 모달) -->
-    <!-- 🌿 오전 성경 본문 모달 (신명기 16:9-12) -->
     <div id="scriptureModal" class="modal" onclick="closeScriptureModal()">
         <div class="premium-card w-full max-w-lg p-10 flex flex-col max-h-[85vh]" onclick="event.stopPropagation()">
             <div class="flex justify-between items-start mb-8 pb-6 border-b border-slate-100">
@@ -481,7 +463,6 @@
         </div>
     </div>
 
-    <!-- ☀️ 오후 성경 본문 모달 (로마서 4:1-8) -->
     <div id="afternoonScriptureModal" class="modal" onclick="closeAfternoonScriptureModal()">
         <div class="premium-card w-full max-w-lg p-10 flex flex-col max-h-[85vh]" onclick="event.stopPropagation()">
             <div class="flex justify-between items-start mb-8 pb-6 border-b border-slate-100">
@@ -505,7 +486,6 @@
         </div>
     </div>
 
-    <!-- 1년 통독표 모달 -->
     <div id="bibleModal" class="modal" onclick="closeBibleModal()">
         <div class="premium-card w-full max-w-5xl p-8 flex flex-col" onclick="event.stopPropagation()">
             <div class="flex justify-between items-center mb-6">
@@ -522,7 +502,6 @@
         </div>
     </div>
 
-    <!-- 만나 스크래치 모달 -->
     <div id="mannaModal" class="modal" onclick="closeMannaModal()">
         <div class="premium-card w-full max-w-sm p-12 text-center relative overflow-hidden" onclick="event.stopPropagation()">
             <div class="relative z-10 flex flex-col items-center">
@@ -535,7 +514,6 @@
         </div>
     </div>
 
-    <!-- 헌금 안내 모달 -->
     <div id="giveModal" class="modal" onclick="closeGiveModal()">
         <div class="premium-card w-full max-w-sm p-12 text-center" onclick="event.stopPropagation()">
             <div class="w-16 h-16 bg-slate-50 text-slate-400 rounded-full flex items-center justify-center text-2xl mx-auto mb-8 border border-slate-100 shadow-sm"><i class="fas fa-hand-holding-heart"></i></div>
